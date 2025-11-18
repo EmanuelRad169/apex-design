@@ -1,6 +1,6 @@
 # Apex Design - Kitchen & Bath Remodeling
 
-[![Vercel](https://vercelbadge.vercel.app/api/YOUR_VERCEL_USERNAME/apex-design)](https://vercel.com/YOUR_VERCEL_USERNAME/apex-design)
+[![Vercel](https://vercelbadge.vercel.app/api/emanuels-projects-1dd59b95/apex-design)](https://apex-design-jnnzzz7vs-emanuels-projects-1dd59b95.vercel.app)
 
 A modern, responsive website for Apex Design's kitchen and bath remodeling services built with Next.js, React, and Tailwind CSS.
 
