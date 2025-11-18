@@ -1,6 +1,8 @@
-# Apex Design - Landing Page Hero Section
+# Apex Design - Kitchen & Bath Remodeling
 
-A modern, responsive hero section for Apex Design's kitchen and bath remodeling landing page built with Next.js, React, and Tailwind CSS.
+[![Vercel](https://vercelbadge.vercel.app/api/YOUR_VERCEL_USERNAME/apex-design)](https://vercel.com/YOUR_VERCEL_USERNAME/apex-design)
+
+A modern, responsive website for Apex Design's kitchen and bath remodeling services built with Next.js, React, and Tailwind CSS.
 
 ## Features
 
@@ -129,6 +131,55 @@ The hero section is fully responsive:
 - Safari (latest)
 - Edge (latest)
 - Mobile browsers (iOS Safari, Chrome Mobile)
+
+## Deployment
+
+### Deploy to Vercel
+
+This project is configured for easy deployment to Vercel with automatic deployments from GitHub.
+
+#### Quick Deploy
+
+1. **Push to GitHub** (if you haven't already):
+   ```bash
+   # Create a new repository on GitHub first, then:
+   git remote add origin https://github.com/YOUR_USERNAME/apex-design.git
+   git branch -M main
+   git push -u origin main
+   ```
+
+2. **Deploy to Vercel**:
+   - Visit [vercel.com/import/git](https://vercel.com/import/git)
+   - Click "Import Git Repository"
+   - Select your GitHub repository
+   - Vercel will auto-detect Next.js settings
+   - Click "Deploy"
+
+3. **Automatic Deployments**:
+   - Every push to `main` branch will automatically deploy to production
+   - Pull requests will generate preview deployments
+   - Configure in: Vercel Dashboard → Project Settings → Git
+
+#### Build Configuration
+
+The project includes optimal settings for Vercel:
+- Framework: Next.js (auto-detected)
+- Build Command: `npm run build`
+- Output Directory: `.next`
+- Install Command: `npm install`
+- Development Command: `npm run dev`
+
+#### Environment Variables
+
+If you have environment variables (in `.env.local`), add them in:
+- Vercel Dashboard → Project Settings → Environment Variables
+- Add the same keys and values as your local `.env.local`
+
+#### Custom Domain
+
+To add a custom domain:
+- Go to: Vercel Dashboard → Project Settings → Domains
+- Follow instructions to configure DNS
 
 ## Dependencies
 
