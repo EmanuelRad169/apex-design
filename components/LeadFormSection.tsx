@@ -323,10 +323,14 @@ export default function LeadFormSection() {
                         : 'border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20'
                     }`}
                   >
-                    <option value="">-- Select --</option>
-                    <option value="kitchen">Kitchen</option>
-                    <option value="bathroom">Bathroom</option>
-                    <option value="both">Both</option>
+                      <option value="">Select a service</option>
+                      <option value="kitchen">Kitchen Remodeling</option>
+                      <option value="bathroom">Bathroom Remodeling</option>
+                      <option value="interior">Interior Design</option>
+                      <option value="addition">Home Addition</option>
+                      <option value="exterior">Exterior Renovation</option>
+                      <option value="sunroom">Sunroom</option>
+                      <option value="multiple">Multiple Services</option> 
                   </select>
                   {errors.projectType && (
                     <p className="text-red-500 text-sm mt-1">{errors.projectType}</p>

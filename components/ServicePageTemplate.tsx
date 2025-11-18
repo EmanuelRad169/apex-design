@@ -270,7 +270,7 @@ export default function ServicePageTemplate({
               Contact us today for a free consultation and estimate.
             </p>
             <Link
-              href="/contact"
+              href="contact"
               className="inline-block bg-white hover:bg-gray-50 text-primary font-semibold px-8 py-4 rounded-2xl shadow-lg transition-all duration-300"
             >
               Schedule Your Consultation

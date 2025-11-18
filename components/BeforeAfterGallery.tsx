@@ -178,22 +178,6 @@ export default function BeforeAfterGallery() {
               </button>
             ))}
           </div>
-
-          {/* CTA Button */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-center mt-12"
-          >
-            <button className="bg-white hover:bg-neutral-50 text-neutral-900 font-semibold px-8 py-4 rounded-2xl border-2 border-gray-200 hover:border-primary transition-all duration-300 inline-flex items-center gap-2">
-              <span>See More Projects</span>
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </button>
-          </motion.div>
         </motion.div>
       </div>
     </section>

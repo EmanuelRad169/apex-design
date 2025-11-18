@@ -30,13 +30,14 @@ export default function HeroSectionNew() {
 
             {/* CTAs */}
             <div className="flex flex-col gap-4 items-center lg:items-start">
-              <motion.button
+                <motion.a
+                href="/#get-estimate"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="bg-accent hover:brightness-105 text-white font-semibold px-8 py-4 rounded-2xl shadow-lg transition-all duration-300 text-center w-full sm:w-auto min-h-[56px] text-lg"
-              >
+                className="bg-accent hover:brightness-105 text-white font-semibold px-8 py-4 rounded-2xl shadow-lg transition-all duration-300 text-center w-full sm:w-auto min-h-[56px] text-lg inline-block"
+                >
                 Let's Start Your Remodel
-              </motion.button>
+                </motion.a>
               <a
                 href="tel:9494320359"
                 className="text-gray-700 hover:text-primary font-medium transition-colors duration-200 flex items-center justify-center gap-2 py-2"
