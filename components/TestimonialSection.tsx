@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 const testimonials = [
   {
     id: 1,
-    name: 'Sarah & Mike Thompson',
+    name: 'ST',
     location: 'Irvine, CA',
     project: 'Full Kitchen Remodel',
     rating: 5,
@@ -15,7 +15,7 @@ const testimonials = [
   },
   {
     id: 2,
-    name: 'Jennifer Martinez',
+    name: 'JM',
     location: 'Tustin, CA',
     project: 'Bathroom Renovation',
     rating: 5,
@@ -24,7 +24,7 @@ const testimonials = [
   },
   {
     id: 3,
-    name: 'David & Lisa Chen',
+    name: 'DC',
     location: 'Newport Beach, CA',
     project: 'Kitchen & Bath Combo',
     rating: 5,
@@ -33,7 +33,7 @@ const testimonials = [
   },
   {
     id: 4,
-    name: 'Robert Williams',
+    name: 'RW',
     location: 'Costa Mesa, CA',
     project: 'Walk-In Shower',
     rating: 5,

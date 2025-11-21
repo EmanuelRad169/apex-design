@@ -66,7 +66,7 @@ export default function AboutPage() {
             >
               <div className="relative rounded-2xl overflow-hidden shadow-xl aspect-[4/3] bg-gray-200">
                 <Image
-                  src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=900&q=80"
+                  src="/images/about.jpg"
                   alt="Professional construction team working together on a remodeling project"
                   fill
                   className="object-cover"

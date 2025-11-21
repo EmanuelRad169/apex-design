@@ -294,8 +294,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="font-medium text-primary">Phone</p>
-                    <a href="tel:9494320359" className="text-accent hover:underline">
-                      (949) 432-0359
+                    <a href="tel:8888882774" className="text-accent hover:underline">
+                      (888) 888-2774
                     </a>
                   </div>
                 </div>
@@ -308,8 +308,8 @@ export default function ContactPage() {
                     </svg>
                   </div>
                   <div>
-                    <p className="font-medium text-primary">Service Area</p>
-                    <p className="text-neutral-600">Orange County, CA</p>
+                    <p className="font-medium text-primary">Address</p>
+                    <p className="text-neutral-600">2372 Morse Ave, Irvine, CA 92614</p>
                   </div>
                 </div>
 
@@ -321,8 +321,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="font-medium text-primary">Business Hours</p>
-                    <p className="text-neutral-600">Mon-Fri: 8am-6pm</p>
-                    <p className="text-neutral-600">Sat: 9am-4pm</p>
+                    <p className="text-neutral-600">Mon-Fri: 9am-5pm</p>
                   </div>
                 </div>
               </div>
@@ -333,8 +332,8 @@ export default function ContactPage() {
               <ul className="space-y-3">
                 {[
                   'Licensed & Insured Contractor',
-                  '12+ Years of Experience',
-                  '500+ Satisfied Customers',
+                  '10+ Years of Experience',
+                  '100+ Satisfied Customers',
                   'Free In-Home Consultations',
                   'Transparent Pricing',
                   '100% Satisfaction Guarantee'

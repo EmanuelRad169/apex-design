@@ -283,7 +283,6 @@ export default function LeadFormSection() {
               <div>
                 <label htmlFor="zipCode" className="block text-sm font-semibold text-neutral-900 mb-2">
                   ZIP Code <span className="text-red-500">*</span>
-                  <span className="text-gray-500 font-normal text-xs ml-2">(Orange County only)</span>
                 </label>
                 <input
                   type="text"
@@ -400,11 +399,11 @@ export default function LeadFormSection() {
         >
           <p className="text-gray-600">
             Prefer to talk? Call us at{' '}
-            <a href="tel:9494320359" className="text-primary hover:underline font-semibold">
-              (949) 432-0359
+            <a href="tel:8888882774" className="text-primary hover:underline font-semibold">
+              (888) 888-2774
             </a>
           </p>
-          <p className="text-sm text-gray-500 mt-2">Mon-Sat, 9am-6pm</p>
+          <p className="text-sm text-gray-500 mt-2">Mon-Fri, 9am-5pm</p>
         </motion.div>
       </div>
     </section>

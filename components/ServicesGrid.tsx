@@ -68,7 +68,7 @@ export default function ServicesGrid() {
           className="text-center mb-12"
         >
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary mb-6">
-               Our Most <span className="text-accent">Popular Services</span>
+               Get Started   <span className="text-accent">Today</span>
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             From quick refreshes to complete transformations, we've got you covered.
@@ -177,12 +177,12 @@ export default function ServicesGrid() {
           <p className="text-gray-600 mb-4">
             Not sure which service fits your project?
           </p>
-            <button className="bg-white hover:bg-neutral-50 text-neutral-900 font-semibold px-8 py-4 rounded-2xl border-2 border-gray-200 hover:border-primary transition-all duration-300 inline-flex items-center gap-2">
-            <span>Schedule a Free Consultation</span>
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-            </svg>
-            </button>
+            <a href="/contact" className="bg-white hover:bg-neutral-50 text-neutral-900 font-semibold px-8 py-4 rounded-2xl border-2 border-gray-200 hover:border-primary transition-all duration-300 inline-flex items-center gap-2">
+              <span>Schedule a Free Consultation</span>
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </a>
         </motion.div>
       </div>
     </section>

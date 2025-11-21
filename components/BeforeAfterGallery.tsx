@@ -87,7 +87,7 @@ export default function BeforeAfterGallery() {
                     : 'text-gray-600 hover:text-gray-900'
                 }`}
               >
-                After
+                Now
               </button>
               <button
                 onClick={() => setShowBefore(true)}
@@ -119,7 +119,7 @@ export default function BeforeAfterGallery() {
                   }}
                 />
                 <div className="absolute bottom-6 left-6 bg-white/95 backdrop-blur-sm rounded-2xl px-6 py-3 shadow-lg">
-                  <p className="font-bold text-neutral-900">After</p>
+                  <p className="font-bold text-neutral-900">Now</p>
                 </div>
               </div>
 
