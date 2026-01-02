@@ -4,8 +4,22 @@ import { rateLimit } from '@/lib/rateLimit';
 import { sanitizeInput, validateEmail, sanitizePhone, sanitizeZipCode } from '@/lib/sanitize';
 
 export async function POST(request: Request) {
+  const startTime = Date.now();
+  console.log('\n📬 [API] New form submission received');
+  
   try {
     const body = await request.json();
+    console.log('📝 [API] Form data received:', {
+      hasFirstName: !!body.firstName,
+      hasLastName: !!body.lastName,
+      hasName: !!body.name,
+      email: body.email,
+      phone: body.phone ? '***' + body.phone.slice(-4) : 'missing',
+      zipCode: body.zipCode,
+      projectType: body.projectType || body.serviceType,
+      honeypot: body.honeypot ? 'FILLED (spam)' : 'empty (legit)'
+    });
+    
     let {
       firstName,
       lastName,
@@ -22,13 +36,14 @@ export async function POST(request: Request) {
 
     // 1. Honeypot Check (Spam Protection)
     if (honeypot) {
-      console.warn('Spam detected: Honeypot field filled.');
+      console.warn('⚠️  [SECURITY] Spam detected: Honeypot field filled. Silently rejecting.');
       // Return success to fool the bot
       return NextResponse.json({ success: true }, { status: 200 });
     }
 
     // 2. Server-side Validation
     if (!email || !phone) {
+      console.error('❌ [VALIDATION] Missing required fields');
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -37,6 +52,7 @@ export async function POST(request: Request) {
 
     // 3. Validate and sanitize email
     if (!validateEmail(email)) {
+      console.error('❌ [VALIDATION] Invalid email format:', email);
       return NextResponse.json(
         { error: 'Invalid email address' },
         { status: 400 }
@@ -44,9 +60,11 @@ export async function POST(request: Request) {
     }
 
     // 4. Rate limiting (by email)
+    console.log('🔒 [RATE LIMIT] Checking rate limit for:', email);
     const rateLimitResult = rateLimit(email, 3, 15 * 60 * 1000); // 3 submissions per 15 minutes
     if (!rateLimitResult.allowed) {
       const minutesRemaining = Math.ceil((rateLimitResult.resetTime - Date.now()) / 60000);
+      console.warn(`⚠️  [RATE LIMIT] Limit exceeded for ${email}. ${minutesRemaining} min remaining`);
       return NextResponse.json(
         { error: `Too many submissions. Please try again in ${minutesRemaining} minutes.` },
         { status: 429 }
@@ -54,6 +72,7 @@ export async function POST(request: Request) {
     }
 
     // 5. Sanitize all inputs
+    console.log('🧹 [SANITIZE] Sanitizing and normalizing inputs...');
     firstName = firstName ? sanitizeInput(firstName, 100) : '';
     lastName = lastName ? sanitizeInput(lastName, 100) : '';
     name = name ? sanitizeInput(name, 200) : '';
@@ -74,7 +93,16 @@ export async function POST(request: Request) {
     const finalProjectType = projectType || serviceType || 'Not Specified';
     const fullName = firstName && lastName ? `${firstName} ${lastName}` : (name || 'Unknown');
 
+    console.log('👤 [DATA] Normalized lead info:', {
+      fullName,
+      email,
+      projectType: finalProjectType,
+      budget,
+      zipCode
+    });
+
     // 6. Configure Transporter
+    console.log('📧 [EMAIL] Configuring email transporter...');
     // Using environment variables for security
     const transporter = nodemailer.createTransport({
       service: 'gmail', // Built-in service for Gmail
@@ -158,13 +186,24 @@ export async function POST(request: Request) {
     };
 
     // 8. Send Email
-    await transporter.sendMail(mailOptions);
+    console.log('📤 [EMAIL] Sending email to:', process.env.EMAIL_TO);
+    const info = await transporter.sendMail(mailOptions);
+    const duration = Date.now() - startTime;
 
-    console.log('✅ Email sent successfully to:', email);
+    console.log('✅ [SUCCESS] Email sent successfully!');
+    console.log('📬 [EMAIL] Message ID:', info.messageId);
+    console.log('⏱️  [TIMING] Total processing time:', duration + 'ms');
+    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n');
+    
     return NextResponse.json({ success: true }, { status: 200 });
 
   } catch (error) {
-    console.error('❌ Error sending email:', error);
+    const duration = Date.now() - startTime;
+    console.error('❌ [ERROR] Form submission failed');
+    console.error('❌ [ERROR] Error details:', error);
+    console.error('⏱️  [TIMING] Failed after:', duration + 'ms');
+    console.error('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n');
+    
     return NextResponse.json(
       { error: 'Failed to send email. Please try again or call us directly.' },
       { status: 500 }
