@@ -2,6 +2,8 @@
 
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { motion } from 'framer-motion';
+import toast, { Toaster } from 'react-hot-toast';
+import { trackLeadSubmission } from '@/lib/analytics';
 
 interface FormData {
   firstName: string;
@@ -9,8 +11,9 @@ interface FormData {
   email: string;
   phone: string;
   zipCode: string;
-  projectType: 'kitchen' | 'bathroom' | 'both' | '';
-  budget: 'under-10k' | '10k-15k' | '15k-25k' | '25k-plus' | '';
+  projectType: string;
+  budget: string;
+  honeypot: string;
 }
 
 interface FormErrors {
@@ -26,6 +29,7 @@ export default function LeadFormSection() {
     zipCode: '',
     projectType: '',
     budget: '',
+    honeypot: '',
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
@@ -91,6 +95,7 @@ export default function LeadFormSection() {
     // Validate all fields
     const newErrors: FormErrors = {};
     Object.keys(formData).forEach((key) => {
+      if (key === 'honeypot') return; // Don't validate honeypot
       const error = validateField(key, formData[key as keyof FormData]);
       if (error) newErrors[key] = error;
     });
@@ -105,40 +110,58 @@ export default function LeadFormSection() {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...formData,
-          timestamp: new Date().toISOString(),
-        }),
+        body: JSON.stringify(formData),
       });
 
-      if (response.ok) {
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        // Track successful lead submission
+        trackLeadSubmission({
+          projectType: formData.projectType,
+          budget: formData.budget,
+          zipCode: formData.zipCode,
+        });
+
+        toast.success('Thank you! We\'ll contact you within 24 hours.', {
+          duration: 5000,
+          position: 'top-center',
+        });
+
         setIsSuccess(true);
-        setTimeout(() => {
-          setFormData({
-            firstName: '',
-            lastName: '',
-            email: '',
-            phone: '',
-            zipCode: '',
-            projectType: '',
-            budget: '',
-          });
-          setIsSuccess(false);
-          setIsSubmitting(false);
-        }, 5000);
+        setFormData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          phone: '',
+          zipCode: '',
+          projectType: '',
+          budget: '',
+          honeypot: '',
+        });
       } else {
-        alert('There was an error. Please call us at (949) 432-0359');
-        setIsSubmitting(false);
+        console.error('Submission error:', data);
+        const errorMessage = data.error || 'There was an error submitting your request. Please try again or call us directly.';
+        toast.error(errorMessage, {
+          duration: 5000,
+          position: 'top-center',
+        });
       }
     } catch (error) {
       console.error('Error:', error);
-      alert('There was an error. Please call us at (949) 432-0359');
+      toast.error('Network error. Please check your connection or call us at (949) 432-0359', {
+        duration: 6000,
+        position: 'top-center',
+      });
+    } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <section id="get-estimate" className="bg-neutral-50 py-12 sm:py-16 md:py-24 px-4 sm:px-6 lg:px-8">
+    <>
+      <Toaster />
+      <section id="get-estimate" className="bg-neutral-50 py-12 sm:py-16 md:py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         {/* Section Header */}
         <motion.div
@@ -364,6 +387,20 @@ export default function LeadFormSection() {
                 </div>
               </div>
 
+              {/* Honeypot Field - Hidden from users */}
+              <div className="hidden">
+                <label htmlFor="honeypot">Website</label>
+                <input
+                  type="text"
+                  id="honeypot"
+                  name="honeypot"
+                  value={formData.honeypot}
+                  onChange={handleChange}
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
+
               {/* Submit Button */}
               <div className="pt-4">
                 <motion.button
@@ -407,5 +444,6 @@ export default function LeadFormSection() {
         </motion.div>
       </div>
     </section>
+    </>
   );
 }
