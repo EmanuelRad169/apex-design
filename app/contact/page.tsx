@@ -59,15 +59,26 @@ export default function ContactPage() {
     if (validateForm()) {
       setIsSubmitting(true);
       try {
-        const response = await fetch('/api/contact', {
+        // Using Formspree for form submissions (no backend needed)
+        const response = await fetch('https://formspree.io/f/YOUR_FORMSPREE_ID', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData),
+          headers: { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone,
+            zipCode: formData.zipCode,
+            serviceType: formData.serviceType,
+            budget: formData.budget,
+            message: formData.message,
+            _subject: `New Contact Form: ${formData.name} - ${formData.serviceType}`,
+          }),
         });
 
-        const data = await response.json();
-
-        if (response.ok && data.success) {
+        if (response.ok) {
           // Track successful lead submission
           trackLeadSubmission({
             projectType: formData.serviceType,
@@ -75,6 +86,7 @@ export default function ContactPage() {
             zipCode: formData.zipCode,
           });
 
+          console.log('✅ Contact form submitted successfully via Formspree');
           toast.success('Thank you! We\'ll contact you within 24 hours.', {
             duration: 5000,
             position: 'top-center',
@@ -91,15 +103,15 @@ export default function ContactPage() {
             message: ''
           });
         } else {
-          console.error('Submission error:', data);
-          const errorMessage = data.error || 'There was an error submitting your request. Please try again or call us directly.';
-          toast.error(errorMessage, {
+          const data = await response.json();
+          console.error('❌ Formspree submission error:', data);
+          toast.error('There was an error submitting your request. Please try again or call us directly at (949) 432-0359', {
             duration: 5000,
             position: 'top-center',
           });
         }
       } catch (error) {
-        console.error('Error:', error);
+        console.error('❌ Network error:', error);
         toast.error('Network error. Please check your connection or call us at (949) 432-0359', {
           duration: 6000,
           position: 'top-center',

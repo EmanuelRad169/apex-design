@@ -92,6 +92,12 @@ export default function LeadFormSection() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    // Honeypot check - if filled, silently reject (bot detection)
+    if (formData.honeypot) {
+      console.log('🤖 Bot detected via honeypot');
+      return;
+    }
+
     // Validate all fields
     const newErrors: FormErrors = {};
     Object.keys(formData).forEach((key) => {
@@ -107,15 +113,25 @@ export default function LeadFormSection() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('/api/contact', {
+      // Using Formspree for form submissions (no backend needed)
+      const response = await fetch('https://formspree.io/f/YOUR_FORMSPREE_ID', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: `${formData.firstName} ${formData.lastName}`,
+          email: formData.email,
+          phone: formData.phone,
+          zipCode: formData.zipCode,
+          projectType: formData.projectType,
+          budget: formData.budget,
+          _subject: `New Lead: ${formData.firstName} ${formData.lastName} - ${formData.projectType}`,
+        }),
       });
 
-      const data = await response.json();
-
-      if (response.ok && data.success) {
+      if (response.ok) {
         // Track successful lead submission
         trackLeadSubmission({
           projectType: formData.projectType,
@@ -123,6 +139,7 @@ export default function LeadFormSection() {
           zipCode: formData.zipCode,
         });
 
+        console.log('✅ Form submitted successfully via Formspree');
         toast.success('Thank you! We\'ll contact you within 24 hours.', {
           duration: 5000,
           position: 'top-center',
@@ -140,15 +157,15 @@ export default function LeadFormSection() {
           honeypot: '',
         });
       } else {
-        console.error('Submission error:', data);
-        const errorMessage = data.error || 'There was an error submitting your request. Please try again or call us directly.';
-        toast.error(errorMessage, {
+        const data = await response.json();
+        console.error('❌ Formspree submission error:', data);
+        toast.error('There was an error submitting your request. Please try again or call us directly at (949) 432-0359', {
           duration: 5000,
           position: 'top-center',
         });
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error('❌ Network error:', error);
       toast.error('Network error. Please check your connection or call us at (949) 432-0359', {
         duration: 6000,
         position: 'top-center',
