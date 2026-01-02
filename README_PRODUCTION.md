@@ -251,3 +251,103 @@ See [COMPLETE_DEPLOYMENT_GUIDE.md](COMPLETE_DEPLOYMENT_GUIDE.md) for detailed in
 ---
 
 **Questions?** Check the documentation or review commit history for implementation details.
+
+# Apex Remodeling – Production Ready
+
+Status: ✅ Live & Automated  
+Last Updated: January 2026
+
+## Overview
+This project is a production-ready marketing website for Apex Remodeling with fully automated form handling, testing, and deployment.
+
+The site uses Formspree for form submissions (no backend API), automated QA tests, and CI/CD deployment to Vercel.
+
+---
+
+## What’s Included
+
+### Forms & Email
+- Homepage Lead Form (Formspree)
+- Contact Page Form (Formspree)
+- Spam protection (honeypot + Formspree filtering)
+- Emails delivered to info@apexdbr.com
+- Success/error UX states with toasts
+
+### Automation
+- End-to-end form testing
+- Production smoke tests
+- Automated Vercel deployment via GitHub Actions
+- Preview deployments on pull requests
+
+### UX & Performance
+- Mobile-first responsive design
+- Accessible form validation
+- Clean UI components
+- No protected API routes
+- Free-tier compatible with Vercel
+
+---
+
+## Project Structure (Clean)
+
+```
+apex-design/
+├── app/
+│   ├── page.tsx
+│   └── contact/page.tsx
+├── components/
+│   └── LeadFormSection.tsx
+├── scripts/
+│   ├── test-formspree-e2e.ts
+│   └── smoke-test-production.ts
+├── .github/workflows/deploy.yml
+├── README.md
+└── package.json
+```
+
+---
+
+## Setup (Required)
+
+1. Create a Formspree account using info@apexdbr.com
+2. Create two forms (Homepage + Contact)
+3. Paste the Formspree IDs into:
+   - components/LeadFormSection.tsx
+   - app/contact/page.tsx
+
+---
+
+## Test & Deploy
+
+```bash
+npm run test:forms
+git push origin main
+npm run smoke:test
+```
+
+---
+
+## What Gets Tested
+- Form submissions return HTTP 200
+- Forms exist on expected pages
+- Site responds correctly in production
+- No blocked routes or auth issues
+
+---
+
+## Notes
+- Old API routes have been removed
+- No SMTP or email credentials required
+- No Vercel deployment protection needed
+- Free-tier safe
+
+---
+
+## Ready for Growth
+- Upgrade Formspree if volume increases
+- Add analytics tracking
+- Add CRM/webhook integrations
+
+---
+
+This project is clean, minimal, and production-ready.

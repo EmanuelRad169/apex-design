@@ -113,25 +113,15 @@ export default function LeadFormSection() {
     setIsSubmitting(true);
 
     try {
-      // Using Formspree for form submissions (no backend needed)
-      const response = await fetch('https://formspree.io/f/YOUR_FORMSPREE_ID', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          name: `${formData.firstName} ${formData.lastName}`,
-          email: formData.email,
-          phone: formData.phone,
-          zipCode: formData.zipCode,
-          projectType: formData.projectType,
-          budget: formData.budget,
-          _subject: `New Lead: ${formData.firstName} ${formData.lastName} - ${formData.projectType}`,
-        }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
       });
 
-      if (response.ok) {
+      const data = await response.json();
+
+      if (response.ok && data.success) {
         // Track successful lead submission
         trackLeadSubmission({
           projectType: formData.projectType,
@@ -139,7 +129,7 @@ export default function LeadFormSection() {
           zipCode: formData.zipCode,
         });
 
-        console.log('✅ Form submitted successfully via Formspree');
+        console.log('✅ Form submitted successfully');
         toast.success('Thank you! We\'ll contact you within 24 hours.', {
           duration: 5000,
           position: 'top-center',
@@ -157,9 +147,9 @@ export default function LeadFormSection() {
           honeypot: '',
         });
       } else {
-        const data = await response.json();
-        console.error('❌ Formspree submission error:', data);
-        toast.error('There was an error submitting your request. Please try again or call us directly at (949) 432-0359', {
+        console.error('❌ Submission error:', data);
+        const errorMessage = data.error || 'There was an error submitting your request. Please try again or call us directly.';
+        toast.error(errorMessage, {
           duration: 5000,
           position: 'top-center',
         });
