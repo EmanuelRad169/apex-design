@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test:forms": "ts-node scripts/test-formspree-e2e.ts",
+    "smoke:test": "ts-node scripts/smoke-test-production.ts",
+    "deploy": "vercel --prod",
+    "deploy:test": "npm run test:forms && npm run deploy && npm run smoke:test"
   },
   "dependencies": {
     "framer-motion": "^12.23.24",
