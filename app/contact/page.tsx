@@ -5,20 +5,6 @@ import { motion } from 'framer-motion';
 import toast, { Toaster } from 'react-hot-toast';
 import { trackLeadSubmission } from '@/lib/analytics';
 
-const orangeCountyZips = [
-  '92602', '92603', '92604', '92606', '92610', '92612', '92614', '92617', '92618', '92619',
-  '92620', '92624', '92625', '92626', '92627', '92629', '92630', '92637', '92646', '92647',
-  '92648', '92649', '92650', '92651', '92652', '92653', '92654', '92656', '92657', '92658',
-  '92659', '92660', '92661', '92662', '92663', '92672', '92673', '92674', '92675', '92676',
-  '92677', '92678', '92679', '92688', '92690', '92691', '92692', '92693', '92694', '92697',
-  '92698', '92701', '92703', '92704', '92705', '92706', '92707', '92708', '92711', '92712',
-  '92728', '92780', '92781', '92782', '92799', '92801', '92802', '92803', '92804', '92805',
-  '92806', '92807', '92808', '92821', '92823', '92831', '92832', '92833', '92834', '92835',
-  '92836', '92837', '92838', '92840', '92841', '92842', '92843', '92844', '92845', '92846',
-  '92850', '92856', '92857', '92859', '92860', '92861', '92862', '92863', '92864', '92865',
-  '92866', '92867', '92868', '92869', '92870', '92871', '92885', '92886', '92887', '92899'
-];
-
 export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: '',
@@ -43,8 +29,8 @@ export default function ContactPage() {
     
     if (!formData.zipCode.trim()) {
       newErrors.zipCode = 'ZIP code is required';
-    } else if (!orangeCountyZips.includes(formData.zipCode)) {
-      newErrors.zipCode = 'We currently serve Orange County ZIP codes only';
+    } else if (!/^\d{5}$/.test(formData.zipCode)) {
+      newErrors.zipCode = 'ZIP code must be 5 digits';
     }
 
     if (!formData.serviceType) newErrors.serviceType = 'Please select a service';

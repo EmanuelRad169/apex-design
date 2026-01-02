@@ -36,12 +36,6 @@ export default function LeadFormSection() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  // Orange County ZIP code ranges
-  const OC_ZIP_RANGES = [
-    { min: 92601, max: 92649 },
-    { min: 92703, max: 92714 },
-  ];
-
   const validateField = (name: string, value: string): string => {
     switch (name) {
       case 'firstName':
@@ -60,9 +54,7 @@ export default function LeadFormSection() {
         if (!value || !/^\d{5}$/.test(value)) {
           return 'ZIP code must be 5 digits';
         }
-        const zip = parseInt(value);
-        const isValid = OC_ZIP_RANGES.some((range) => zip >= range.min && zip <= range.max);
-        return isValid ? '' : 'Sorry, we only service Orange County at this time';
+        return '';
       }
       case 'projectType':
         return value ? '' : 'Please select a project type';
