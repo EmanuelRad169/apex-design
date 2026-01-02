@@ -4,7 +4,7 @@ const additionData = {
   title: 'Home Additions',
   subtitle: 'Expand Your Living Space',
   description: 'Add valuable square footage to your home with seamlessly integrated additions. From extra bedrooms to expanded kitchens, we help you grow your home to fit your family\'s needs.',
-  heroImage: 'https://images.unsplash.com/photo-1503387837-b154d5074bd2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=600&q=80',
+  heroImage: '/images/services-4.jpg',
   services: [
     {
       name: 'Room Additions',

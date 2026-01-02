@@ -4,7 +4,7 @@ const interiorData = {
   title: 'Interior Design & Renovation',
   subtitle: 'Transform Your Living Spaces',
   description: 'Create cohesive, beautiful interiors that reflect your personal style. From living rooms to bedrooms, we design spaces that are both functional and inspiring.',
-  heroImage: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=600&q=80',
+  heroImage: '/images/services-3.jpg',
   services: [
     {
       name: 'Complete Interior Makeover',

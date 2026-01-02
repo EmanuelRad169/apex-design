@@ -4,7 +4,7 @@ const kitchenData = {
   title: 'Kitchen Remodeling',
   subtitle: 'The Heart of Your Home',
   description: 'Transform your kitchen into a beautiful, functional space that brings your family together. From custom cabinetry to premium countertops, we create kitchens that blend style with functionality.',
-  heroImage: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=600&q=80',
+  heroImage: '/images/services-1.jpg',
   services: [
     {
       name: 'Complete Kitchen Renovation',

@@ -4,7 +4,7 @@ const bathroomData = {
   title: 'Bathroom Remodeling',
   subtitle: 'Your Personal Spa Retreat',
   description: 'Create a luxurious bathroom sanctuary with modern fixtures, elegant tile work, and smart storage solutions. From powder rooms to master suites, we design bathrooms that combine comfort with style.',
-  heroImage: 'https://images.unsplash.com/photo-1620626011761-996317b8d101?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=600&q=80',
+  heroImage: '/images/services-2.jpg',
   services: [
     {
       name: 'Master Bathroom Renovation',

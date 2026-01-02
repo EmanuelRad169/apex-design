@@ -4,7 +4,7 @@ const sunroomData = {
   title: 'Sunrooms & Outdoor Living',
   subtitle: 'Year-Round Outdoor Enjoyment',
   description: 'Extend your living space with beautiful sunrooms and outdoor living areas. Enjoy the beauty of the outdoors in comfort, regardless of the weather.',
-  heroImage: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=600&q=80',
+  heroImage: '/images/services-6.jpg',
   services: [
     {
       name: 'Three-Season Sunroom',
