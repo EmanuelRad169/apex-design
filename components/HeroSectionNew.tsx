@@ -42,12 +42,16 @@ export default function HeroSectionNew() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.6 }}
               className="flex flex-col gap-4 items-center lg:items-start justify-center lg:justify-start mb-8"
+            >
+              <motion.a
+                href="/#get-estimate"
+                whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 className="bg-accent hover:bg-accent/90 text-white font-bold px-8 py-4 rounded-xl shadow-lg transition-all duration-300 text-lg w-full sm:w-auto text-center"
               >
                 Let's Start Your Project
               </motion.a>
-            
+              
               <div className="flex items-center gap-3">
                 <span className="text-gray-700 font-medium">Or Call</span>
                 <a
