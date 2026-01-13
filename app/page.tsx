@@ -3,6 +3,7 @@
 import React from 'react';
 import HeroSectionNew from '@/components/HeroSectionNew';
 import ServicesGrid from '@/components/ServicesGrid';
+import VideoSection from '@/components/VideoSection';
 import TestimonialSection from '@/components/TestimonialSection';
 import BeforeAfterGallery from '@/components/BeforeAfterGallery';
 import LeadFormSection from '@/components/LeadFormSection';
@@ -12,6 +13,7 @@ export default function Home() {
     <main className="min-h-screen bg-white">
       <HeroSectionNew />
       <ServicesGrid />
+      <VideoSection />
       <BeforeAfterGallery />
       <LeadFormSection />
       <TestimonialSection />
