@@ -41,7 +41,7 @@ export default function HeroSectionNew() {
                 </motion.a>
               <a
                 href="tel:9494320359"
-                className="text-gray-700 hover:text-primary font-medium transition-colors duration-200 flex items-center justify-center gap-2 py-2"
+                className="text-gray-900 hover:text-primary font-medium transition-colors duration-200 flex items-center justify-center gap-2 py-2"
               >
                 <span className="text-sm sm:text-base">Or Call</span>
                 <span className="font-bold text-accent text-lg sm:text-xl">(888) 888-2774</span>
@@ -51,13 +51,13 @@ export default function HeroSectionNew() {
             {/* Trust Badges */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 pt-2 px-2 sm:px-0">
               <div className="flex items-center justify-center gap-2 bg-white/80 backdrop-blur-sm px-3 py-3 rounded-xl shadow-sm border border-gray-100">
-                <span className="text-sm sm:text-base font-bold text-gray-700 text-center"><span className='text-accent text-lg'>&#9733;</span> Five Star Rating</span>
+                <span className="text-sm sm:text-base font-bold text-gray-900 text-center"><span className='text-accent text-lg'>&#9733;</span> Five Star Rating</span>
               </div>
               <div className="flex items-center justify-center gap-2 bg-white/80 backdrop-blur-sm px-3 py-3 rounded-xl shadow-sm border border-gray-100">
-                <span className="text-sm sm:text-base font-bold text-gray-700 text-center"><span className='text-accent text-lg'>&#9830;</span> Licensed & Insured</span>
+                <span className="text-sm sm:text-base font-bold text-gray-900 text-center"><span className='text-accent text-lg'>&#9830;</span> Licensed & Insured</span>
               </div>
               <div className="flex items-center justify-center gap-2 bg-white/80 backdrop-blur-sm px-3 py-3 rounded-xl shadow-sm border border-gray-100">
-                <span className="text-sm sm:text-base font-bold text-gray-700 text-center"><span className='text-accent text-lg'>&#9728;</span> OC-Based Team</span>
+                <span className="text-sm sm:text-base font-bold text-gray-900 text-center"><span className='text-accent text-lg'>&#9728;</span> OC-Based Team</span>
               </div>
             </div>
           </motion.div>
