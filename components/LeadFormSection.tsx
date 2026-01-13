@@ -163,6 +163,7 @@ export default function LeadFormSection() {
               name="lead" 
               method="POST" 
               data-netlify="true"
+              action="/thank-you"
               onSubmit={handleSubmit} 
               className="space-y-6"
             >

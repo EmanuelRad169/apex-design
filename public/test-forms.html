@@ -19,7 +19,7 @@
     <p>This page tests both forms before deployment. Forms will only work when deployed to Netlify.</p>
 
     <h2>Contact Form</h2>
-    <form name="contact" method="POST" netlify>
+    <form name="contact" method="POST" netlify action="/thank-you">
         <input type="hidden" name="form-name" value="contact" />
         
         <label>Full Name *</label>
@@ -62,7 +62,7 @@
     </form>
 
     <h2>Lead Form</h2>
-    <form name="lead" method="POST" netlify>
+    <form name="lead" method="POST" netlify action="/thank-you">
         <input type="hidden" name="form-name" value="lead" />
         
         <div class="hidden">

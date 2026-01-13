@@ -1,13 +1,10 @@
 'use client';
 
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import toast, { Toaster } from 'react-hot-toast';
 import { trackLeadSubmission } from '@/lib/analytics';
-import { useSearchParams } from 'next/navigation';
 
 function ContactForm() {
-  const searchParams = useSearchParams();
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -18,18 +15,6 @@ function ContactForm() {
     message: ''
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  // Check for success parameter from Netlify redirect
-  useEffect(() => {
-    if (searchParams.get('success') === 'true') {
-      setIsSubmitted(true);
-      toast.success('Thank you! We\'ll contact you within 24 hours.', {
-        duration: 5000,
-        position: 'top-center',
-      });
-    }
-  }, [searchParams]);
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
@@ -78,9 +63,7 @@ function ContactForm() {
   };
 
   return (
-    <>
-      <Toaster />
-      <div className="bg-white min-h-screen pt-20">
+    <div className="bg-white min-h-screen pt-20">"
       {/* Hero Section */}
       <section className="bg-light/50 py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">
@@ -110,29 +93,11 @@ function ContactForm() {
           >
             <h2 className="text-2xl font-bold text-primary mb-6">Get Your Free Estimate</h2>
             
-            {isSubmitted ? (
-              <div className="text-center py-8">
-                <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-bold text-primary mb-2">Thank You!</h3>
-                <p className="text-neutral-600 mb-4">
-                  We've received your request and will contact you within 24 hours to schedule your free consultation.
-                </p>
-                <p className="text-sm text-neutral-500">
-                  For immediate assistance, call us at{' '}
-                  <a href="tel:9494320359" className="text-accent font-medium hover:underline">
-                    (949) 432-0359
-                  </a>
-                </p>
-              </div>
-            ) : (
               <form 
                 name="contact" 
                 method="POST" 
                 data-netlify="true"
+                action="/thank-you"
                 onSubmit={handleSubmit} 
                 className="space-y-6"
               >
@@ -287,12 +252,10 @@ function ContactForm() {
                   Get My Free Estimate
                 </motion.button>
 
-                <input type="hidden" name="_next" value="/contact?success=true" />
                 <p className="text-xs text-neutral-500 text-center">
                   By submitting this form, you agree to be contacted by Apex Design regarding your project.
                 </p>
               </form>
-            )}
           </motion.div>
 
           {/* Contact Information */}
@@ -370,14 +333,9 @@ function ContactForm() {
         </div>
       </div>
     </div>
-    </>
   );
 }
 
 export default function ContactPage() {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <ContactForm />
-    </Suspense>
-  );
+  return <ContactForm />;
 }
