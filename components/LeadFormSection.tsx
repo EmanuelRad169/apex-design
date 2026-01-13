@@ -33,7 +33,6 @@ export default function LeadFormSection() {
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
   const validateField = (name: string, value: string): string => {
@@ -81,12 +80,11 @@ export default function LeadFormSection() {
     }
   };
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    // Honeypot check - if filled, silently reject (bot detection)
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    // Honeypot check - if filled, prevent submission (bot detection)
     if (formData.honeypot) {
       console.log('🤖 Bot detected via honeypot');
+      e.preventDefault();
       return;
     }
 
@@ -100,61 +98,20 @@ export default function LeadFormSection() {
 
     setErrors(newErrors);
 
-    if (Object.keys(newErrors).length > 0) return;
-
-    setIsSubmitting(true);
-
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await response.json();
-
-      if (response.ok && data.success) {
-        // Track successful lead submission
-        trackLeadSubmission({
-          projectType: formData.projectType,
-          budget: formData.budget,
-          zipCode: formData.zipCode,
-        });
-
-        console.log('✅ Form submitted successfully');
-        toast.success('Thank you! We\'ll contact you within 24 hours.', {
-          duration: 5000,
-          position: 'top-center',
-        });
-
-        setIsSuccess(true);
-        setFormData({
-          firstName: '',
-          lastName: '',
-          email: '',
-          phone: '',
-          zipCode: '',
-          projectType: '',
-          budget: '',
-          honeypot: '',
-        });
-      } else {
-        console.error('❌ Submission error:', data);
-        const errorMessage = data.error || 'There was an error submitting your request. Please try again or call us directly.';
-        toast.error(errorMessage, {
-          duration: 5000,
-          position: 'top-center',
-        });
-      }
-    } catch (error) {
-      console.error('❌ Network error:', error);
-      toast.error('Network error. Please check your connection or call us at (949) 432-0359', {
-        duration: 6000,
-        position: 'top-center',
-      });
-    } finally {
-      setIsSubmitting(false);
+    if (Object.keys(newErrors).length > 0) {
+      e.preventDefault();
+      return;
     }
+
+    // Track submission for analytics before Netlify processes it
+    trackLeadSubmission({
+      projectType: formData.projectType,
+      budget: formData.budget,
+      zipCode: formData.zipCode,
+    });
+
+    console.log('✅ Lead form validation passed, submitting to Netlify');
+    // Let Netlify handle the actual submission
   };
 
   return (
@@ -202,7 +159,14 @@ export default function LeadFormSection() {
               </p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form 
+              name="lead" 
+              method="POST" 
+              data-netlify="true"
+              onSubmit={handleSubmit} 
+              className="space-y-6"
+            >
+              <input type="hidden" name="form-name" value="lead" />
               {/* Name Row */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
@@ -404,16 +368,11 @@ export default function LeadFormSection() {
               <div className="pt-4">
                 <motion.button
                   type="submit"
-                  disabled={isSubmitting}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className={`w-full py-4 rounded-xl font-semibold text-white shadow-lg transition-all duration-300 ${
-                    isSubmitting
-                      ? 'bg-gray-400 cursor-not-allowed'
-                      : 'bg-accent hover:brightness-105 hover:shadow-xl'
-                  }`}
+                  className="w-full py-4 rounded-xl font-semibold text-white shadow-lg transition-all duration-300 bg-accent hover:brightness-105 hover:shadow-xl"
                 >
-                  {isSubmitting ? 'Sending...' : 'Request My Estimate'}
+                  Request My Estimate
                 </motion.button>
               </div>
 

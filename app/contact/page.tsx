@@ -1,11 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import toast, { Toaster } from 'react-hot-toast';
 import { trackLeadSubmission } from '@/lib/analytics';
+import { useSearchParams } from 'next/navigation';
 
-export default function ContactPage() {
+function ContactForm() {
+  const searchParams = useSearchParams();
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -17,7 +19,17 @@ export default function ContactPage() {
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Check for success parameter from Netlify redirect
+  useEffect(() => {
+    if (searchParams.get('success') === 'true') {
+      setIsSubmitted(true);
+      toast.success('Thank you! We\'ll contact you within 24 hours.', {
+        duration: 5000,
+        position: 'top-center',
+      });
+    }
+  }, [searchParams]);
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
@@ -40,60 +52,20 @@ export default function ContactPage() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = (e: React.FormEvent) => {
     if (validateForm()) {
-      setIsSubmitting(true);
-      try {
-        const response = await fetch('/api/contact', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData),
-        });
-
-        const data = await response.json();
-
-        if (response.ok && data.success) {
-          // Track successful lead submission
-          trackLeadSubmission({
-            projectType: formData.serviceType,
-            budget: formData.budget,
-            zipCode: formData.zipCode,
-          });
-
-          console.log('✅ Contact form submitted successfully');
-          toast.success('Thank you! We\'ll contact you within 24 hours.', {
-            duration: 5000,
-            position: 'top-center',
-          });
-
-          setIsSubmitted(true);
-          setFormData({
-            name: '',
-            phone: '',
-            email: '',
-            zipCode: '',
-            serviceType: '',
-            budget: '',
-            message: ''
-          });
-        } else {
-          console.error('❌ Submission error:', data);
-          const errorMessage = data.error || 'There was an error submitting your request. Please try again or call us directly.';
-          toast.error(errorMessage, {
-            duration: 5000,
-            position: 'top-center',
-          });
-        }
-      } catch (error) {
-        console.error('❌ Network error:', error);
-        toast.error('Network error. Please check your connection or call us at (949) 432-0359', {
-          duration: 6000,
-          position: 'top-center',
-        });
-      } finally {
-        setIsSubmitting(false);
-      }
+      // Let Netlify handle the form submission
+      // Form will be processed by Netlify Forms
+      console.log('✅ Form validation passed, submitting to Netlify');
+      
+      // Track submission for analytics
+      trackLeadSubmission({
+        projectType: formData.serviceType,
+        budget: formData.budget,
+        zipCode: formData.zipCode,
+      });
+    } else {
+      e.preventDefault();
     }
   };
 
@@ -157,7 +129,14 @@ export default function ContactPage() {
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form 
+                name="contact" 
+                method="POST" 
+                data-netlify="true"
+                onSubmit={handleSubmit} 
+                className="space-y-6"
+              >
+                <input type="hidden" name="form-name" value="contact" />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-primary mb-2">
@@ -301,18 +280,14 @@ export default function ContactPage() {
 
                 <motion.button
                   type="submit"
-                  disabled={isSubmitting}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className={`w-full font-semibold px-8 py-4 rounded-xl shadow-lg transition-all duration-300 ${
-                    isSubmitting
-                      ? 'bg-gray-400 cursor-not-allowed text-white'
-                      : 'bg-accent hover:bg-accent-dark text-white'
-                  }`}
+                  className="w-full font-semibold px-8 py-4 rounded-xl shadow-lg transition-all duration-300 bg-accent hover:bg-accent-dark text-white"
                 >
-                  {isSubmitting ? 'Sending...' : 'Get My Free Estimate'}
+                  Get My Free Estimate
                 </motion.button>
 
+                <input type="hidden" name="_next" value="/contact?success=true" />
                 <p className="text-xs text-neutral-500 text-center">
                   By submitting this form, you agree to be contacted by Apex Design regarding your project.
                 </p>
@@ -396,5 +371,13 @@ export default function ContactPage() {
       </div>
     </div>
     </>
+  );
+}
+
+export default function ContactPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ContactForm />
+    </Suspense>
   );
 }

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Netlify Forms - Apex Design</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        form { background: #f9f9f9; padding: 20px; margin: 20px 0; border-radius: 8px; }
+        input, select, textarea { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px; }
+        button { background: #007cba; color: white; padding: 12px 24px; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #005a8b; }
+        .hidden { position: absolute; left: -9999px; }
+        h2 { color: #333; border-bottom: 2px solid #007cba; padding-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Netlify Forms Test - Apex Design</h1>
+    <p>This page tests both forms before deployment. Forms will only work when deployed to Netlify.</p>
+
+    <h2>Contact Form</h2>
+    <form name="contact" method="POST" netlify>
+        <input type="hidden" name="form-name" value="contact" />
+        
+        <label>Full Name *</label>
+        <input type="text" name="name" required placeholder="Enter your full name" />
+        
+        <label>Phone Number *</label>
+        <input type="tel" name="phone" required placeholder="(949) 123-4567" />
+        
+        <label>Email Address *</label>
+        <input type="email" name="email" required placeholder="your@email.com" />
+        
+        <label>ZIP Code *</label>
+        <input type="text" name="zipCode" required placeholder="92614" maxlength="5" />
+        
+        <label>Service Type *</label>
+        <select name="serviceType" required>
+            <option value="">Select a service</option>
+            <option value="kitchen">Kitchen Remodeling</option>
+            <option value="bathroom">Bathroom Remodeling</option>
+            <option value="interior">Interior Design</option>
+            <option value="addition">Home Addition</option>
+            <option value="exterior">Exterior Renovation</option>
+            <option value="sunroom">Sunroom</option>
+            <option value="multiple">Multiple Services</option>
+        </select>
+        
+        <label>Project Budget *</label>
+        <select name="budget" required>
+            <option value="">Select budget range</option>
+            <option value="under-25k">Under $25,000</option>
+            <option value="25k-50k">$25,000 - $50,000</option>
+            <option value="50k-100k">$50,000 - $100,000</option>
+            <option value="100k-plus">$100,000+</option>
+        </select>
+        
+        <label>Project Details</label>
+        <textarea name="message" rows="4" placeholder="Tell us about your project vision, timeline, and any specific requirements..."></textarea>
+        
+        <button type="submit">Get My Free Estimate</button>
+    </form>
+
+    <h2>Lead Form</h2>
+    <form name="lead" method="POST" netlify>
+        <input type="hidden" name="form-name" value="lead" />
+        
+        <div class="hidden">
+            <label>Don't fill this out: <input name="honeypot" tabindex="-1" autocomplete="off" /></label>
+        </div>
+        
+        <label>First Name *</label>
+        <input type="text" name="firstName" required placeholder="John" />
+        
+        <label>Last Name *</label>
+        <input type="text" name="lastName" required placeholder="Smith" />
+        
+        <label>Email *</label>
+        <input type="email" name="email" required placeholder="john@example.com" />
+        
+        <label>Phone *</label>
+        <input type="tel" name="phone" required placeholder="(949) 555-0000" />
+        
+        <label>ZIP Code *</label>
+        <input type="text" name="zipCode" required placeholder="92614" maxlength="5" />
+        
+        <label>Project Type *</label>
+        <select name="projectType" required>
+            <option value="">Select project type</option>
+            <option value="kitchen">Kitchen Remodeling</option>
+            <option value="bathroom">Bathroom Remodeling</option>
+            <option value="interior">Interior Design</option>
+            <option value="addition">Home Addition</option>
+            <option value="exterior">Exterior Renovation</option>
+            <option value="sunroom">Sunroom</option>
+            <option value="multiple">Multiple Services</option>
+        </select>
+        
+        <label>Budget *</label>
+        <select name="budget" required>
+            <option value="">Select budget range</option>
+            <option value="under-25k">Under $25,000</option>
+            <option value="25k-50k">$25,000 - $50,000</option>
+            <option value="50k-100k">$50,000 - $100,000</option>
+            <option value="100k-plus">$100,000+</option>
+        </select>
+        
+        <button type="submit">Request My Estimate</button>
+    </form>
+
+    <div style="margin-top: 40px; padding: 20px; background: #e8f4f8; border-radius: 8px;">
+        <h3>Testing Instructions:</h3>
+        <ol>
+            <li>Deploy this site to Netlify</li>
+            <li>Visit the deployed URL + /test-forms.html</li>
+            <li>Test both forms by filling them out and submitting</li>
+            <li>Check your Netlify dashboard for form submissions</li>
+            <li>Verify email notifications are working (if configured)</li>
+        </ol>
+        <p><strong>Note:</strong> These forms will only work when deployed to Netlify. Local testing will not process the submissions.</p>
+    </div>
+</body>
+</html>
