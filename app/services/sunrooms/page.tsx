@@ -1,4 +1,20 @@
 import ServicePageTemplate from '@/components/ServicePageTemplate';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Sunrooms & Outdoor Living in Orange County | Year-Round Comfort',
+  description: 'Extend your living space with beautiful sunrooms and outdoor living areas. Three-season and four-season sunrooms by Apex Design in Orange County.',
+  keywords: 'sunrooms Orange County, outdoor living spaces, three season sunroom, four season sunroom, patio enclosure OC, sunroom addition',
+  alternates: {
+    canonical: '/services/sunrooms',
+  },
+  openGraph: {
+    title: 'Sunrooms & Outdoor Living in Orange County | Year-Round Comfort',
+    description: 'Extend your living space with beautiful sunrooms and outdoor living areas. Three-season and four-season sunrooms.',
+    url: 'https://apexdbr.com/services/sunrooms',
+    images: ['/images/services-6.jpg'],
+  },
+};
 
 const sunroomData = {
   title: 'Sunrooms & Outdoor Living',

@@ -1,4 +1,20 @@
 import ServicePageTemplate from '@/components/ServicePageTemplate';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Kitchen Remodeling in Orange County | Custom Kitchen Design',
+  description: 'Transform your kitchen with Apex Design. Custom cabinetry, premium countertops, professional appliance integration. Licensed, insured kitchen remodeling in Orange County.',
+  keywords: 'kitchen remodeling Orange County, custom kitchen design, kitchen cabinets, countertops, kitchen renovation OC, Irvine kitchen remodel',
+  alternates: {
+    canonical: '/services/kitchen',
+  },
+  openGraph: {
+    title: 'Kitchen Remodeling in Orange County | Custom Kitchen Design',
+    description: 'Transform your kitchen with Apex Design. Custom cabinetry, premium countertops, professional appliance integration.',
+    url: 'https://apexdbr.com/services/kitchen',
+    images: ['/images/services-1.jpg'],
+  },
+};
 
 const kitchenData = {
   title: 'Kitchen Remodeling',

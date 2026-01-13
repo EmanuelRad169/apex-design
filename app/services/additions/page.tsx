@@ -1,4 +1,20 @@
 import ServicePageTemplate from '@/components/ServicePageTemplate';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Home Additions in Orange County | Expand Your Living Space',
+  description: 'Add valuable square footage with Apex Design. Room additions, second story additions, seamlessly integrated with your existing home. Licensed home additions in Orange County.',
+  keywords: 'home additions Orange County, room addition, second story addition, home expansion, add square footage OC, house addition',
+  alternates: {
+    canonical: '/services/additions',
+  },
+  openGraph: {
+    title: 'Home Additions in Orange County | Expand Your Living Space',
+    description: 'Add valuable square footage with Apex Design. Room additions, second story additions, seamlessly integrated with your existing home.',
+    url: 'https://apexdbr.com/services/additions',
+    images: ['/images/services-4.jpg'],
+  },
+};
 
 const additionData = {
   title: 'Home Additions',

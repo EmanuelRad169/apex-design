@@ -1,4 +1,20 @@
 import ServicePageTemplate from '@/components/ServicePageTemplate';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Exterior Renovations in Orange County | Curb Appeal Enhancements',
+  description: 'Enhance your curb appeal with Apex Design. Siding, windows, doors, roofing improvements. Professional exterior renovations in Orange County that increase property value.',
+  keywords: 'exterior renovations Orange County, siding replacement, window replacement, curb appeal, exterior remodel OC, home exterior',
+  alternates: {
+    canonical: '/services/exteriors',
+  },
+  openGraph: {
+    title: 'Exterior Renovations in Orange County | Curb Appeal Enhancements',
+    description: 'Enhance your curb appeal with Apex Design. Siding, windows, doors, roofing improvements.',
+    url: 'https://apexdbr.com/services/exteriors',
+    images: ['/images/services-5.jpg'],
+  },
+};
 
 const exteriorData = {
   title: 'Exterior Renovations',

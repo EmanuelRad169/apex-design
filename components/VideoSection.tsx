@@ -18,7 +18,7 @@ export default function VideoSection() {
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-6">
             See Our Work in <span className="text-accent">Action</span>
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 max-w-4xl mx-auto">
             Watch how we transform Orange County homes with precision craftsmanship and attention to detail.
           </p>
         </motion.div>
@@ -51,27 +51,7 @@ export default function VideoSection() {
             </div>
           </div>
         </motion.div>
-
-        {/* Call to Action */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="text-center mt-12"
-        >
-          <p className="text-gray-600 mb-6">
-            Ready to start your own transformation?
-          </p>
-          <motion.a
-            href="/#get-estimate"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="inline-block bg-accent hover:brightness-105 text-white font-semibold px-8 py-4 rounded-xl shadow-lg transition-all duration-300"
-          >
-            Get Your Free Estimate
-          </motion.a>
-        </motion.div>
+        
       </div>
     </section>
   );

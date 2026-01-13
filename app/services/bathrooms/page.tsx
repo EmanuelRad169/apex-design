@@ -1,4 +1,20 @@
 import ServicePageTemplate from '@/components/ServicePageTemplate';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Bathroom Remodeling in Orange County | Luxury Spa Retreats',
+  description: 'Create your personal spa retreat with Apex Design. Master bathroom renovations, walk-in showers, custom vanities. Licensed bathroom remodeling in Orange County.',
+  keywords: 'bathroom remodeling Orange County, master bathroom renovation, walk-in shower, bathroom vanity, spa bathroom OC, Irvine bathroom remodel',
+  alternates: {
+    canonical: '/services/bathrooms',
+  },
+  openGraph: {
+    title: 'Bathroom Remodeling in Orange County | Luxury Spa Retreats', 
+    description: 'Create your personal spa retreat with Apex Design. Master bathroom renovations, walk-in showers, custom vanities.',
+    url: 'https://apexdbr.com/services/bathrooms',
+    images: ['/images/services-2.jpg'],
+  },
+};
 
 const bathroomData = {
   title: 'Bathroom Remodeling',

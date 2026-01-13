@@ -1,4 +1,20 @@
 import ServicePageTemplate from '@/components/ServicePageTemplate';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Interior Design & Renovation in Orange County | Home Makeovers',
+  description: 'Transform your living spaces with Apex Design. Complete interior makeovers, living room renovations, custom built-ins. Professional interior design in Orange County.',
+  keywords: 'interior design Orange County, home renovation, living room remodel, custom built-ins, interior makeover OC, home design',
+  alternates: {
+    canonical: '/services/interiors',
+  },
+  openGraph: {
+    title: 'Interior Design & Renovation in Orange County | Home Makeovers',
+    description: 'Transform your living spaces with Apex Design. Complete interior makeovers, living room renovations, custom built-ins.',
+    url: 'https://apexdbr.com/services/interiors',
+    images: ['/images/services-3.jpg'],
+  },
+};
 
 const interiorData = {
   title: 'Interior Design & Renovation',
