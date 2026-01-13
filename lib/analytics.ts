@@ -22,6 +22,7 @@ export const trackFBPixel = (
 
 // Combined tracking function for lead submissions
 export const trackLeadSubmission = (data: {
+  service?: string;
   projectType?: string;
   budget?: string;
   zipCode?: string;
@@ -29,14 +30,14 @@ export const trackLeadSubmission = (data: {
   // Google Analytics
   trackGAEvent('generate_lead', {
     event_category: 'Lead',
-    event_label: data.projectType || 'unknown',
+    event_label: data.service || data.projectType || 'unknown',
     value: data.budget || 'unknown',
     location: data.zipCode || 'unknown',
   });
 
   // Facebook Pixel
   trackFBPixel('Lead', {
-    content_name: data.projectType || 'unknown',
+    content_name: data.service || data.projectType || 'unknown',
     content_category: 'Lead Form',
     value: 0,
     currency: 'USD',
