@@ -6,91 +6,120 @@ import Image from 'next/image';
 
 export default function HeroSectionNew() {
   return (
-    <section className="bg-light/50 py-12 sm:py-16 md:py-24 lg:py-32 px-4 sm:px-6 lg:px-8">
+    <section className="relative bg-gradient-to-b from-light/30 to-white py-16 sm:py-20 md:py-24 lg:py-32 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           {/* Left Column - Content */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="space-y-4 sm:space-y-6 text-center lg:text-left"
+            transition={{ duration: 0.8 }}
+            className="order-2 lg:order-1 text-center lg:text-left"
           >
-
             {/* Main Headline */}
-            <div className="space-y-3 sm:space-y-4">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-primary leading-[1.1] tracking-tight">
-                <span className="text-2xl sm:text-3xl md:text-4xl block text-accent mt-1 mb-2">Premium Remodeling</span>
-                <span className="block">Great Prices</span>
-                <span className="block">Great Quality</span>
-              </h1>
-              <p className="text-base sm:text-lg md:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto lg:mx-0 px-2 sm:px-0">
-                We design with intention, build with precision, and deliver results that last — no shortcuts, no surprises.
-              </p>
+            <div className="mb-6 sm:mb-8">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2, duration: 0.6 }}
+              >
+                <p className="text-lg sm:text-xl md:text-2xl font-semibold text-accent mb-3">
+                  Premium Remodeling
+                </p>
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-primary leading-[0.9] tracking-tight mb-4">
+                  <span className="block">Great Prices</span>
+                  <span className="block">Great Quality</span>
+                </h1>
+                <p className="text-lg sm:text-xl text-gray-700 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                  We design with intention, build with precision, and deliver results that last — no shortcuts, no surprises.
+                </p>
+              </motion.div>
             </div>
 
             {/* CTAs */}
-            <div className="flex flex-col gap-4 items-center lg:items-start px-4 sm:px-0">
-                <motion.a
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.6 }}
+              className="flex flex-col sm:flex-row gap-4 items-center lg:items-start justify-center lg:justify-start mb-8"
+            >
+              <motion.a
                 href="/#get-estimate"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="bg-accent hover:brightness-105 text-white font-semibold px-6 sm:px-8 py-4 rounded-2xl shadow-lg transition-all duration-300 text-center w-full sm:w-auto min-h-[56px] text-base sm:text-lg inline-block"
-                >
-                Let's Start Your Project
-                </motion.a>
-              <a
-                href="tel:9494320359"
-                className="text-black hover:text-primary font-medium transition-colors duration-200 flex items-center justify-center gap-2 py-2"
+                className="bg-accent hover:bg-accent/90 text-white font-bold px-8 py-4 rounded-xl shadow-lg transition-all duration-300 text-lg w-full sm:w-auto text-center"
               >
-                <span className="text-sm sm:text-base">Or Call</span>
-                <span className="font-bold text-accent text-lg sm:text-xl">(888) 888-2774</span>
-              </a>
-            </div>
+                Let's Start Your Project
+              </motion.a>
+              
+              <div className="flex items-center gap-3">
+                <span className="text-gray-700 font-medium">Or Call</span>
+                <a
+                  href="tel:8888882774"
+                  className="font-bold text-accent text-xl hover:text-accent/80 transition-colors duration-200"
+                >
+                  (888) 888-2774
+                </a>
+              </div>
+            </motion.div>
 
             {/* Trust Badges */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 pt-2 px-2 sm:px-0">
-              <div className="flex items-center justify-center gap-2 bg-white/80 backdrop-blur-sm px-3 py-3 rounded-xl shadow-sm border border-gray-100">
-                <span className="text-sm sm:text-base font-bold text-black text-center"><span className='text-accent text-lg'>&#9733;</span> Five Star Rating</span>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.6 }}
+              className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-2xl mx-auto lg:mx-0"
+            >
+              <div className="flex items-center justify-center gap-3 bg-white/90 backdrop-blur-sm px-4 py-3 rounded-lg shadow-sm border border-gray-200">
+                <span className="text-accent text-xl">★</span>
+                <span className="text-sm font-bold text-gray-900">Five Star Rating</span>
               </div>
-              <div className="flex items-center justify-center gap-2 bg-white/80 backdrop-blur-sm px-3 py-3 rounded-xl shadow-sm border border-gray-100">
-                <span className="text-sm sm:text-base font-bold text-black text-center"><span className='text-accent text-lg'>&#9830;</span> Licensed & Insured</span>
+              <div className="flex items-center justify-center gap-3 bg-white/90 backdrop-blur-sm px-4 py-3 rounded-lg shadow-sm border border-gray-200">
+                <span className="text-accent text-xl">♦</span>
+                <span className="text-sm font-bold text-gray-900">Licensed & Insured</span>
               </div>
-              <div className="flex items-center justify-center gap-2 bg-white/80 backdrop-blur-sm px-3 py-3 rounded-xl shadow-sm border border-gray-100">
-                <span className="text-sm sm:text-base font-bold text-black text-center"><span className='text-accent text-lg'>&#9728;</span> OC-Based Team</span>
+              <div className="flex items-center justify-center gap-3 bg-white/90 backdrop-blur-sm px-4 py-3 rounded-lg shadow-sm border border-gray-200">
+                <span className="text-accent text-xl">☀</span>
+                <span className="text-sm font-bold text-gray-900">OC-Based Team</span>
               </div>
-            </div>
+            </motion.div>
           </motion.div>
 
           {/* Right Column - Image */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="relative mt-8 lg:mt-0"
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="order-1 lg:order-2 relative"
           >
-            <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl aspect-[5/4] sm:aspect-[4/3] bg-neutral-50">
-              <Image
-                src="/images/hero.jpg"
-                alt="Modern kitchen remodel showcasing precision craftsmanship"
-                fill
-                className="object-cover"
-                priority
-              />
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent mix-blend-overlay" />
-            </div>
-            
-            {/* Floating Badge - Mobile Optimized */}
-            <div className="absolute -bottom-3 left-4 sm:-bottom-6 sm:-left-6 bg-accent rounded-xl sm:rounded-2xl shadow-xl p-3 sm:p-6 max-w-[280px] sm:max-w-xs">
-              <div className="flex items-center gap-2 sm:gap-4">
-                <div className="w-8 h-8 sm:w-12 sm:h-12 bg-accent/20 rounded-full flex items-center justify-center flex-shrink-0">
-                  <svg className="w-4 h-4 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
+            <div className="relative">
+              {/* Main Image */}
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+                <div className="aspect-[4/3] sm:aspect-[5/4] lg:aspect-[4/3]">
+                  <Image
+                    src="/images/hero.jpg"
+                    alt="Modern kitchen remodel showcasing precision craftsmanship"
+                    fill
+                    className="object-cover"
+                    priority
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent" />
                 </div>
-                <div className="min-w-0">
-                  <p className="font-bold text-xl text-white leading-tight">100% Satisfaction</p>
-                  <p className="text-xs sm:text-sm text-white leading-tight">Before Final Payment</p>
+              </div>
+              
+              {/* Floating Satisfaction Badge */}
+              <div className="absolute -bottom-4 -left-4 sm:-bottom-6 sm:-left-6 bg-accent rounded-xl shadow-xl p-4 sm:p-6 max-w-[280px] z-10">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="font-bold text-lg text-white leading-tight">100% Satisfaction</p>
+                    <p className="text-sm text-white/90 leading-tight">Before Final Payment</p>
+                  </div>
                 </div>
               </div>
             </div>
