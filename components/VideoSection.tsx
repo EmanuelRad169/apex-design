@@ -1,15 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 
 export default function VideoSection() {
-  const [isPlaying, setIsPlaying] = useState(false);
-
-  const handlePlay = () => {
-    setIsPlaying(true);
-  };
-
   return (
     <section className="bg-neutral-50 py-16 md:py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
@@ -38,53 +32,23 @@ export default function VideoSection() {
           className="relative rounded-2xl overflow-hidden shadow-2xl bg-gray-900"
         >
           <div className="aspect-video">
-            {!isPlaying ? (
-              <div className="relative w-full h-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
-                <video
-                  className="absolute inset-0 w-full h-full object-cover opacity-50"
-                  muted
-                  playsInline
-                  preload="metadata"
-                >
-                  <source src="/intro.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-                
-                {/* Play Button Overlay */}
-                <motion.button
-                  onClick={handlePlay}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="relative z-10 w-20 h-20 bg-white rounded-full shadow-2xl flex items-center justify-center group transition-all duration-300"
-                  aria-label="Play video"
-                >
-                  <svg 
-                    className="w-8 h-8 text-primary ml-1 group-hover:text-accent transition-colors duration-300" 
-                    fill="currentColor" 
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M8 5v14l11-7z"/>
-                  </svg>
-                </motion.button>
+            <video
+              className="w-full h-full object-cover"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+            >
+              <source src="/intro.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
 
-                {/* Video Title Overlay */}
-                <div className="absolute bottom-6 left-6 text-white">
-                  <h3 className="text-xl font-semibold mb-2">Apex Design Remodeling</h3>
-                  <p className="text-white/80">Premium Quality, Great Prices</p>
-                </div>
-              </div>
-            ) : (
-              <video
-                className="w-full h-full object-cover"
-                controls
-                autoPlay
-                playsInline
-                onEnded={() => setIsPlaying(false)}
-              >
-                <source src="/intro.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            )}
+            {/* Video Title Overlay */}
+            <div className="absolute bottom-6 left-6 text-white">
+              <h3 className="text-xl font-semibold mb-2">Apex Design Remodeling</h3>
+              <p className="text-white/80">Premium Quality, Great Prices</p>
+            </div>
           </div>
         </motion.div>
 
