@@ -158,7 +158,7 @@ NEXT_PUBLIC_GA_ID=your-google-analytics-id
 NEXT_PUBLIC_GTM_ID=your-google-tag-manager-id
 NEXT_PUBLIC_GOOGLE_ADS_ID=your-google-ads-conversion-id
 NEXT_PUBLIC_GOOGLE_ADS_LEAD_CONVERSION_LABEL=your-google-ads-lead-conversion-label
-NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=your-google-site-verification-code
+NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=6M_jOzLbeOq25sm3bJ0fvvttfRA-2QgGRQAozH81kgM
 NEXT_PUBLIC_SITE_URL=https://apexdbr.com
 ```
 
@@ -227,4 +227,3 @@ out
 ---
 
 *Built with ❤️ in Orange County, California*
-
