@@ -1,10 +1,11 @@
 import Script from 'next/script';
 
 const gaId = process.env.NEXT_PUBLIC_GA_ID || 'G-Y4P635F67M';
+const googleTagId = process.env.NEXT_PUBLIC_GOOGLE_TAG_ID || 'GT-P844N79W';
 const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
-const googleAdsId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || 'AW-18128958378';
+const googleAdsId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || 'AW-18129081231';
 
-const gtagId = gaId || googleAdsId;
+const gtagId = googleTagId || gaId || googleAdsId;
 
 export default function GoogleTags() {
   return (
@@ -44,6 +45,7 @@ export default function GoogleTags() {
               function gtag(){dataLayer.push(arguments);}
               window.gtag = gtag;
               gtag('js', new Date());
+              ${googleTagId ? `gtag('config', '${googleTagId}');` : ''}
               ${gaId ? `gtag('config', '${gaId}');` : ''}
               ${googleAdsId ? `gtag('config', '${googleAdsId}');` : ''}
             `}
