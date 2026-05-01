@@ -2,7 +2,7 @@ import Script from 'next/script';
 
 const gaId = process.env.NEXT_PUBLIC_GA_ID || 'G-Y4P635F67M';
 const googleTagId = process.env.NEXT_PUBLIC_GOOGLE_TAG_ID || 'GT-P844N79W';
-const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
+const gtmId = process.env.NEXT_PUBLIC_GTM_ID || 'GTM-PWC4NFZR';
 const googleAdsId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || 'AW-18129081231';
 
 const gtagId = googleTagId || gaId || googleAdsId;
