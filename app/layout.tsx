@@ -3,6 +3,7 @@ import { Analytics } from '@vercel/analytics/react';
 import './globals.css';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+import GoogleTags from '@/components/GoogleTags';
 
 export const metadata: Metadata = {
   title: {
@@ -63,7 +64,7 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: 'your-google-site-verification-code',
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
   },
 };
 
@@ -90,7 +91,7 @@ export default function RootLayout({
               "url": "https://apexdbr.com",
               "logo": "https://apexdbr.com/logo.svg",
               "image": "https://apexdbr.com/og-image.jpg",
-              "telephone": "+1-888-888-2774",
+              "telephone": "+1-949-878-3250",
               "address": {
                 "@type": "PostalAddress",
                 "addressLocality": "Orange County",
@@ -111,6 +112,7 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-white">
+        <GoogleTags />
         <Navigation />
         <main className="min-h-screen">
           {children}

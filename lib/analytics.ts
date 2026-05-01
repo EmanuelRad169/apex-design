@@ -35,6 +35,17 @@ export const trackLeadSubmission = (data: {
     location: data.zipCode || 'unknown',
   });
 
+  const googleAdsId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;
+  const leadConversionLabel = process.env.NEXT_PUBLIC_GOOGLE_ADS_LEAD_CONVERSION_LABEL;
+
+  if (googleAdsId && leadConversionLabel) {
+    trackGAEvent('conversion', {
+      send_to: `${googleAdsId}/${leadConversionLabel}`,
+      value: 0,
+      currency: 'USD',
+    });
+  }
+
   // Facebook Pixel
   trackFBPixel('Lead', {
     content_name: data.service || data.projectType || 'unknown',

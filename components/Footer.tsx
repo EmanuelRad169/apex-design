@@ -27,8 +27,8 @@ export default function Footer() {
             <div className="space-y-2">
               <p className="text-neutral-200">
                 <span className="font-medium text-white">Phone:</span>{' '}
-                <Link href="tel:8888882774" className="hover:text-accent transition-colors">
-                  (888) 888-2774
+                <Link href="tel:9498783250" className="hover:text-accent transition-colors">
+                  (949) 878-3250
                 </Link>
               </p>
               <p className="text-neutral-200">

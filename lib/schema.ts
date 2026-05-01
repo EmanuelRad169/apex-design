@@ -7,7 +7,7 @@ export const BUSINESS_SCHEMA = {
   "url": "https://apexdbr.com",
   "logo": "https://apexdbr.com/logo.svg",
   "image": "https://apexdbr.com/og-image.jpg",
-  "telephone": "+1-888-888-2774",
+  "telephone": "+1-949-878-3250",
   "email": "info@apexdesign.com",
   "address": {
     "@type": "PostalAddress",

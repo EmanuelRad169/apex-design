@@ -52,41 +52,19 @@ export default function ContactForm() {
     return newErrors;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
+      e.preventDefault();
       setErrors(validationErrors);
       return;
     }
 
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        // Track successful lead submission
-        trackLeadSubmission({
-          service: formData.serviceType,
-          budget: formData.budget,
-          zipCode: formData.zipCode
-        });
-        
-        // Redirect to thank you page
-        window.location.href = '/thank-you';
-      } else {
-        throw new Error('Failed to submit form');
-      }
-    } catch (error) {
-      console.error('Error submitting form:', error);
-      alert('There was an error submitting your form. Please try again or call us directly.');
-    }
+    trackLeadSubmission({
+      service: formData.serviceType,
+      budget: formData.budget,
+      zipCode: formData.zipCode
+    });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -127,7 +105,27 @@ export default function ContactForm() {
             transition={{ duration: 0.6 }}
             className="bg-white rounded-3xl shadow-xl p-8 md:p-12 border border-gray-100"
           >
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form
+              name="contact"
+              method="POST"
+              data-netlify="true"
+              netlify-honeypot="bot-field"
+              action="/thank-you"
+              onSubmit={handleSubmit}
+              className="space-y-6"
+            >
+              <input type="hidden" name="form-name" value="contact" />
+              <input type="hidden" name="subject" value="New Apex Contact Form Submission" />
+              <div className="hidden">
+                <label htmlFor="contact-bot-field">Website</label>
+                <input
+                  type="text"
+                  id="contact-bot-field"
+                  name="bot-field"
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-2">
@@ -284,8 +282,8 @@ export default function ContactForm() {
               <div className="text-center pt-4">
                 <p className="text-sm text-gray-600">
                   Or call us directly at{' '}
-                  <a href="tel:8888882774" className="font-bold text-accent hover:underline">
-                    (888) 888-2774
+                  <a href="tel:9498783250" className="font-bold text-accent hover:underline">
+                    (949) 878-3250
                   </a>
                 </p>
                 <p className="text-xs text-gray-500 mt-2">

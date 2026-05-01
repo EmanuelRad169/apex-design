@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Netlify Forms</title>
+  </head>
+  <body>
+    <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="contact" />
+      <input type="hidden" name="subject" value="New Apex Contact Form Submission" />
+      <input type="text" name="bot-field" />
+      <input type="text" name="name" />
+      <input type="tel" name="phone" />
+      <input type="email" name="email" />
+      <input type="text" name="zipCode" />
+      <select name="serviceType">
+        <option value="kitchen">Kitchen Remodeling</option>
+      </select>
+      <select name="budget">
+        <option value="under-10k">Under $10K</option>
+      </select>
+      <textarea name="message"></textarea>
+    </form>
+
+    <form name="lead" method="POST" data-netlify="true" netlify-honeypot="honeypot" hidden>
+      <input type="hidden" name="form-name" value="lead" />
+      <input type="hidden" name="subject" value="New Apex Lead Form Submission" />
+      <input type="text" name="honeypot" />
+      <input type="text" name="firstName" />
+      <input type="text" name="lastName" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <input type="text" name="zipCode" />
+      <select name="projectType">
+        <option value="kitchen">Kitchen Remodeling</option>
+      </select>
+      <select name="budget">
+        <option value="under-10k">Under $10K</option>
+      </select>
+    </form>
+  </body>
+</html>

@@ -47,18 +47,18 @@ export default function HeroSectionNew() {
                 href="/#get-estimate"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="bg-accent hover:bg-accent/90 text-white font-bold px-8 py-4 rounded-xl shadow-lg transition-all duration-300 text-lg w-full sm:w-auto text-center"
+                className="bg-accent hover:bg-accent/90 text-white font-bold px-8 py-4 rounded-xl shadow-lg transition-all duration-300 text-xl w-full sm:w-auto text-center"
               >
-                Let's Start Your Project
+                Get Free Estimate
               </motion.a>
               
               <div className="flex items-center gap-3">
                 <span className="text-gray-700 font-medium">Or Call</span>
                 <a
-                  href="tel:8888882774"
-                  className="font-bold text-accent text-xl hover:text-accent/80 transition-colors duration-200"
+                  href="tel:9498783250"
+                  className="font-bold text-accent text-2xl hover:text-accent/80 transition-colors duration-200"
                 >
-                  (888) 888-2774
+                  (949) 878-3250
                 </a>
               </div>
             </motion.div>

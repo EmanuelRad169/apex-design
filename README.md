@@ -155,6 +155,10 @@ npm run dev
 ```bash
 # .env.local
 NEXT_PUBLIC_GA_ID=your-google-analytics-id
+NEXT_PUBLIC_GTM_ID=your-google-tag-manager-id
+NEXT_PUBLIC_GOOGLE_ADS_ID=your-google-ads-conversion-id
+NEXT_PUBLIC_GOOGLE_ADS_LEAD_CONVERSION_LABEL=your-google-ads-lead-conversion-label
+NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=your-google-site-verification-code
 NEXT_PUBLIC_SITE_URL=https://apexdbr.com
 ```
 
@@ -216,12 +220,11 @@ out
 
 **Apex Design**  
 📧 Email: info@apexdesign.com  
-📱 Phone: (888) 888-2774  
+📱 Phone: (949) 878-3250  
 📍 Service Area: Orange County, California  
 🌐 Website: https://apexdbr.com  
 
 ---
 
 *Built with ❤️ in Orange County, California*
-
 

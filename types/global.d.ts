@@ -19,3 +19,9 @@ declare module "*.module.scss" {
   const classes: { [key: string]: string };
   export default classes;
 }
+
+interface Window {
+  dataLayer?: unknown[];
+  gtag?: (...args: unknown[]) => void;
+  fbq?: (...args: unknown[]) => void;
+}

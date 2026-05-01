@@ -163,11 +163,13 @@ export default function LeadFormSection() {
               name="lead" 
               method="POST" 
               data-netlify="true"
+              netlify-honeypot="honeypot"
               action="/thank-you"
               onSubmit={handleSubmit} 
               className="space-y-6"
             >
               <input type="hidden" name="form-name" value="lead" />
+              <input type="hidden" name="subject" value="New Apex Lead Form Submission" />
               {/* Name Row */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
@@ -395,8 +397,8 @@ export default function LeadFormSection() {
         >
           <p className="text-gray-600">
             Prefer to talk? Call us at{' '}
-            <a href="tel:8888882774" className="text-primary hover:underline font-semibold">
-              (888) 888-2774
+            <a href="tel:9498783250" className="text-primary hover:underline font-semibold">
+              (949) 878-3250
             </a>
           </p>
           <p className="text-sm text-gray-500 mt-2">Mon-Fri, 9am-5pm</p>
