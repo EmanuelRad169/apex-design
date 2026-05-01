@@ -45,8 +45,11 @@ netlify deploy --dir=out --prod
 
 1. **Forms → Notifications**
 2. **Add notification** → Email notification
-3. **Enter your email address**
+3. **Enter:** `info@apexdbr.com`
 4. **Save**
+
+Netlify controls the notification recipient in the dashboard. The website can
+submit and label the forms, but the email destination must be configured there.
 
 ## 🧪 Testing the Forms
 
@@ -59,7 +62,7 @@ This page contains simplified versions of both forms for easy testing.
 1. ✅ Deploy to Netlify
 2. ✅ Fill out and submit both forms
 3. ✅ Check Netlify dashboard → Forms for submissions
-4. ✅ Verify email notifications work (if configured)
+4. ✅ Verify the submissions arrive at `info@apexdbr.com`
 5. ✅ Test spam protection (honeypot on lead form)
 
 ## 📊 Form Fields Reference
