@@ -154,9 +154,9 @@ npm run dev
 ### **Environment Variables**
 ```bash
 # .env.local
-NEXT_PUBLIC_GA_ID=your-google-analytics-id
+NEXT_PUBLIC_GA_ID=G-Y4P635F67M
 NEXT_PUBLIC_GTM_ID=your-google-tag-manager-id
-NEXT_PUBLIC_GOOGLE_ADS_ID=your-google-ads-conversion-id
+NEXT_PUBLIC_GOOGLE_ADS_ID=AW-18128958378
 NEXT_PUBLIC_GOOGLE_ADS_LEAD_CONVERSION_LABEL=your-google-ads-lead-conversion-label
 NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=6M_jOzLbeOq25sm3bJ0fvvttfRA-2QgGRQAozH81kgM
 NEXT_PUBLIC_SITE_URL=https://apexdbr.com
