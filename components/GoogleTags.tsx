@@ -3,9 +3,9 @@ import Script from 'next/script';
 const gaId = process.env.NEXT_PUBLIC_GA_ID || 'G-Y4P635F67M';
 const googleTagId = process.env.NEXT_PUBLIC_GOOGLE_TAG_ID || 'GT-P844N79W';
 const gtmId = process.env.NEXT_PUBLIC_GTM_ID || 'GTM-PWC4NFZR';
-const googleAdsId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || 'AW-18128958378';
-const googleAdsEstimateId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ESTIMATE_ID;
-const googleAdsContactId = process.env.NEXT_PUBLIC_GOOGLE_ADS_CONTACT_ID;
+const googleAdsId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || '7596474388';
+const googleAdsEstimateId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ESTIMATE_ID || '7596474388';
+const googleAdsContactId = process.env.NEXT_PUBLIC_GOOGLE_ADS_CONTACT_ID || '718128958378';
 
 const normalizeGoogleAdsId = (id?: string) => {
   if (!id) return undefined;

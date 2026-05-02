@@ -25,6 +25,11 @@ const normalizeGoogleAdsId = (id?: string) => {
   return id.startsWith('AW-') ? id : `AW-${id}`;
 };
 
+const defaultEstimateAdsId = '7596474388';
+const defaultEstimateConversionLabel = 'VPHeCJSApKYcEKrnx8RD';
+const defaultContactAdsId = '718128958378';
+const defaultContactConversionLabel = '5HTKCKLUy6YcEKrnx8RD';
+
 // Combined tracking function for lead submissions
 export const trackLeadSubmission = (data: {
   conversionAction?: 'estimate' | 'contact';
@@ -43,12 +48,12 @@ export const trackLeadSubmission = (data: {
 
   const googleAdsId =
     data.conversionAction === 'contact'
-      ? process.env.NEXT_PUBLIC_GOOGLE_ADS_CONTACT_ID || process.env.NEXT_PUBLIC_GOOGLE_ADS_ID
-      : process.env.NEXT_PUBLIC_GOOGLE_ADS_ESTIMATE_ID || process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;
+      ? process.env.NEXT_PUBLIC_GOOGLE_ADS_CONTACT_ID || defaultContactAdsId
+      : process.env.NEXT_PUBLIC_GOOGLE_ADS_ESTIMATE_ID || process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || defaultEstimateAdsId;
   const leadConversionLabel =
     data.conversionAction === 'contact'
-      ? process.env.NEXT_PUBLIC_GOOGLE_ADS_CONTACT_CONVERSION_LABEL || process.env.NEXT_PUBLIC_GOOGLE_ADS_LEAD_CONVERSION_LABEL
-      : process.env.NEXT_PUBLIC_GOOGLE_ADS_ESTIMATE_CONVERSION_LABEL || process.env.NEXT_PUBLIC_GOOGLE_ADS_LEAD_CONVERSION_LABEL;
+      ? process.env.NEXT_PUBLIC_GOOGLE_ADS_CONTACT_CONVERSION_LABEL || defaultContactConversionLabel
+      : process.env.NEXT_PUBLIC_GOOGLE_ADS_ESTIMATE_CONVERSION_LABEL || process.env.NEXT_PUBLIC_GOOGLE_ADS_LEAD_CONVERSION_LABEL || defaultEstimateConversionLabel;
   const normalizedGoogleAdsId = normalizeGoogleAdsId(googleAdsId);
 
   if (normalizedGoogleAdsId && leadConversionLabel) {
