@@ -117,6 +117,7 @@ export default function LeadFormSection() {
 
     // Track submission for analytics before Netlify processes it
     trackLeadSubmission({
+      conversionAction: 'estimate',
       projectType: formData.projectType,
       budget: formData.budget,
       zipCode: formData.zipCode,

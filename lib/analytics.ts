@@ -20,8 +20,14 @@ export const trackFBPixel = (
   }
 };
 
+const normalizeGoogleAdsId = (id?: string) => {
+  if (!id) return undefined;
+  return id.startsWith('AW-') ? id : `AW-${id}`;
+};
+
 // Combined tracking function for lead submissions
 export const trackLeadSubmission = (data: {
+  conversionAction?: 'estimate' | 'contact';
   service?: string;
   projectType?: string;
   budget?: string;
@@ -35,12 +41,19 @@ export const trackLeadSubmission = (data: {
     location: data.zipCode || 'unknown',
   });
 
-  const googleAdsId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;
-  const leadConversionLabel = process.env.NEXT_PUBLIC_GOOGLE_ADS_LEAD_CONVERSION_LABEL;
+  const googleAdsId =
+    data.conversionAction === 'contact'
+      ? process.env.NEXT_PUBLIC_GOOGLE_ADS_CONTACT_ID || process.env.NEXT_PUBLIC_GOOGLE_ADS_ID
+      : process.env.NEXT_PUBLIC_GOOGLE_ADS_ESTIMATE_ID || process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;
+  const leadConversionLabel =
+    data.conversionAction === 'contact'
+      ? process.env.NEXT_PUBLIC_GOOGLE_ADS_CONTACT_CONVERSION_LABEL || process.env.NEXT_PUBLIC_GOOGLE_ADS_LEAD_CONVERSION_LABEL
+      : process.env.NEXT_PUBLIC_GOOGLE_ADS_ESTIMATE_CONVERSION_LABEL || process.env.NEXT_PUBLIC_GOOGLE_ADS_LEAD_CONVERSION_LABEL;
+  const normalizedGoogleAdsId = normalizeGoogleAdsId(googleAdsId);
 
-  if (googleAdsId && leadConversionLabel) {
+  if (normalizedGoogleAdsId && leadConversionLabel) {
     trackGAEvent('conversion', {
-      send_to: `${googleAdsId}/${leadConversionLabel}`,
+      send_to: `${normalizedGoogleAdsId}/${leadConversionLabel}`,
       value: 0,
       currency: 'USD',
     });

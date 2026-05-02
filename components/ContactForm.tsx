@@ -74,6 +74,7 @@ export default function ContactForm() {
     }
 
     trackLeadSubmission({
+      conversionAction: 'contact',
       service: formData.serviceType,
       budget: formData.budget,
       zipCode: formData.zipCode
