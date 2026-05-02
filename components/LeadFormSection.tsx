@@ -81,11 +81,23 @@ export default function LeadFormSection() {
     }
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const encodeForm = (form: HTMLFormElement) => {
+    const formBody = new URLSearchParams();
+    const formData = new FormData(form);
+
+    formData.forEach((value, key) => {
+      formBody.append(key, String(value));
+    });
+
+    return formBody.toString();
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
     // Honeypot check - if filled, prevent submission (bot detection)
     if (formData.honeypot) {
       console.log('🤖 Bot detected via honeypot');
-      e.preventDefault();
       return;
     }
 
@@ -100,7 +112,6 @@ export default function LeadFormSection() {
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length > 0) {
-      e.preventDefault();
       return;
     }
 
@@ -112,7 +123,22 @@ export default function LeadFormSection() {
     });
 
     console.log('✅ Lead form validation passed, submitting to Netlify');
-    // Let Netlify handle the actual submission
+
+    try {
+      const response = await fetch('/__forms.html', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: encodeForm(e.currentTarget),
+      });
+
+      if (!response.ok) {
+        throw new Error('Form submission failed');
+      }
+
+      window.location.href = '/thank-you/';
+    } catch (error) {
+      toast.error('Something went wrong. Please call us at (949) 878-3250.');
+    }
   };
 
   return (

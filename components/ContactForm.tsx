@@ -53,10 +53,22 @@ export default function ContactForm() {
     return newErrors;
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const encodeForm = (form: HTMLFormElement) => {
+    const formBody = new URLSearchParams();
+    const formData = new FormData(form);
+
+    formData.forEach((value, key) => {
+      formBody.append(key, String(value));
+    });
+
+    return formBody.toString();
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
-      e.preventDefault();
       setErrors(validationErrors);
       return;
     }
@@ -66,6 +78,22 @@ export default function ContactForm() {
       budget: formData.budget,
       zipCode: formData.zipCode
     });
+
+    try {
+      const response = await fetch('/__forms.html', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: encodeForm(e.currentTarget),
+      });
+
+      if (!response.ok) {
+        throw new Error('Form submission failed');
+      }
+
+      window.location.href = '/thank-you/';
+    } catch (error) {
+      setErrors({ submit: 'Something went wrong. Please call us at (949) 878-3250.' });
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
