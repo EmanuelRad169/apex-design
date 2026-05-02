@@ -34,7 +34,7 @@ Modern, SEO-optimized website for Apex Design, a premium remodeling contractor s
 - **Styling**: Tailwind CSS with custom design system
 - **Animations**: Framer Motion for smooth interactions
 - **Forms**: Netlify Forms with client-side validation
-- **Analytics**: Vercel Analytics integration
+- **Analytics**: Google Analytics, Google Ads, and Google Tag Manager integration
 - **Deployment**: Optimized for Netlify deployment
 
 ## 📊 SEO Implementation
