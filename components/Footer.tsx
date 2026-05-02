@@ -9,10 +9,6 @@ export default function Footer() {
     window.ApexConsent?.open();
   };
 
-  const rejectSaleOrSharing = () => {
-    window.ApexConsent?.reject();
-  };
-
   return (
     <footer className="bg-primary text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
@@ -118,15 +114,6 @@ export default function Footer() {
                   className="text-left text-neutral-200 hover:text-accent transition-colors"
                 >
                   Cookie Settings
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={rejectSaleOrSharing}
-                  className="text-left text-neutral-200 hover:text-accent transition-colors"
-                >
-                  Do Not Sell or Share My Personal Information
                 </button>
               </li>
             </ul>

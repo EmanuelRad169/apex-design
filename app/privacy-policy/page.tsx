@@ -130,7 +130,7 @@ export default function PrivacyPolicyPage() {
                 To exercise your rights, contact us by email at{' '}
                 {/* TODO: Replace with the correct privacy rights email address. */}
                 TODO
-                {' '}or by phone at <a href="tel:9498783250" className="font-semibold text-accent hover:underline">(949) 878-3250</a>. You may also use the “Do Not Sell or Share My Personal Information” link in the footer or banner.
+                {' '}or by phone at <a href="tel:9498783250" className="font-semibold text-accent hover:underline">(949) 878-3250</a>. You may also use the Cookie Settings link in the footer or banner to update your advertising preferences.
               </p>
               <p>
                 We do not knowingly sell or share personal information of minors under 16.
