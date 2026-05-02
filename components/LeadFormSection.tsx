@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, ChangeEvent, FormEvent } from 'react';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import toast, { Toaster } from 'react-hot-toast';
 import { trackLeadSubmission } from '@/lib/analytics';
@@ -378,6 +379,18 @@ export default function LeadFormSection() {
                   Request My Estimate
                 </motion.button>
               </div>
+
+              <p className="text-center text-xs leading-5 text-gray-500">
+                By submitting this form, you agree to our{' '}
+                <Link href="/privacy-policy" className="font-semibold text-accent hover:underline">
+                  Privacy Policy
+                </Link>{' '}
+                and{' '}
+                <Link href="/terms-of-service" className="font-semibold text-accent hover:underline">
+                  Terms of Service
+                </Link>
+                , and consent to be contacted by phone, email, or text about your project.
+              </p>
 
               {/* Microcopy */}
               <p className="text-center text-sm text-gray-500 pt-2">

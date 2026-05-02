@@ -3,6 +3,8 @@ import './globals.css';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import GoogleTags from '@/components/GoogleTags';
+import ConsentModeScript from '@/components/ConsentModeScript';
+import CookieConsentBanner from '@/components/CookieConsentBanner';
 
 export const metadata: Metadata = {
   title: {
@@ -78,6 +80,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <ConsentModeScript />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
         
         {/* LocalBusiness Schema */}
@@ -119,6 +122,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <CookieConsentBanner />
       </body>
     </html>
   );

@@ -34,23 +34,20 @@ export default function GoogleTags() {
       )}
 
       {gtagId && (
-        <>
-          <Script
-            src={`https://www.googletagmanager.com/gtag/js?id=${gtagId}`}
-            strategy="afterInteractive"
-          />
-          <Script id="google-tag" strategy="afterInteractive">
-            {`
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              window.gtag = gtag;
-              gtag('js', new Date());
-              ${googleTagId ? `gtag('config', '${googleTagId}');` : ''}
-              ${gaId ? `gtag('config', '${gaId}');` : ''}
-              ${googleAdsId ? `gtag('config', '${googleAdsId}');` : ''}
-            `}
-          </Script>
-        </>
+        <Script id="google-tag" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            window.gtag = window.gtag || function gtag(){dataLayer.push(arguments);}
+            var gtagScript = document.createElement('script');
+            gtagScript.async = true;
+            gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=${gtagId}';
+            document.head.appendChild(gtagScript);
+            window.gtag('js', new Date());
+            ${googleTagId ? `window.gtag('config', '${googleTagId}');` : ''}
+            ${gaId ? `window.gtag('config', '${gaId}');` : ''}
+            ${googleAdsId ? `window.gtag('config', '${googleAdsId}');` : ''}
+          `}
+        </Script>
       )}
     </>
   );
