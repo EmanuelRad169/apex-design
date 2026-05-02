@@ -4,7 +4,7 @@ import React, { useState, ChangeEvent, FormEvent } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import toast, { Toaster } from 'react-hot-toast';
-import { trackLeadSubmission } from '@/lib/analytics';
+import { trackLeadSubmissionAndWait } from '@/lib/analytics';
 
 interface FormData {
   firstName: string;
@@ -115,14 +115,6 @@ export default function LeadFormSection() {
       return;
     }
 
-    // Track submission for analytics before Netlify processes it
-    trackLeadSubmission({
-      conversionAction: 'estimate',
-      projectType: formData.projectType,
-      budget: formData.budget,
-      zipCode: formData.zipCode,
-    });
-
     console.log('✅ Lead form validation passed, submitting to Netlify');
 
     try {
@@ -135,6 +127,13 @@ export default function LeadFormSection() {
       if (!response.ok) {
         throw new Error('Form submission failed');
       }
+
+      await trackLeadSubmissionAndWait({
+        conversionAction: 'estimate',
+        projectType: formData.projectType,
+        budget: formData.budget,
+        zipCode: formData.zipCode,
+      });
 
       window.location.href = '/thank-you/';
     } catch (error) {

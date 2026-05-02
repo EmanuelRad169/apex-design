@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { trackLeadSubmission } from '@/lib/analytics';
+import { trackLeadSubmissionAndWait } from '@/lib/analytics';
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -73,13 +73,6 @@ export default function ContactForm() {
       return;
     }
 
-    trackLeadSubmission({
-      conversionAction: 'contact',
-      service: formData.serviceType,
-      budget: formData.budget,
-      zipCode: formData.zipCode
-    });
-
     try {
       const response = await fetch('/__forms.html', {
         method: 'POST',
@@ -90,6 +83,13 @@ export default function ContactForm() {
       if (!response.ok) {
         throw new Error('Form submission failed');
       }
+
+      await trackLeadSubmissionAndWait({
+        conversionAction: 'contact',
+        service: formData.serviceType,
+        budget: formData.budget,
+        zipCode: formData.zipCode
+      });
 
       window.location.href = '/thank-you/';
     } catch (error) {
