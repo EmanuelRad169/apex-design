@@ -165,7 +165,7 @@ export default function LeadFormSection() {
               method="POST" 
               data-netlify="true"
               netlify-honeypot="honeypot"
-              action="/thank-you"
+              action="/thank-you/"
               onSubmit={handleSubmit} 
               className="space-y-6"
             >
