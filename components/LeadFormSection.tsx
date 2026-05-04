@@ -35,6 +35,7 @@ export default function LeadFormSection() {
 
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const validateField = (name: string, value: string): string => {
     switch (name) {
@@ -94,10 +95,10 @@ export default function LeadFormSection() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (isSubmitting) return;
 
     // Honeypot check - if filled, prevent submission (bot detection)
     if (formData.honeypot) {
-      console.log('🤖 Bot detected via honeypot');
       return;
     }
 
@@ -115,7 +116,7 @@ export default function LeadFormSection() {
       return;
     }
 
-    console.log('✅ Lead form validation passed, submitting to Netlify');
+    setIsSubmitting(true);
 
     try {
       const response = await fetch('/__forms.html', {
@@ -135,9 +136,21 @@ export default function LeadFormSection() {
         zipCode: formData.zipCode,
       });
 
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        zipCode: '',
+        projectType: '',
+        budget: '',
+        honeypot: '',
+      });
+      setIsSuccess(true);
       window.location.href = '/thank-you/';
     } catch (error) {
       toast.error('Something went wrong. Please call us at (949) 878-3250.');
+      setIsSubmitting(false);
     }
   };
 
@@ -398,11 +411,13 @@ export default function LeadFormSection() {
               <div className="pt-4">
                 <motion.button
                   type="submit"
+                  disabled={isSubmitting}
+                  aria-busy={isSubmitting}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full py-4 rounded-xl font-semibold text-white shadow-lg transition-all duration-300 bg-accent hover:brightness-105 hover:shadow-xl"
+                  className="w-full py-4 rounded-xl font-semibold text-white shadow-lg transition-all duration-300 bg-accent hover:brightness-105 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-70"
                 >
-                  Request My Estimate
+                  {isSubmitting ? 'Submitting...' : 'Request My Estimate'}
                 </motion.button>
               </div>
 

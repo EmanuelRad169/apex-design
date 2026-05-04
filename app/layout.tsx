@@ -98,8 +98,10 @@ export default function RootLayout({
               "telephone": "+1-949-878-3250",
               "address": {
                 "@type": "PostalAddress",
-                "addressLocality": "Orange County",
+                "streetAddress": "2372 Morse Ave",
+                "addressLocality": "Irvine",
                 "addressRegion": "CA",
+                "postalCode": "92614",
                 "addressCountry": "US"
               },
               "areaServed": ["Orange County, CA", "Irvine, CA", "Newport Beach, CA", "Costa Mesa, CA", "Tustin, CA"],

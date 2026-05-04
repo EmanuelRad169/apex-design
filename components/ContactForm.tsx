@@ -3,19 +3,23 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import toast, { Toaster } from 'react-hot-toast';
 import { trackLeadSubmissionAndWait } from '@/lib/analytics';
 
+const initialFormData = {
+  name: '',
+  phone: '',
+  email: '',
+  zipCode: '',
+  serviceType: '',
+  budget: '',
+  message: ''
+};
+
 export default function ContactForm() {
-  const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    email: '',
-    zipCode: '',
-    serviceType: '',
-    budget: '',
-    message: ''
-  });
+  const [formData, setFormData] = useState(initialFormData);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
@@ -66,12 +70,16 @@ export default function ContactForm() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (isSubmitting) return;
 
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
     }
+
+    setIsSubmitting(true);
+    setErrors({});
 
     try {
       const response = await fetch('/__forms.html', {
@@ -91,9 +99,12 @@ export default function ContactForm() {
         zipCode: formData.zipCode
       });
 
+      setFormData(initialFormData);
       window.location.href = '/thank-you/';
     } catch (error) {
+      toast.error('Something went wrong. Please call us at (949) 878-3250.');
       setErrors({ submit: 'Something went wrong. Please call us at (949) 878-3250.' });
+      setIsSubmitting(false);
     }
   };
 
@@ -108,6 +119,7 @@ export default function ContactForm() {
 
   return (
     <div className="bg-white min-h-screen pt-20">
+      <Toaster />
       {/* Hero Section */}
       <section className="bg-light/50 py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
@@ -301,13 +313,20 @@ export default function ContactForm() {
               <div className="pt-4">
                 <motion.button
                   type="submit"
+                  disabled={isSubmitting}
+                  aria-busy={isSubmitting}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full bg-accent hover:bg-accent/90 text-white font-bold py-4 px-8 rounded-xl shadow-lg transition-all duration-300 text-lg"
+                  className="w-full bg-accent hover:bg-accent/90 disabled:cursor-not-allowed disabled:opacity-70 text-white font-bold py-4 px-8 rounded-xl shadow-lg transition-all duration-300 text-lg"
                 >
-                  Get My Free In-Home Consultation
+                  {isSubmitting ? 'Submitting...' : 'Get My Free In-Home Consultation'}
                 </motion.button>
               </div>
+              {errors.submit && (
+                <p className="text-center text-sm font-semibold text-red-600" role="alert">
+                  {errors.submit}
+                </p>
+              )}
 
               <p className="text-center text-xs leading-5 text-gray-500">
                 By submitting this form, you agree to our{' '}

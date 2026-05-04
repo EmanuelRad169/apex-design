@@ -19,8 +19,7 @@ export default function PrivacyPolicyPage() {
           title: 'Effective Date / Last Updated',
           children: (
             <p>
-              {/* TODO: Replace with the final effective date and last updated date before launch. */}
-              TODO
+              May 4, 2026
             </p>
           ),
         },
@@ -36,13 +35,13 @@ export default function PrivacyPolicyPage() {
               </p>
               <p>
                 Email:{' '}
-                {/* TODO: Replace with the correct privacy/contact email address. */}
-                TODO
+                <a href="mailto:Info@apexdbr.com" className="font-semibold text-accent hover:underline">
+                  Info@apexdbr.com
+                </a>
               </p>
               <p>
                 Mailing Address:{' '}
-                {/* TODO: Replace with the correct mailing address. */}
-                TODO
+                2372 Morse Ave, Irvine, CA 92614
               </p>
             </>
           ),
@@ -128,8 +127,9 @@ export default function PrivacyPolicyPage() {
               </p>
               <p>
                 To exercise your rights, contact us by email at{' '}
-                {/* TODO: Replace with the correct privacy rights email address. */}
-                TODO
+                <a href="mailto:Info@apexdbr.com" className="font-semibold text-accent hover:underline">
+                  Info@apexdbr.com
+                </a>
                 {' '}or by phone at <a href="tel:9498783250" className="font-semibold text-accent hover:underline">(949) 878-3250</a>. You may also use the Cookie Settings link in the footer or banner to update your advertising preferences.
               </p>
               <p>
@@ -180,13 +180,13 @@ export default function PrivacyPolicyPage() {
               </p>
               <p>
                 Email:{' '}
-                {/* TODO: Replace with the correct contact email address. */}
-                TODO
+                <a href="mailto:Info@apexdbr.com" className="font-semibold text-accent hover:underline">
+                  Info@apexdbr.com
+                </a>
               </p>
               <p>
                 Mailing Address:{' '}
-                {/* TODO: Replace with the correct mailing address. */}
-                TODO
+                2372 Morse Ave, Irvine, CA 92614
               </p>
             </>
           ),

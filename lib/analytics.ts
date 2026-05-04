@@ -1,5 +1,15 @@
 // Analytics tracking utilities
 
+type LeadConversionAction = 'estimate' | 'contact';
+
+type LeadSubmissionData = {
+  conversionAction: LeadConversionAction;
+  service?: string;
+  projectType?: string;
+  budget?: string;
+  zipCode?: string;
+};
+
 // Google Analytics
 export const trackGAEvent = (
   eventName: string,
@@ -30,7 +40,24 @@ const defaultEstimateConversionLabel = 'VPHeCJSApKYcEKrnx8RD';
 const defaultContactAdsId = '718128958378';
 const defaultContactConversionLabel = '5HTKCKLUy6YcEKrnx8RD';
 
-const trackGoogleAdsConversion = (sendTo: string) => {
+const isDevelopment = process.env.NODE_ENV === 'development';
+
+const getGoogleAdsConversionDestination = (conversionAction: LeadConversionAction) => {
+  const googleAdsId =
+    conversionAction === 'contact'
+      ? process.env.NEXT_PUBLIC_GOOGLE_ADS_CONTACT_ID || defaultContactAdsId
+      : process.env.NEXT_PUBLIC_GOOGLE_ADS_ESTIMATE_ID || process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || defaultEstimateAdsId;
+  const leadConversionLabel =
+    conversionAction === 'contact'
+      ? process.env.NEXT_PUBLIC_GOOGLE_ADS_CONTACT_CONVERSION_LABEL || defaultContactConversionLabel
+      : process.env.NEXT_PUBLIC_GOOGLE_ADS_ESTIMATE_CONVERSION_LABEL || process.env.NEXT_PUBLIC_GOOGLE_ADS_LEAD_CONVERSION_LABEL || defaultEstimateConversionLabel;
+  const normalizedGoogleAdsId = normalizeGoogleAdsId(googleAdsId);
+
+  if (!normalizedGoogleAdsId || !leadConversionLabel) return undefined;
+  return `${normalizedGoogleAdsId}/${leadConversionLabel}`;
+};
+
+export const trackGoogleAdsConversion = (sendTo: string) => {
   return new Promise<void>((resolve) => {
     if (typeof window === 'undefined' || !(window as any).gtag) {
       resolve();
@@ -50,21 +77,18 @@ const trackGoogleAdsConversion = (sendTo: string) => {
       send_to: sendTo,
       value: 0,
       currency: 'USD',
-      event_callback: finish,
+      event_callback: () => {
+        if (isDevelopment) {
+          console.log('Google Ads conversion fired', sendTo);
+        }
+        finish();
+      },
       event_timeout: 1000,
     });
   });
 };
 
-// Combined tracking function for lead submissions
-export const trackLeadSubmission = (data: {
-  conversionAction?: 'estimate' | 'contact';
-  service?: string;
-  projectType?: string;
-  budget?: string;
-  zipCode?: string;
-}) => {
-  // Google Analytics
+export const trackLeadSubmissionAndWait = async (data: LeadSubmissionData) => {
   trackGAEvent('generate_lead', {
     event_category: 'Lead',
     event_label: data.service || data.projectType || 'unknown',
@@ -72,58 +96,10 @@ export const trackLeadSubmission = (data: {
     location: data.zipCode || 'unknown',
   });
 
-  const googleAdsId =
-    data.conversionAction === 'contact'
-      ? process.env.NEXT_PUBLIC_GOOGLE_ADS_CONTACT_ID || defaultContactAdsId
-      : process.env.NEXT_PUBLIC_GOOGLE_ADS_ESTIMATE_ID || process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || defaultEstimateAdsId;
-  const leadConversionLabel =
-    data.conversionAction === 'contact'
-      ? process.env.NEXT_PUBLIC_GOOGLE_ADS_CONTACT_CONVERSION_LABEL || defaultContactConversionLabel
-      : process.env.NEXT_PUBLIC_GOOGLE_ADS_ESTIMATE_CONVERSION_LABEL || process.env.NEXT_PUBLIC_GOOGLE_ADS_LEAD_CONVERSION_LABEL || defaultEstimateConversionLabel;
-  const normalizedGoogleAdsId = normalizeGoogleAdsId(googleAdsId);
+  const conversionDestination = getGoogleAdsConversionDestination(data.conversionAction);
 
-  if (normalizedGoogleAdsId && leadConversionLabel) {
-    void trackGoogleAdsConversion(`${normalizedGoogleAdsId}/${leadConversionLabel}`);
-  }
-
-  // Facebook Pixel
-  trackFBPixel('Lead', {
-    content_name: data.service || data.projectType || 'unknown',
-    content_category: 'Lead Form',
-    value: 0,
-    currency: 'USD',
-  });
-
-  // Console log for debugging (remove in production if needed)
-  console.log('📊 Lead submission tracked:', data);
-};
-
-export const trackLeadSubmissionAndWait = async (data: {
-  conversionAction?: 'estimate' | 'contact';
-  service?: string;
-  projectType?: string;
-  budget?: string;
-  zipCode?: string;
-}) => {
-  trackGAEvent('generate_lead', {
-    event_category: 'Lead',
-    event_label: data.service || data.projectType || 'unknown',
-    value: data.budget || 'unknown',
-    location: data.zipCode || 'unknown',
-  });
-
-  const googleAdsId =
-    data.conversionAction === 'contact'
-      ? process.env.NEXT_PUBLIC_GOOGLE_ADS_CONTACT_ID || defaultContactAdsId
-      : process.env.NEXT_PUBLIC_GOOGLE_ADS_ESTIMATE_ID || process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || defaultEstimateAdsId;
-  const leadConversionLabel =
-    data.conversionAction === 'contact'
-      ? process.env.NEXT_PUBLIC_GOOGLE_ADS_CONTACT_CONVERSION_LABEL || defaultContactConversionLabel
-      : process.env.NEXT_PUBLIC_GOOGLE_ADS_ESTIMATE_CONVERSION_LABEL || process.env.NEXT_PUBLIC_GOOGLE_ADS_LEAD_CONVERSION_LABEL || defaultEstimateConversionLabel;
-  const normalizedGoogleAdsId = normalizeGoogleAdsId(googleAdsId);
-
-  if (normalizedGoogleAdsId && leadConversionLabel) {
-    await trackGoogleAdsConversion(`${normalizedGoogleAdsId}/${leadConversionLabel}`);
+  if (conversionDestination) {
+    await trackGoogleAdsConversion(conversionDestination);
   }
 
   trackFBPixel('Lead', {
@@ -133,5 +109,7 @@ export const trackLeadSubmissionAndWait = async (data: {
     currency: 'USD',
   });
 
-  console.log('📊 Lead submission tracked:', data);
+  if (isDevelopment) {
+    console.log('Lead submission tracked:', data);
+  }
 };
