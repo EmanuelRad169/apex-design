@@ -128,9 +128,9 @@ export default function ContactForm() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary mb-6">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary mb-6">
               Let's Design Your <span className="text-accent">Dream Space</span>
-            </h1>
+            </h2>
             <p className="text-xl text-neutral-600 max-w-3xl mx-auto leading-relaxed">
               Get a free, no-pressure in-home consultation. Let us know what you're planning — we'll guide you every step of the way.
             </p>
@@ -152,7 +152,7 @@ export default function ContactForm() {
               method="POST"
               data-netlify="true"
               netlify-honeypot="bot-field"
-              action="/thank-you/"
+              action="/thank-you/?form=contact"
               onSubmit={handleSubmit}
               className="space-y-6"
             >

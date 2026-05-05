@@ -30,32 +30,7 @@ export const trackFBPixel = (
   }
 };
 
-const normalizeGoogleAdsId = (id?: string) => {
-  if (!id) return undefined;
-  return id.startsWith('AW-') ? id : `AW-${id}`;
-};
-
-const defaultEstimateAdsId = '7596474388';
-const defaultEstimateConversionLabel = 'VPHeCJSApKYcEKrnx8RD';
-const defaultContactAdsId = '718128958378';
-const defaultContactConversionLabel = '5HTKCKLUy6YcEKrnx8RD';
-
 const isDevelopment = process.env.NODE_ENV === 'development';
-
-const getGoogleAdsConversionDestination = (conversionAction: LeadConversionAction) => {
-  const googleAdsId =
-    conversionAction === 'contact'
-      ? process.env.NEXT_PUBLIC_GOOGLE_ADS_CONTACT_ID || defaultContactAdsId
-      : process.env.NEXT_PUBLIC_GOOGLE_ADS_ESTIMATE_ID || process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || defaultEstimateAdsId;
-  const leadConversionLabel =
-    conversionAction === 'contact'
-      ? process.env.NEXT_PUBLIC_GOOGLE_ADS_CONTACT_CONVERSION_LABEL || defaultContactConversionLabel
-      : process.env.NEXT_PUBLIC_GOOGLE_ADS_ESTIMATE_CONVERSION_LABEL || process.env.NEXT_PUBLIC_GOOGLE_ADS_LEAD_CONVERSION_LABEL || defaultEstimateConversionLabel;
-  const normalizedGoogleAdsId = normalizeGoogleAdsId(googleAdsId);
-
-  if (!normalizedGoogleAdsId || !leadConversionLabel) return undefined;
-  return `${normalizedGoogleAdsId}/${leadConversionLabel}`;
-};
 
 export const trackGoogleAdsConversion = (sendTo: string) => {
   return new Promise<void>((resolve) => {
@@ -95,12 +70,6 @@ export const trackLeadSubmissionAndWait = async (data: LeadSubmissionData) => {
     value: data.budget || 'unknown',
     location: data.zipCode || 'unknown',
   });
-
-  const conversionDestination = getGoogleAdsConversionDestination(data.conversionAction);
-
-  if (conversionDestination) {
-    await trackGoogleAdsConversion(conversionDestination);
-  }
 
   trackFBPixel('Lead', {
     content_name: data.service || data.projectType || 'unknown',

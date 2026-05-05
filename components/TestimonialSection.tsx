@@ -65,9 +65,9 @@ export default function TestimonialSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
-        ><h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary mb-6">
+        ><h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary mb-6">
               What Our <span className="text-accent">Clients Say</span>
-            </h1>
+            </h2>
           <p className="text-lg text-gray-600">
             Real stories from real Orange County homeowners.
           </p>

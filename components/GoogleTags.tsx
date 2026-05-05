@@ -1,25 +1,11 @@
 import Script from 'next/script';
 
-const gaId = process.env.NEXT_PUBLIC_GA_ID || 'G-Y4P635F67M';
-const googleTagId = process.env.NEXT_PUBLIC_GOOGLE_TAG_ID || 'GT-P844N79W';
+const gaId = process.env.NEXT_PUBLIC_GA_ID || 'G-4PQT7BW6VC';
+const googleTagId = process.env.NEXT_PUBLIC_GOOGLE_TAG_ID || 'GT-MBNK8VXX';
 const gtmId = process.env.NEXT_PUBLIC_GTM_ID || 'GTM-PWC4NFZR';
-const googleAdsId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || '7596474388';
-const googleAdsEstimateId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ESTIMATE_ID || '7596474388';
-const googleAdsContactId = process.env.NEXT_PUBLIC_GOOGLE_ADS_CONTACT_ID || '718128958378';
+const googleAdsId = 'AW-18129081231';
 
-const normalizeGoogleAdsId = (id?: string) => {
-  if (!id) return undefined;
-  return id.startsWith('AW-') ? id : `AW-${id}`;
-};
-
-const normalizedGoogleAdsId = normalizeGoogleAdsId(googleAdsId);
-const normalizedEstimateAdsId = normalizeGoogleAdsId(googleAdsEstimateId);
-const normalizedContactAdsId = normalizeGoogleAdsId(googleAdsContactId);
-const googleAdsConfigIds = Array.from(
-  new Set([normalizedGoogleAdsId, normalizedEstimateAdsId, normalizedContactAdsId].filter(Boolean))
-);
-
-const gtagId = googleTagId || gaId || normalizedGoogleAdsId;
+const gtagId = googleTagId || gaId || googleAdsId;
 
 export default function GoogleTags() {
   return (
@@ -59,7 +45,7 @@ export default function GoogleTags() {
             window.gtag('js', new Date());
             ${googleTagId ? `window.gtag('config', '${googleTagId}');` : ''}
             ${gaId ? `window.gtag('config', '${gaId}');` : ''}
-            ${googleAdsConfigIds.map((id) => `window.gtag('config', '${id}');`).join('\n            ')}
+            window.gtag('config', '${googleAdsId}');
           `}
         </Script>
       )}

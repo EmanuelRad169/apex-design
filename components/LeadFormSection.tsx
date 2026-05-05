@@ -167,9 +167,9 @@ export default function LeadFormSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-8 sm:mb-12"
         >
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-4 sm:mb-6">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-4 sm:mb-6">
             Let's Design Your <span className="text-accent">Dream Space</span>
-          </h1>
+          </h2>
           <p className="text-base sm:text-lg text-gray-600 max-w-4xl mx-auto px-4">
             Get a free, no-pressure in-home consultation. Let us know what you're planning — we'll guide you every step of the way.
           </p>
@@ -204,8 +204,8 @@ export default function LeadFormSection() {
               method="POST" 
               data-netlify="true"
               netlify-honeypot="honeypot"
-              action="/thank-you/"
-              onSubmit={handleSubmit} 
+              action="/thank-you/?form=estimate"
+              onSubmit={handleSubmit}
               className="space-y-6"
             >
               <input type="hidden" name="form-name" value="lead" />

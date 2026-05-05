@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import ThankYouContent from '@/components/ThankYouContent';
+import ConversionTracker from './ConversionTracker';
 
 export const metadata: Metadata = {
   title: 'Thank You | Apex Design Consultation Request Received',
@@ -11,5 +12,10 @@ export const metadata: Metadata = {
 };
 
 export default function ThankYouPage() {
-  return <ThankYouContent />;
+  return (
+    <>
+      <ConversionTracker />
+      <ThankYouContent />
+    </>
+  );
 }

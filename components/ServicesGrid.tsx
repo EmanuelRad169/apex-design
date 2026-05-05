@@ -67,9 +67,9 @@ export default function ServicesGrid() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary mb-6">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary mb-6">
                Get Started   <span className="text-accent">Today</span>
-          </h1>
+          </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             From quick refreshes to complete transformations, we've got you covered.
           </p>

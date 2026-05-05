@@ -48,9 +48,9 @@ export default function BeforeAfterGallery() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary mb-6">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary mb-6">
                See the <span className="text-accent">Transformation</span>
-          </h1>
+          </h2>
           <p className="text-lg text-gray-600 max-w-4xl mx-auto">
             Real projects, real results. Browse our before and after gallery to see what's possible.
           </p>
