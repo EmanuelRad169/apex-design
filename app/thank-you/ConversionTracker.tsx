@@ -13,7 +13,25 @@ function ConversionTrackerInner() {
   useEffect(() => {
     if (fired.current) return;
     fired.current = true;
-    const form = searchParams.get("form");
+
+    // Priority 1: explicit query param (direct visits, future Netlify changes)
+    let form = searchParams.get("form");
+
+    // Priority 2: referrer pathname fallback (Netlify strips query string on redirect)
+    if (!form) {
+      try {
+        const referrerPath = new URL(document.referrer).pathname;
+        if (/^\/contact\/?$/.test(referrerPath)) {
+          form = "contact";
+        } else if (referrerPath === "/" || referrerPath === "") {
+          form = "estimate";
+        }
+        // else: unknown source — do not fire
+      } catch {
+        // document.referrer is empty or not a valid URL — do not fire
+      }
+    }
+
     if (form === "estimate") {
       window.gtag?.("event", "conversion", {
         send_to: `AW-18129081231/${ESTIMATE_LABEL}`,
