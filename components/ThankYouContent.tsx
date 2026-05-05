@@ -3,168 +3,253 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { Phone, Home, FileText, CheckCircle, ArrowRight, Star, Shield, MapPin } from 'lucide-react';
+
+const steps = [
+  {
+    icon: Phone,
+    step: '01',
+    title: 'Quick Call',
+    description:
+      "We'll call to confirm your project details and schedule a time that works for you — usually within one business day.",
+  },
+  {
+    icon: Home,
+    step: '02',
+    title: 'In-Home Visit',
+    description:
+      'Our OC-based team visits your space, takes measurements, and listens closely to your vision — no pressure, no upsells.',
+  },
+  {
+    icon: FileText,
+    step: '03',
+    title: 'Custom Proposal',
+    description:
+      'You receive a detailed, itemized quote written for your exact project — transparent pricing, no hidden fees.',
+  },
+];
+
+const trustBadges = [
+  { icon: Star, label: 'Five Star Rating' },
+  { icon: Shield, label: 'Licensed & Insured' },
+  { icon: MapPin, label: 'OC-Based Team' },
+];
+
+const exploreCards = [
+  {
+    href: '/about',
+    title: 'Meet the Apex Team',
+    description: 'Learn who we are, how we work, and why OC homeowners trust us with their biggest investment.',
+    cta: 'About Us',
+  },
+  {
+    href: '/#transformation',
+    title: 'See the Transformations',
+    description: 'Browse our before-and-after gallery — real projects, real results from right here in Orange County.',
+    cta: 'View Gallery',
+  },
+  {
+    href: '/services/kitchen',
+    title: 'Explore Kitchen Remodels',
+    description: 'See what a full kitchen transformation looks like, from layout to finish — and what it costs.',
+    cta: 'Kitchen Services',
+  },
+];
 
 export default function ThankYouContent() {
   return (
     <div className="bg-white min-h-screen pt-20">
-      {/* Hero Section */}
-      <section className="bg-light/50 py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto text-center">
+
+      {/* ── Hero ─────────────────────────────────────────────────── */}
+      <section className="bg-gradient-to-b from-light/40 to-white py-20 sm:py-28 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-3xl mx-auto text-center">
+
+          {/* Success badge */}
+          <motion.div
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.5, type: 'spring', stiffness: 180, damping: 14 }}
+            className="mx-auto mb-8 w-28 h-28 rounded-full bg-accent/10 border-4 border-accent/20 flex items-center justify-center"
+          >
+            <CheckCircle className="w-14 h-14 text-accent" strokeWidth={1.75} />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="space-y-5"
+          >
+            <p className="text-base font-semibold tracking-widest text-accent uppercase">
+              Request Received
+            </p>
+            <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold text-primary leading-[0.92] tracking-tight">
+              Thank You!
+            </h1>
+            <p className="text-lg sm:text-xl text-neutral-600 max-w-xl mx-auto leading-relaxed">
+              Your request is in. A real person from our OC team will reach out within{' '}
+              <span className="font-semibold text-primary">24 hours</span> to schedule
+              your free in-home consultation.
+            </p>
+          </motion.div>
+
+          {/* Trust badges */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.35 }}
+            className="mt-10 flex flex-wrap justify-center gap-3"
+          >
+            {trustBadges.map(({ icon: Icon, label }) => (
+              <div
+                key={label}
+                className="flex items-center gap-2 bg-white border border-neutral-200 shadow-sm px-4 py-2.5 rounded-lg"
+              >
+                <Icon className="w-4 h-4 text-accent flex-shrink-0" />
+                <span className="text-sm font-semibold text-neutral-800">{label}</span>
+              </div>
+            ))}
+            <div className="flex items-center gap-2 bg-white border border-neutral-200 shadow-sm px-4 py-2.5 rounded-lg">
+              <CheckCircle className="w-4 h-4 text-accent flex-shrink-0" />
+              <span className="text-sm font-semibold text-neutral-800">100% Satisfaction Guarantee</span>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── What Happens Next ────────────────────────────────────── */}
+      <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="space-y-8"
+            className="text-center mb-12"
           >
-            {/* Success Icon */}
-            <div className="mx-auto w-24 h-24 bg-accent/10 rounded-full flex items-center justify-center">
-              <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ delay: 0.2, duration: 0.5, type: "spring", stiffness: 200 }}
-              >
-                <svg className="w-12 h-12 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                </svg>
-              </motion.div>
-            </div>
-
-            {/* Main Message */}
-            <div className="space-y-4">
-              <h1 className="text-4xl md:text-5xl font-bold text-primary">
-                Thank You!
-              </h1>
-              <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-                We've received your request and will contact you within <span className="font-semibold text-primary">24 hours</span> to schedule your free consultation.
-              </p>
-            </div>
-
-            {/* Next Steps */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4, duration: 0.6 }}
-              className="bg-white/80 rounded-2xl p-8 max-w-2xl mx-auto"
-            >
-              <h3 className="text-xl font-semibold text-primary mb-4">What Happens Next?</h3>
-              <div className="space-y-4 text-left">
-                <div className="flex items-start gap-3">
-                  <div className="w-6 h-6 bg-accent/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                    <span className="text-xs font-bold text-accent">1</span>
-                  </div>
-                  <div>
-                    <p className="font-medium text-gray-800">Quick Call</p>
-                    <p className="text-gray-600 text-sm">We'll call to confirm your project details and schedule a convenient time.</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-6 h-6 bg-accent/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                    <span className="text-xs font-bold text-accent">2</span>
-                  </div>
-                  <div>
-                    <p className="font-medium text-gray-800">In-Home Visit</p>
-                    <p className="text-gray-600 text-sm">Our team visits to assess your space and discuss your vision.</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-6 h-6 bg-accent/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                    <span className="text-xs font-bold text-accent">3</span>
-                  </div>
-                  <div>
-                    <p className="font-medium text-gray-800">Custom Proposal</p>
-                    <p className="text-gray-600 text-sm">Receive a detailed, transparent quote tailored to your specific project needs.</p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Emergency Contact */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6, duration: 0.6 }}
-              className="bg-primary/5 rounded-xl p-6 max-w-lg mx-auto"
-            >
-              <p className="text-gray-700 mb-3">
-                <strong>Need immediate assistance?</strong>
-              </p>
-              <a 
-                href="tel:9498783250" 
-                className="inline-flex items-center gap-2 text-accent font-semibold text-lg hover:underline"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                </svg>
-                (949) 878-3250
-              </a>
-              <p className="text-gray-600 text-sm mt-2">
-                Monday - Friday, 9am - 5pm
-              </p>
-            </motion.div>
-
-            {/* Action Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.6 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center pt-4"
-            >
-              <Link
-                href="/"
-                className="bg-primary hover:bg-primary/90 text-white font-semibold px-8 py-3 rounded-xl transition-colors duration-300 text-center"
-              >
-                Back to Home
-              </Link>
-              <Link
-                href="/about"
-                className="bg-white hover:bg-gray-50 text-primary font-semibold px-8 py-3 rounded-xl border-2 border-primary/20 hover:border-primary/40 transition-all duration-300 text-center"
-              >
-                Learn More About Us
-              </Link>
-            </motion.div>
+            <h2 className="text-3xl sm:text-4xl font-bold text-primary mb-3">
+              What Happens Next
+            </h2>
+            <p className="text-neutral-500 text-base max-w-lg mx-auto">
+              Here's exactly what to expect — no guesswork, no waiting around wondering.
+            </p>
           </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {steps.map(({ icon: Icon, step, title, description }, i) => (
+              <motion.div
+                key={step}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.12 }}
+                className="bg-white border border-neutral-200 rounded-2xl p-7 shadow-sm hover:shadow-md transition-shadow duration-200 flex flex-col gap-4"
+              >
+                <div className="flex items-start justify-between">
+                  <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center flex-shrink-0">
+                    <Icon className="w-6 h-6 text-accent" strokeWidth={1.75} />
+                  </div>
+                  <span className="text-4xl font-extrabold text-neutral-100 leading-none select-none">
+                    {step}
+                  </span>
+                </div>
+                <div>
+                  <p className="font-bold text-primary text-lg mb-1.5">{title}</p>
+                  <p className="text-neutral-500 text-sm leading-relaxed">{description}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Additional Information */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-4xl mx-auto">
+      {/* ── Call CTA ─────────────────────────────────────────────── */}
+      <section className="py-12 px-4 sm:px-6 lg:px-8 bg-neutral-50">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-2xl mx-auto bg-white border-2 border-accent/30 rounded-2xl p-8 sm:p-10 text-center shadow-sm"
+        >
+          <p className="text-sm font-semibold tracking-widest text-accent uppercase mb-3">
+            Need to reach us sooner?
+          </p>
+          <p className="text-2xl sm:text-3xl font-bold text-primary mb-6">
+            We're a phone call away.
+          </p>
+          <a
+            href="tel:9498783250"
+            className="inline-flex items-center gap-3 bg-accent hover:bg-accent/90 text-white font-bold px-8 py-4 rounded-xl shadow-md transition-all duration-200 text-xl"
+          >
+            <Phone className="w-5 h-5 flex-shrink-0" />
+            (949) 878-3250
+          </a>
+          <p className="text-neutral-400 text-sm mt-4">Monday – Friday, 9am – 5pm</p>
+        </motion.div>
+      </section>
+
+      {/* ── While You Wait ───────────────────────────────────────── */}
+      <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1, duration: 0.6 }}
-            className="grid md:grid-cols-3 gap-8"
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-10"
           >
-            <div className="text-center">
-              <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h3 className="font-semibold text-primary mb-2">Licensed & Insured</h3>
-              <p className="text-gray-600 text-sm">Full licensing and comprehensive insurance for your peace of mind.</p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
-                </svg>
-              </div>
-              <h3 className="font-semibold text-primary mb-2">Free Estimates</h3>
-              <p className="text-gray-600 text-sm">No hidden fees or surprises. Transparent pricing from start to finish.</p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-                </svg>
-              </div>
-              <h3 className="font-semibold text-primary mb-2">100% Satisfaction</h3>
-              <p className="text-gray-600 text-sm">We don't collect final payment until you're completely satisfied.</p>
-            </div>
+            <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-2">
+              While You Wait
+            </h2>
+            <p className="text-neutral-500 text-base">
+              Get to know the team and see what we can do for your home.
+            </p>
           </motion.div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+            {exploreCards.map(({ href, title, description, cta }, i) => (
+              <motion.div
+                key={href}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+              >
+                <Link
+                  href={href}
+                  className="group flex flex-col justify-between h-full bg-neutral-50 hover:bg-light/40 border border-neutral-200 rounded-2xl p-6 transition-all duration-200 hover:shadow-sm"
+                >
+                  <div className="mb-5">
+                    <p className="font-bold text-primary text-base mb-2 group-hover:text-accent transition-colors duration-200">
+                      {title}
+                    </p>
+                    <p className="text-neutral-500 text-sm leading-relaxed">{description}</p>
+                  </div>
+                  <span className="inline-flex items-center gap-1.5 text-accent text-sm font-semibold">
+                    {cta}
+                    <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" />
+                  </span>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="text-center mt-10 text-sm text-neutral-400"
+          >
+            Or{' '}
+            <Link href="/" className="text-accent hover:underline font-medium">
+              return to the homepage
+            </Link>
+          </motion.p>
         </div>
       </section>
+
     </div>
   );
 }
