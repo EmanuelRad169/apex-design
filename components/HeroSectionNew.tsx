@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
+import HeroImageCarousel from '@/components/HeroImageCarousel';
 
 export default function HeroSectionNew() {
   return (
@@ -92,22 +92,10 @@ export default function HeroSectionNew() {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="order-1 lg:order-2 relative"
           >
-            <div className="relative">
-              {/* Main Image */}
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                <div className="relative aspect-[4/3] sm:aspect-[5/4] lg:aspect-[4/3]">
-                  <Image
-                    src="/images/hero.jpg"
-                    alt="Modern kitchen remodel showcasing precision craftsmanship"
-                    fill
-                    className="object-cover"
-                    priority
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent" />
-                </div>
-              </div>
-              
+            <div className="relative mb-10 lg:mb-0">
+              {/* Carousel */}
+              <HeroImageCarousel />
+
               {/* Floating Satisfaction Badge */}
               <div className="absolute -bottom-4 -left-4 sm:-bottom-6 sm:-left-6 bg-accent rounded-xl shadow-xl p-4 sm:p-6 max-w-[280px] z-10">
                 <div className="flex items-center gap-3">

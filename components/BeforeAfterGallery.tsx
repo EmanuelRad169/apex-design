@@ -29,6 +29,22 @@ const projects = [
     afterImage: '/images/after-kitchen-2.jpg',
     description: 'Luxury kitchen with quartz countertops and island',
   },
+  {
+    id: 4,
+    title: 'Mission Viejo Kitchen Refresh',
+    budget: '$28K',
+    beforeImage: '/images/new/before-kitchen-3.jpg',
+    afterImage: '/images/new/after-kitchen-3.jpg',
+    description: 'Bright open-concept kitchen with new finishes and lighting',
+  },
+  {
+    id: 5,
+    title: 'Garage ADU Conversion',
+    budget: '$55K',
+    beforeImage: '/images/new/before-garage-1.jpg',
+    afterImage: '/images/new/after-garage-1.jpg',
+    description: 'Converted garage into a modern, functional living space',
+  },
 ];
 
 export default function BeforeAfterGallery() {
@@ -67,16 +83,16 @@ export default function BeforeAfterGallery() {
           {/* Project Info */}
           <div className="text-center mb-8">
             <h3 className="text-2xl font-bold text-neutral-900 mb-2">{project.title}</h3>
-            <div className="flex items-center justify-center gap-4">
-              <span className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 text-primary font-semibold">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
+              <span className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 text-primary font-semibold whitespace-nowrap">
                 Budget: {project.budget}
               </span>
-              <span className="text-gray-600">{project.description}</span>
+              <span className="text-gray-600 text-sm sm:text-base">{project.description}</span>
             </div>
           </div>
 
           {/* Before/After Toggle */}
-          <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[16/10] bg-neutral-50">
+          <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[4/3] sm:aspect-[16/10] bg-neutral-50">
             {/* Toggle Button */}
             <div className="absolute top-6 left-1/2 -translate-x-1/2 z-20 bg-white rounded-full shadow-lg p-1 flex gap-1">
               <button
@@ -146,7 +162,7 @@ export default function BeforeAfterGallery() {
           </div>
 
           {/* Project Selector */}
-          <div className="grid grid-cols-3 gap-4 mt-8">
+          <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-5 gap-3 mt-8">
             {projects.map((proj, index) => (
               <button
                 key={proj.id}
