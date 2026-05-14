@@ -5,31 +5,31 @@ import Image from 'next/image';
 
 const SLIDES = [
   {
-    src: '/images/new/hero-1.jpg',
+    src: '/images/hero-1.jpg',
     alt: 'Modern kitchen remodel showcasing precision craftsmanship',
   },
   {
-    src: '/images/new/hero-2.jpg',
+    src: '/images/hero-2.jpg',
     alt: 'High-end kitchen renovation with custom cabinetry',
   },
   {
-    src: '/images/new/hero-3.jpg',
+    src: '/images/hero-3.jpg',
     alt: 'Kitchen transformation – after remodel',
   },
   {
-    src: '/images/new/hero-4.jpg',
+    src: '/images/hero-4.jpg',
     alt: 'Luxury bathroom renovation in Orange County',
   },
   {
-    src: '/images/new/hero-5.jpg',
+    src: '/images/hero-5.jpg',
     alt: 'Stunning bathroom remodel – finished result',
   },
   {
-    src: '/images/new/hero-6.jpg',
+    src: '/images/hero-6.jpg',
     alt: 'Premium home remodeling in Orange County',
   },
   {
-    src: '/images/new/hero-7.jpg',
+    src: '/images/hero-7.jpg',
     alt: 'Expert remodeling services – Apex Design Build Remodel',
   },
 ];
