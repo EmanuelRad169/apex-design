@@ -7,8 +7,6 @@ import ConsentModeScript from '@/components/ConsentModeScript';
 import CookieConsentBanner from '@/components/CookieConsentBanner';
 import TidioChat from '@/components/TidioChat';
 
-const tidioPublicKey = process.env.NEXT_PUBLIC_TIDIO_PUBLIC_KEY || 'quutayvjemteby8it3qjt5m7o0tdib7w';
-const shouldLoadTidio = process.env.NODE_ENV === 'production' && tidioPublicKey;
 
 export const metadata: Metadata = {
   title: {
@@ -129,13 +127,6 @@ export default function RootLayout({
         </main>
         <Footer />
         <CookieConsentBanner />
-        {shouldLoadTidio && (
-          <script
-            id="tidio-chat-widget"
-            src={`https://code.tidio.co/${tidioPublicKey}.js`}
-            async
-          />
-        )}
         <TidioChat />
       </body>
     </html>
