@@ -16,8 +16,19 @@ body {
 iframe[src*="tidio.co"],
 iframe[title*="chat" i],
 iframe[title*="tidio" i] {
-  right: max(16px, env(safe-area-inset-right)) !important;
+  right: 24px !important;
   left: auto !important;
-  bottom: max(16px, env(safe-area-inset-bottom)) !important;
-  z-index: 70 !important;
+  bottom: 24px !important;
+  z-index: 999999 !important;
+}
+
+/* Allow page interactions to pass through the Tidio host overlay.
+   Keep the actual launcher/chat iframe clickable. */
+#tidio-chat {
+  pointer-events: none !important;
+}
+
+#tidio-chat iframe,
+iframe[src*="tidio.co"] {
+  pointer-events: auto !important;
 }

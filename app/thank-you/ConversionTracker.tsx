@@ -45,7 +45,7 @@ function ConversionTrackerInner() {
         currency: "USD",
       });
     }
-  }, []);
+  }, [searchParams]);
 
   return null;
 }
