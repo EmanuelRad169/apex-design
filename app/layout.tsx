@@ -5,6 +5,7 @@ import Footer from '@/components/Footer';
 import GoogleTags from '@/components/GoogleTags';
 import ConsentModeScript from '@/components/ConsentModeScript';
 import CookieConsentBanner from '@/components/CookieConsentBanner';
+import TidioChat from '@/components/TidioChat';
 
 export const metadata: Metadata = {
   title: {
@@ -77,7 +78,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <ConsentModeScript />
@@ -125,6 +126,7 @@ export default function RootLayout({
         </main>
         <Footer />
         <CookieConsentBanner />
+        <TidioChat />
       </body>
     </html>
   );

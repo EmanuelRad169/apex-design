@@ -65,16 +65,6 @@ export default function Footer() {
                   Home Additions
                 </Link>
               </li>
-              <li>
-                <Link href="/services/exteriors" className="text-neutral-200 hover:text-accent transition-colors">
-                  Exterior Renovations
-                </Link>
-              </li>
-              <li>
-                <Link href="/services/sunrooms" className="text-neutral-200 hover:text-accent transition-colors">
-                  Sunrooms
-                </Link>
-              </li>
             </ul>
           </div>
 

@@ -95,7 +95,7 @@ export default function HeroSectionNew() {
             <div className="relative">
               {/* Main Image */}
               <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                <div className="aspect-[4/3] sm:aspect-[5/4] lg:aspect-[4/3]">
+                <div className="relative aspect-[4/3] sm:aspect-[5/4] lg:aspect-[4/3]">
                   <Image
                     src="/images/hero.jpg"
                     alt="Modern kitchen remodel showcasing precision craftsmanship"

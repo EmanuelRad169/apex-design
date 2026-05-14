@@ -1,9 +1,15 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 export default function VideoSection() {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   return (
     <section className="bg-neutral-50 py-16 md:py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
@@ -31,18 +37,22 @@ export default function VideoSection() {
           transition={{ duration: 0.6 }}
           className="relative rounded-2xl overflow-hidden shadow-2xl bg-gray-900"
         >
-          <div className="aspect-video">
-            <video
-              className="w-full h-full object-cover"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="auto"
-            >
-              <source src="/intro.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+          <div className="relative aspect-video">
+            {isMounted ? (
+              <video
+                className="h-full w-full object-cover"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                aria-label="Apex Design remodeling project video"
+              >
+                <source src="/intro.mp4" type="video/mp4" />
+              </video>
+            ) : (
+              <div className="h-full w-full bg-primary" aria-hidden="true" />
+            )}
 
             {/* Video Title Overlay */}
             <div className="absolute bottom-6 left-6 text-white">

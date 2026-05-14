@@ -8,7 +8,6 @@ const services = [
   {
     id: 1,
     title: 'Kitchen Cabinet Refresh',
-    price: '$17,999',
     description: 'Modern layout, new cabinetry, and quartz finishes.',
     image: '/images/service-kitchen-remodel.jpg',
     icon: (
@@ -20,7 +19,6 @@ const services = [
   {
     id: 2,
     title: 'Walk-In Showers',
-    price: '$9,999',
     description: 'Sleek, safe, and built to elevate your space.',
     image: '/images/service-walk-in-shower.jpg',
     icon: (
@@ -32,7 +30,6 @@ const services = [
   {
     id: 3,
     title: 'Full Bathroom Renovation',
-    price: '$15,900',
     description: 'Transform your bath into a modern retreat.',
     image: '/images/service-bathroom-renovation.jpg',
     icon: (
@@ -44,7 +41,6 @@ const services = [
   {
     id: 4,
     title: 'Full Kitchen Remodel',
-    price: '$25,900',
     description: 'Custom design, layout, cabinetry, and countertops.',
     image: '/images/service-kitchen-cabinets.jpg',
     icon: (
@@ -114,50 +110,20 @@ export default function ServicesGrid() {
                   </p>
                   </div>
 
-                  {/* Eye-catching Price Section */}
-                  <div className="relative">
-                  <div className="bg-light/40 rounded-2xl p-6 border border-primary/20">
-                    <div className="flex items-center justify-between">
-                    <div>
-                      <span className="text-xs uppercase tracking-wide text-primary font-semibold">
-                      Package Starting At
-                      </span>
-                      <div className="flex items-baseline gap-1 mt-1">
-                      <span className="text-4xl font-black text-primary">
-                        {service.price}
-                      </span>
-                      <span className="text-sm text-gray-500">+</span>
-                      </div>
-                    </div>
-                    <div className="bg-light p-3 rounded-full">
-                      <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
-                      </svg>
-                    </div>
-                    </div>
-                    
-                    {/* Special Badge */}
-                    <div className="absolute -top-2 -right-2">
-                    <div className="bg-accent text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
-                      POPULAR
-                    </div>
-                    </div>
-                  </div>
-                  </div>
                 </div>
 
                 {/* Enhanced CTA */}
-                <div className="mt-6 flex items-center justify-between">
+                <div className="mt-6 space-y-3">
                   <a 
-                  href="contact"
-                  className="text-primary font-semibold text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center hover:text-primary/80"
+                  href="/contact"
+                  className="inline-flex w-full items-center justify-center rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-white shadow-md transition-colors duration-300 hover:bg-accent/90"
                   >
                   <span>Get Quote</span>
                   <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
                   </a>
-                  <div className="text-xs text-gray-500">
+                  <div className="text-center text-xs text-gray-500">
                   Free consultation included
                   </div>
                 </div>

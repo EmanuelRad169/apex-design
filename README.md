@@ -81,9 +81,7 @@ export const metadata: Metadata = {
 │   │   ├── kitchen/page.tsx     # Kitchen remodeling
 │   │   ├── bathrooms/page.tsx   # Bathroom renovations
 │   │   ├── interiors/page.tsx   # Interior design
-│   │   ├── additions/page.tsx   # Home additions
-│   │   ├── exteriors/page.tsx   # Exterior renovations
-│   │   └── sunrooms/page.tsx    # Sunrooms & outdoor living
+│   │   └── additions/page.tsx   # Home additions
 │   └── thank-you/page.tsx       # Conversion thank you page
 │
 ├── components/                   # Reusable React components
@@ -161,7 +159,22 @@ NEXT_PUBLIC_GOOGLE_ADS_ID=7596474388
 NEXT_PUBLIC_GOOGLE_ADS_LEAD_CONVERSION_LABEL=VPHeCJSApKYcEKrnx8RD
 NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=6M_jOzLbeOq25sm3bJ0fvvttfRA-2QgGRQAozH81kgM
 NEXT_PUBLIC_SITE_URL=https://apexdbr.com
+NEXT_PUBLIC_TIDIO_PUBLIC_KEY=your-tidio-public-key
 ```
+
+### **Tidio Live Chat**
+No terminal authentication is required for the public Tidio widget. To connect the site to a Tidio account:
+
+1. Log in at `https://www.tidio.com/panel/`.
+2. Open Settings -> Developer or Settings -> Channels -> Live Chat.
+3. Copy the public key from the embed URL: `https://code.tidio.co/YOUR_PUBLIC_KEY.js`.
+4. Add it to `.env.local` and to the production hosting environment:
+
+```bash
+NEXT_PUBLIC_TIDIO_PUBLIC_KEY=YOUR_PUBLIC_KEY
+```
+
+The widget loads only in production, after the first user interaction or a short delay. Chat-open events are pushed to `dataLayer` and `gtag` as `tidio_chat_open`.
 
 ## 🛠 Build & Deploy
 

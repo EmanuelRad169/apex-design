@@ -6,12 +6,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 const services = [
-  { name: 'Kitchen Remodeling', href: '/services/kitchen', description: 'Custom kitchen designs and renovations' },
-  { name: 'Bathroom Remodeling', href: '/services/bathrooms', description: 'Modern bathroom transformations' },
+  { name: 'Kitchen Remodeling', href: '/kitchen-remodeling-orange-county', description: 'Custom Orange County kitchen remodels' },
+  { name: 'Bathroom Remodeling', href: '/bathroom-remodeling-orange-county', description: 'Modern bathroom transformations' },
+  { name: 'ADU Construction', href: '/adu-construction-orange-county', description: 'Accessory dwelling units and garage conversions' },
+  { name: 'Home Remodeling', href: '/home-remodeling-orange-county', description: 'Whole-home remodeling and renovations' },
+  { name: 'Walk-in Showers', href: '/walk-in-shower-remodeling', description: 'Tub-to-shower conversions and custom showers' },
+  { name: 'Room Additions', href: '/room-addition-orange-county', description: 'Seamless added living space' },
   { name: 'Interior Design', href: '/services/interiors', description: 'Complete interior makeovers' },
-  { name: 'Home Additions', href: '/services/additions', description: 'Expand your living space' },
-  { name: 'Exterior Renovations', href: '/services/exteriors', description: 'Curb appeal improvements' },
-  { name: 'Sunrooms', href: '/services/sunrooms', description: 'Year-round outdoor living' },
 ];
 
 export default function Navigation() {

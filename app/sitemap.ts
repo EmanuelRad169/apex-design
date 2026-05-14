@@ -1,4 +1,5 @@
 import type { MetadataRoute } from 'next';
+import { localServicePages } from '@/lib/localServicePages';
 
 const baseUrl = 'https://apexdbr.com';
 
@@ -10,8 +11,7 @@ const routes = [
   '/services/bathrooms',
   '/services/interiors',
   '/services/additions',
-  '/services/exteriors',
-  '/services/sunrooms',
+  ...Object.keys(localServicePages).map((slug) => `/${slug}`),
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
