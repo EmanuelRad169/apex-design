@@ -6,6 +6,65 @@ import { motion } from 'framer-motion';
 import toast, { Toaster } from 'react-hot-toast';
 import { trackLeadSubmissionAndWait } from '@/lib/analytics';
 
+const OC_ZIPS = new Set([
+  '92801','92802','92804','92805','92806','92807','92808',
+  '92656',
+  '92821','92823',
+  '90620','90621','90622','90624',
+  '92626','92627','92628',
+  '90630',
+  '92624','92629',
+  '92708',
+  '92831','92832','92833','92834','92835','92836','92837','92838',
+  '92840','92841','92842','92843','92844','92845','92846',
+  '92605','92615','92646','92647','92648','92649',
+  '92602','92603','92604','92606','92610','92612','92614','92616','92617','92618','92619','92620','92623','92650','92697',
+  '90631','90632','90633',
+  '90623',
+  '92651','92652',
+  '92653','92654',
+  '92607','92677',
+  '92637',
+  '92609','92610','92630',
+  '90720',
+  '92690','92691','92692',
+  '92657','92658','92659','92660','92661','92662','92663',
+  '92856','92857','92859','92862','92863','92864','92865','92866','92867','92868','92869',
+  '92870','92871',
+  '92679','92688',
+  '92672','92673','92674',
+  '92675','92693',
+  '92701','92702','92703','92704','92705','92706','92707','92708','92711','92712','92725','92728','92735','92799',
+  '90740',
+  '90680',
+  '92780','92781','92782',
+  '92861',
+  '92683','92684','92685',
+  '92885','92886','92887',
+]);
+
+const FAKE_PHONE_PATTERNS = /^(\d)\1{9}$|^1234567890$|^0987654321$/;
+
+function normalizePhone(raw: string): string {
+  let digits = raw.replace(/\D/g, '');
+  if (digits.length === 11 && digits[0] === '1') digits = digits.slice(1);
+  return digits;
+}
+
+function isValidPhone(raw: string): boolean {
+  const digits = normalizePhone(raw);
+  if (digits.length !== 10) return false;
+  if (digits[0] === '0' || digits[0] === '1') return false;
+  if (FAKE_PHONE_PATTERNS.test(digits)) return false;
+  return true;
+}
+
+function formatPhone(raw: string): string {
+  const digits = normalizePhone(raw);
+  if (digits.length !== 10) return raw;
+  return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+}
+
 interface FormData {
   firstName: string;
   lastName: string;
@@ -13,7 +72,7 @@ interface FormData {
   phone: string;
   zipCode: string;
   projectType: string;
-  budget: string;
+  consent: boolean;
   honeypot: string;
 }
 
@@ -21,100 +80,107 @@ interface FormErrors {
   [key: string]: string;
 }
 
+const EMPTY_FORM: FormData = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  phone: '',
+  zipCode: '',
+  projectType: '',
+  consent: false,
+  honeypot: '',
+};
+
 export default function LeadFormSection() {
-  const [formData, setFormData] = useState<FormData>({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    zipCode: '',
-    projectType: '',
-    budget: '',
-    honeypot: '',
-  });
-
+  const [formData, setFormData] = useState<FormData>(EMPTY_FORM);
   const [errors, setErrors] = useState<FormErrors>({});
-  const [isSuccess, setIsSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [outOfArea, setOutOfArea] = useState(false);
 
-  const validateField = (name: string, value: string): string => {
+  const validateField = (name: string, value: string | boolean): string => {
     switch (name) {
       case 'firstName':
-        return value.trim().length >= 2 ? '' : 'Please enter your first name';
+        return (value as string).trim().length >= 2 ? '' : 'Please enter your first name';
       case 'lastName':
-        return value.trim().length >= 2 ? '' : 'Please enter your last name';
+        return (value as string).trim().length >= 2 ? '' : 'Please enter your last name';
       case 'email': {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(value) ? '' : 'Please enter a valid email';
+        return emailRegex.test(value as string) ? '' : 'Please enter a valid email';
       }
-      case 'phone': {
-        const digits = value.replace(/\D/g, '');
-        return digits.length === 10 ? '' : 'Please enter a valid 10-digit phone number';
-      }
-      case 'zipCode': {
-        if (!value || !/^\d{5}$/.test(value)) {
-          return 'ZIP code must be 5 digits';
-        }
-        return '';
-      }
+      case 'phone':
+        return isValidPhone(value as string)
+          ? ''
+          : 'Please enter a valid phone number so our team can reach you.';
+      case 'zipCode':
+        return /^\d{5}$/.test((value as string).trim()) ? '' : 'ZIP code must be 5 digits';
       case 'projectType':
         return value ? '' : 'Please select a project type';
-      case 'budget':
-        return value ? '' : 'Please select a budget range';
+      case 'consent':
+        return value ? '' : 'Please confirm your consent to be contacted.';
       default:
         return '';
     }
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev: FormData) => ({ ...prev, [name]: value }));
-    if (errors[name]) {
-      setErrors((prev: FormErrors) => ({ ...prev, [name]: '' }));
-    }
+    const { name, value, type } = e.target;
+    const newValue = type === 'checkbox' ? (e.target as HTMLInputElement).checked : value;
+
+    setFormData((prev) => ({ ...prev, [name]: newValue }));
+
+    if (name === 'zipCode') setOutOfArea(false);
+    if (errors[name]) setErrors((prev) => ({ ...prev, [name]: '' }));
   };
 
   const handleBlur = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    const error = validateField(name, value);
-    if (error) {
-      setErrors((prev: FormErrors) => ({ ...prev, [name]: error }));
+    const { name, value, type } = e.target;
+    const fieldValue = type === 'checkbox' ? (e.target as HTMLInputElement).checked : value;
+
+    if (name === 'phone' && isValidPhone(value)) {
+      setFormData((prev) => ({ ...prev, phone: formatPhone(value) }));
     }
+
+    if (name === 'zipCode' && /^\d{5}$/.test(value)) {
+      if (!OC_ZIPS.has(value)) {
+        setOutOfArea(true);
+        setErrors((prev) => ({ ...prev, zipCode: '' }));
+        return;
+      }
+      setOutOfArea(false);
+    }
+
+    const error = validateField(name, fieldValue);
+    if (error) setErrors((prev) => ({ ...prev, [name]: error }));
   };
 
   const encodeForm = (form: HTMLFormElement) => {
-    const formBody = new URLSearchParams();
-    const formData = new FormData(form);
-
-    formData.forEach((value, key) => {
-      formBody.append(key, String(value));
-    });
-
-    return formBody.toString();
+    const body = new URLSearchParams();
+    new FormData(form).forEach((v, k) => body.append(k, String(v)));
+    return body.toString();
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (isSubmitting) return;
+    if (formData.honeypot) return;
 
-    // Honeypot check - if filled, prevent submission (bot detection)
-    if (formData.honeypot) {
-      return;
-    }
-
-    // Validate all fields
     const newErrors: FormErrors = {};
-    Object.keys(formData).forEach((key) => {
-      if (key === 'honeypot') return; // Don't validate honeypot
-      const error = validateField(key, formData[key as keyof FormData]);
+
+    (Object.keys(EMPTY_FORM) as Array<keyof FormData>).forEach((key) => {
+      if (key === 'honeypot') return;
+      const error = validateField(key, formData[key]);
       if (error) newErrors[key] = error;
     });
 
-    setErrors(newErrors);
-
-    if (Object.keys(newErrors).length > 0) {
+    // OC ZIP check (only when format is valid)
+    if (!newErrors.zipCode && /^\d{5}$/.test(formData.zipCode) && !OC_ZIPS.has(formData.zipCode)) {
+      setOutOfArea(true);
+      setErrors(newErrors);
       return;
     }
+
+    setErrors(newErrors);
+    if (Object.keys(newErrors).length > 0) return;
 
     setIsSubmitting(true);
 
@@ -125,30 +191,16 @@ export default function LeadFormSection() {
         body: encodeForm(e.currentTarget),
       });
 
-      if (!response.ok) {
-        throw new Error('Form submission failed');
-      }
+      if (!response.ok) throw new Error('Form submission failed');
 
       await trackLeadSubmissionAndWait({
         conversionAction: 'estimate',
         projectType: formData.projectType,
-        budget: formData.budget,
         zipCode: formData.zipCode,
       });
 
-      setFormData({
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        zipCode: '',
-        projectType: '',
-        budget: '',
-        honeypot: '',
-      });
-      setIsSuccess(true);
       window.location.href = '/thank-you/';
-    } catch (error) {
+    } catch {
       toast.error('Something went wrong. Please call us at (949) 878-3250.');
       setIsSubmitting(false);
     }
@@ -158,50 +210,34 @@ export default function LeadFormSection() {
     <>
       <Toaster />
       <section id="get-estimate" className="bg-neutral-50 py-12 sm:py-16 md:py-24 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-8 sm:mb-12"
-        >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-4 sm:mb-6">
-            Let's Design Your <span className="text-accent">Dream Space</span>
-          </h2>
-          <p className="text-base sm:text-lg text-gray-600 max-w-4xl mx-auto px-4">
-            Get a free, no-pressure in-home consultation. Let us know what you're planning — we'll guide you every step of the way.
-          </p>
-        </motion.div>
+        <div className="max-w-4xl mx-auto">
+          {/* Section Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-8 sm:mb-12"
+          >
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-4 sm:mb-6">
+              Let's Design Your <span className="text-accent">Dream Space</span>
+            </h2>
+            <p className="text-base sm:text-lg text-gray-600 max-w-4xl mx-auto px-4">
+              Get a free, no-pressure in-home consultation. Let us know what you're planning — we'll guide you every step of the way.
+            </p>
+          </motion.div>
 
-        {/* Form Card */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="bg-white rounded-2xl sm:rounded-3xl shadow-xl p-6 sm:p-8 md:p-12"
-        >
-          {isSuccess ? (
-            <div className="text-center py-12">
-              <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                <svg className="w-10 h-10 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-bold text-neutral-900 mb-3">Thank You!</h3>
-              <p className="text-gray-600 mb-2">
-                We've received your request and will be in touch within 24 hours.
-              </p>
-              <p className="text-sm text-gray-500">
-                Check your email for confirmation details.
-              </p>
-            </div>
-          ) : (
-            <form 
-              name="lead" 
-              method="POST" 
+          {/* Form Card */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="bg-white rounded-2xl sm:rounded-3xl shadow-xl p-6 sm:p-8 md:p-12"
+          >
+            <form
+              name="lead"
+              method="POST"
               data-netlify="true"
               netlify-honeypot="honeypot"
               action="/thank-you/?form=estimate"
@@ -210,6 +246,7 @@ export default function LeadFormSection() {
             >
               <input type="hidden" name="form-name" value="lead" />
               <input type="hidden" name="subject" value="New Apex Lead Form Submission" />
+
               {/* Name Row */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
@@ -223,6 +260,7 @@ export default function LeadFormSection() {
                     value={formData.firstName}
                     onChange={handleChange}
                     onBlur={handleBlur}
+                    autoComplete="given-name"
                     className={`w-full px-4 py-3 rounded-xl border-2 transition-all duration-200 ${
                       errors.firstName
                         ? 'border-red-500 bg-red-50'
@@ -230,9 +268,7 @@ export default function LeadFormSection() {
                     }`}
                     placeholder="John"
                   />
-                  {errors.firstName && (
-                    <p className="text-red-500 text-sm mt-1">{errors.firstName}</p>
-                  )}
+                  {errors.firstName && <p className="text-red-500 text-sm mt-1">{errors.firstName}</p>}
                 </div>
 
                 <div>
@@ -246,6 +282,7 @@ export default function LeadFormSection() {
                     value={formData.lastName}
                     onChange={handleChange}
                     onBlur={handleBlur}
+                    autoComplete="family-name"
                     className={`w-full px-4 py-3 rounded-xl border-2 transition-all duration-200 ${
                       errors.lastName
                         ? 'border-red-500 bg-red-50'
@@ -253,9 +290,7 @@ export default function LeadFormSection() {
                     }`}
                     placeholder="Smith"
                   />
-                  {errors.lastName && (
-                    <p className="text-red-500 text-sm mt-1">{errors.lastName}</p>
-                  )}
+                  {errors.lastName && <p className="text-red-500 text-sm mt-1">{errors.lastName}</p>}
                 </div>
               </div>
 
@@ -272,6 +307,7 @@ export default function LeadFormSection() {
                     value={formData.email}
                     onChange={handleChange}
                     onBlur={handleBlur}
+                    autoComplete="email"
                     className={`w-full px-4 py-3 rounded-xl border-2 transition-all duration-200 ${
                       errors.email
                         ? 'border-red-500 bg-red-50'
@@ -279,9 +315,7 @@ export default function LeadFormSection() {
                     }`}
                     placeholder="john@example.com"
                   />
-                  {errors.email && (
-                    <p className="text-red-500 text-sm mt-1">{errors.email}</p>
-                  )}
+                  {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
                 </div>
 
                 <div>
@@ -295,6 +329,8 @@ export default function LeadFormSection() {
                     value={formData.phone}
                     onChange={handleChange}
                     onBlur={handleBlur}
+                    autoComplete="tel"
+                    inputMode="numeric"
                     className={`w-full px-4 py-3 rounded-xl border-2 transition-all duration-200 ${
                       errors.phone
                         ? 'border-red-500 bg-red-50'
@@ -302,39 +338,36 @@ export default function LeadFormSection() {
                     }`}
                     placeholder="(949) 555-0000"
                   />
-                  {errors.phone && (
-                    <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
-                  )}
+                  {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
                 </div>
               </div>
 
-              {/* ZIP Code */}
-              <div>
-                <label htmlFor="zipCode" className="block text-sm font-semibold text-neutral-900 mb-2">
-                  ZIP Code <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  id="zipCode"
-                  name="zipCode"
-                  value={formData.zipCode}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  maxLength={5}
-                  className={`w-full px-4 py-3 rounded-xl border-2 transition-all duration-200 ${
-                    errors.zipCode
-                      ? 'border-red-500 bg-red-50'
-                      : 'border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20'
-                  }`}
-                  placeholder="92614"
-                />
-                {errors.zipCode && (
-                  <p className="text-red-500 text-sm mt-1">{errors.zipCode}</p>
-                )}
-              </div>
-
-              {/* Project Type & Budget Row */}
+              {/* ZIP + Project Type Row */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="zipCode" className="block text-sm font-semibold text-neutral-900 mb-2">
+                    ZIP Code <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="zipCode"
+                    name="zipCode"
+                    value={formData.zipCode}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    maxLength={5}
+                    inputMode="numeric"
+                    autoComplete="postal-code"
+                    className={`w-full px-4 py-3 rounded-xl border-2 transition-all duration-200 ${
+                      errors.zipCode || outOfArea
+                        ? 'border-red-500 bg-red-50'
+                        : 'border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20'
+                    }`}
+                    placeholder="92614"
+                  />
+                  {errors.zipCode && <p className="text-red-500 text-sm mt-1">{errors.zipCode}</p>}
+                </div>
+
                 <div>
                   <label htmlFor="projectType" className="block text-sm font-semibold text-neutral-900 mb-2">
                     Project Type <span className="text-red-500">*</span>
@@ -351,50 +384,55 @@ export default function LeadFormSection() {
                         : 'border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20'
                     }`}
                   >
-                      <option value="">Select a service</option>
-                      <option value="kitchen">Kitchen Remodeling</option>
-                      <option value="bathroom">Bathroom Remodeling</option>
-                      <option value="interior">Interior Design</option>
-                      <option value="addition">Home Addition</option>
-                      <option value="exterior">Exterior Renovation</option>
-                      <option value="sunroom">Sunroom</option>
-                      <option value="multiple">Multiple Services</option> 
+                    <option value="">Select a service</option>
+                    <option value="kitchen">Kitchen Remodeling</option>
+                    <option value="bathroom">Bathroom Remodeling</option>
+                    <option value="interior">Interior Design</option>
+                    <option value="addition">Home Addition</option>
+                    <option value="exterior">Exterior Renovation</option>
+                    <option value="sunroom">Sunroom</option>
+                    <option value="multiple">Multiple Services</option>
                   </select>
-                  {errors.projectType && (
-                    <p className="text-red-500 text-sm mt-1">{errors.projectType}</p>
-                  )}
-                </div>
-
-                <div>
-                  <label htmlFor="budget" className="block text-sm font-semibold text-neutral-900 mb-2">
-                    Budget <span className="text-red-500">*</span>
-                  </label>
-                  <select
-                    id="budget"
-                    name="budget"
-                    value={formData.budget}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    className={`w-full px-4 py-3 rounded-xl border-2 transition-all duration-200 ${
-                      errors.budget
-                        ? 'border-red-500 bg-red-50'
-                        : 'border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20'
-                    }`}
-                  >
-                    <option value="">-- Select --</option>
-                    <option value="under-10k">Under $10K</option>
-                    <option value="10k-15k">$10K – $15K</option>
-                    <option value="15k-25k">$15K – $25K</option>
-                    <option value="25k-plus">$25K+</option>
-                  </select>
-                  {errors.budget && (
-                    <p className="text-red-500 text-sm mt-1">{errors.budget}</p>
-                  )}
+                  {errors.projectType && <p className="text-red-500 text-sm mt-1">{errors.projectType}</p>}
                 </div>
               </div>
 
-              {/* Honeypot Field - Hidden from users */}
-              <div className="hidden">
+              {/* Out-of-area banner */}
+              {outOfArea && (
+                <div className="rounded-xl border border-amber-300 bg-amber-50 px-4 py-4 text-sm text-amber-900" role="alert">
+                  <p className="font-semibold mb-1">Outside our current service area</p>
+                  <p>
+                    It looks like this ZIP code may be outside our current Orange County service area. Please call us at{' '}
+                    <a href="tel:9494320359" className="font-bold underline hover:text-amber-700">
+                      (949) 432-0359
+                    </a>{' '}
+                    and we'll confirm availability.
+                  </p>
+                </div>
+              )}
+
+              {/* Consent Checkbox */}
+              <div>
+                <label className={`flex items-start gap-3 cursor-pointer ${errors.consent ? 'text-red-600' : 'text-gray-700'}`}>
+                  <input
+                    type="checkbox"
+                    name="consent"
+                    id="consent"
+                    checked={formData.consent}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className="mt-0.5 h-5 w-5 flex-shrink-0 rounded border-gray-300 accent-accent"
+                  />
+                  <span className="text-sm leading-relaxed">
+                    I agree to be contacted by Apex Design • Build • Remodel by phone or text about my estimate request.{' '}
+                    <span className="text-red-500">*</span>
+                  </span>
+                </label>
+                {errors.consent && <p className="text-red-500 text-sm mt-1 ml-8">{errors.consent}</p>}
+              </div>
+
+              {/* Honeypot */}
+              <div className="hidden" aria-hidden="true">
                 <label htmlFor="honeypot">Website</label>
                 <input
                   type="text"
@@ -407,17 +445,17 @@ export default function LeadFormSection() {
                 />
               </div>
 
-              {/* Submit Button */}
-              <div className="pt-4">
+              {/* Submit */}
+              <div className="pt-2">
                 <motion.button
                   type="submit"
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || outOfArea}
                   aria-busy={isSubmitting}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                  whileHover={{ scale: isSubmitting || outOfArea ? 1 : 1.02 }}
+                  whileTap={{ scale: isSubmitting || outOfArea ? 1 : 0.98 }}
                   className="w-full py-4 rounded-xl font-semibold text-white shadow-lg transition-all duration-300 bg-accent hover:brightness-105 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-70"
                 >
-                  {isSubmitting ? 'Submitting...' : 'Request My Estimate'}
+                  {isSubmitting ? 'Submitting…' : 'Request My Free Estimate'}
                 </motion.button>
               </div>
 
@@ -430,35 +468,33 @@ export default function LeadFormSection() {
                 <Link href="/terms-of-service" className="font-semibold text-accent hover:underline">
                   Terms of Service
                 </Link>
-                , and consent to be contacted by phone, email, or text about your project.
+                .
               </p>
 
-              {/* Microcopy */}
-              <p className="text-center text-sm text-gray-500 pt-2">
+              <p className="text-center text-sm text-gray-500">
                 🔒 No spam. OC homeowners only. We respect your privacy.
               </p>
             </form>
-          )}
-        </motion.div>
+          </motion.div>
 
-        {/* Bottom Helper */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="text-center mt-8"
-        >
-          <p className="text-gray-600">
-            Prefer to talk? Call us at{' '}
-            <a href="tel:9498783250" className="text-primary hover:underline font-semibold">
-              (949) 878-3250
-            </a>
-          </p>
-          <p className="text-sm text-gray-500 mt-2">Mon-Fri, 9am-5pm</p>
-        </motion.div>
-      </div>
-    </section>
+          {/* Bottom Helper */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="text-center mt-8"
+          >
+            <p className="text-gray-600">
+              Prefer to talk? Call us at{' '}
+              <a href="tel:9498783250" className="text-primary hover:underline font-semibold">
+                (949) 878-3250
+              </a>
+            </p>
+            <p className="text-sm text-gray-500 mt-2">Mon–Fri, 9am–5pm</p>
+          </motion.div>
+        </div>
+      </section>
     </>
   );
 }

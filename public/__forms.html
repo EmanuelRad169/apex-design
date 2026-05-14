@@ -8,35 +8,33 @@
     <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden>
       <input type="hidden" name="form-name" value="contact" />
       <input type="hidden" name="subject" value="New Apex Contact Form Submission" />
-      <input type="text" name="bot-field" />
-      <input type="text" name="name" />
-      <input type="tel" name="phone" />
-      <input type="email" name="email" />
-      <input type="text" name="zipCode" />
-      <select name="serviceType">
+      <input type="text" name="bot-field" aria-label="Bot field" />
+      <input type="text" name="name" aria-label="Name" />
+      <input type="tel" name="phone" aria-label="Phone" />
+      <input type="email" name="email" aria-label="Email" />
+      <input type="text" name="zipCode" aria-label="ZIP Code" />
+      <select name="serviceType" aria-label="Service Type">
         <option value="kitchen">Kitchen Remodeling</option>
       </select>
-      <select name="budget">
+      <select name="budget" aria-label="Budget">
         <option value="under-10k">Under $10K</option>
       </select>
-      <textarea name="message"></textarea>
+      <textarea name="message" aria-label="Message"></textarea>
     </form>
 
     <form name="lead" method="POST" data-netlify="true" netlify-honeypot="honeypot" hidden>
       <input type="hidden" name="form-name" value="lead" />
       <input type="hidden" name="subject" value="New Apex Lead Form Submission" />
-      <input type="text" name="honeypot" />
-      <input type="text" name="firstName" />
-      <input type="text" name="lastName" />
-      <input type="email" name="email" />
-      <input type="tel" name="phone" />
-      <input type="text" name="zipCode" />
-      <select name="projectType">
+      <input type="text" name="honeypot" aria-label="Honeypot" />
+      <input type="text" name="firstName" aria-label="First Name" />
+      <input type="text" name="lastName" aria-label="Last Name" />
+      <input type="email" name="email" aria-label="Email" />
+      <input type="tel" name="phone" aria-label="Phone" />
+      <input type="text" name="zipCode" aria-label="ZIP Code" />
+      <select name="projectType" aria-label="Project Type">
         <option value="kitchen">Kitchen Remodeling</option>
       </select>
-      <select name="budget">
-        <option value="under-10k">Under $10K</option>
-      </select>
+      <input type="checkbox" name="consent" aria-label="Consent" />
     </form>
   </body>
 </html>
