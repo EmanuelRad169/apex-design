@@ -24,4 +24,11 @@ interface Window {
   dataLayer?: unknown[];
   gtag?: (...args: unknown[]) => void;
   fbq?: (...args: unknown[]) => void;
+  tidioChatApi?: {
+    open?: () => void;
+    close?: () => void;
+    show?: () => void;
+    hide?: () => void;
+    on?: (eventName: string, callback: (...args: unknown[]) => void) => void;
+  };
 }
