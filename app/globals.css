@@ -9,3 +9,15 @@
 body {
   @apply bg-white;
 }
+
+/* Keep the Tidio launcher anchored bottom-right without reserving layout space. */
+#tidio-chat,
+#tidio-chat iframe,
+iframe[src*="tidio.co"],
+iframe[title*="chat" i],
+iframe[title*="tidio" i] {
+  right: max(16px, env(safe-area-inset-right)) !important;
+  left: auto !important;
+  bottom: max(16px, env(safe-area-inset-bottom)) !important;
+  z-index: 70 !important;
+}

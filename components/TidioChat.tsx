@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect } from 'react';
-import Script from 'next/script';
 
 const tidioPublicKey = process.env.NEXT_PUBLIC_TIDIO_PUBLIC_KEY || 'quutayvjemteby8it3qjt5m7o0tdib7w';
 const isProduction = process.env.NODE_ENV === 'production';
@@ -35,11 +34,5 @@ export default function TidioChat() {
     return null;
   }
 
-  return (
-    <Script
-      id="tidio-chat-widget"
-      src={`https://code.tidio.co/${tidioPublicKey}.js`}
-      strategy="afterInteractive"
-    />
-  );
+  return null;
 }
