@@ -6,6 +6,7 @@ import GoogleTags from '@/components/GoogleTags';
 import ConsentModeScript from '@/components/ConsentModeScript';
 import CookieConsentBanner from '@/components/CookieConsentBanner';
 import TidioChat from '@/components/TidioChat';
+import StickyConversionBar from '@/components/StickyConversionBar';
 
 
 export const metadata: Metadata = {
@@ -122,12 +123,13 @@ export default function RootLayout({
       <body className="bg-white">
         <GoogleTags />
         <Navigation />
-        <main className="min-h-screen">
+        <main className="min-h-screen pb-16 lg:pb-0">
           {children}
         </main>
         <Footer />
         <CookieConsentBanner />
         <TidioChat />
+        <StickyConversionBar />
       </body>
     </html>
   );
