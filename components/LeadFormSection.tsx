@@ -387,7 +387,6 @@ export default function LeadFormSection() {
                     <option value="">Select a service</option>
                     <option value="kitchen">Kitchen Remodeling</option>
                     <option value="bathroom">Bathroom Remodeling</option>
-                    <option value="interior">Interior Design</option>
                     <option value="addition">Home Addition</option>
                     <option value="exterior">Exterior Renovation</option>
                     <option value="sunroom">Sunroom</option>

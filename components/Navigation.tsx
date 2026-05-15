@@ -12,7 +12,6 @@ const services = [
   { name: 'Home Remodeling', href: '/home-remodeling-orange-county', description: 'Whole-home remodeling and renovations' },
   { name: 'Walk-in Showers', href: '/walk-in-shower-remodeling', description: 'Tub-to-shower conversions and custom showers' },
   { name: 'Room Additions', href: '/room-addition-orange-county', description: 'Seamless added living space' },
-  { name: 'Interior Design', href: '/services/interiors', description: 'Complete interior makeovers' },
 ];
 
 export default function Navigation() {

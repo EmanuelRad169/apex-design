@@ -46,7 +46,6 @@ export const BUSINESS_SCHEMA = {
     "Kitchen Remodeling",
     "Bathroom Remodeling", 
     "Home Renovation",
-    "Interior Design",
     "Home Additions"
   ],
   "priceRange": "$$$",

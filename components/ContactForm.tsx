@@ -383,7 +383,6 @@ export default function ContactForm() {
                     <option value="bathroom">Bathroom Remodeling</option>
                     <option value="both">Kitchen &amp; Bathroom</option>
                     <option value="addition">Home Addition</option>
-                    <option value="interior">Interior Design</option>
                     <option value="exterior">Exterior Renovation</option>
                     <option value="sunroom">Sunroom/Outdoor Living</option>
                     <option value="other">Other</option>

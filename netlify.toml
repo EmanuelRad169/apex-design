@@ -4,3 +4,13 @@
 
 [build.environment]
   NEXT_TELEMETRY_DISABLED = "1"
+
+[[redirects]]
+  from = "/services/interiors"
+  to = "/home-remodeling-orange-county"
+  status = 301
+
+[[redirects]]
+  from = "/services/interiors/"
+  to = "/home-remodeling-orange-county"
+  status = 301

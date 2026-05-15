@@ -9,7 +9,6 @@ const routes = [
   '/contact',
   '/services/kitchen',
   '/services/bathrooms',
-  '/services/interiors',
   '/services/additions',
   ...Object.keys(localServicePages).map((slug) => `/${slug}`),
 ];

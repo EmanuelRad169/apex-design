@@ -56,11 +56,6 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/services/interiors" className="text-neutral-200 hover:text-accent transition-colors">
-                  Interior Design
-                </Link>
-              </li>
-              <li>
                 <Link href="/services/additions" className="text-neutral-200 hover:text-accent transition-colors">
                   Home Additions
                 </Link>
