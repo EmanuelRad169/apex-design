@@ -41,7 +41,7 @@ const services = [
   },
   {
     id: 4,
-    title: 'Full Kitchen Remodel',
+    title: 'Custom Kitchen Remodel',
     description: 'Custom design, layout, cabinetry, and countertops.',
     image: '/images/service-kitchen-cabinets.jpg',
     icon: (

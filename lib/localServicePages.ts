@@ -78,7 +78,7 @@ export const localServicePages: Record<string, LocalServicePage> = {
         alt: 'Walk-in shower remodel with glass enclosure and modern tile',
       },
       {
-        src: '/images/hero-4.jpg',
+        src: '/images/hero-7.jpg',
         alt: 'Luxury bathroom renovation in Orange County with premium finishes',
       },
       {
