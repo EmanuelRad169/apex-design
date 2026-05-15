@@ -67,7 +67,7 @@ export default function BeforeAfterGallery() {
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary mb-6">
                See the <span className="text-accent">Transformation</span>
           </h2>
-          <p className="text-lg text-gray-600 max-w-4xl mx-auto">
+          <p className="text-lg text-gray-600 max-w-5xl mx-auto">
             Real projects, real results. Browse our before and after gallery to see what's possible.
           </p>
         </motion.div>
@@ -78,18 +78,8 @@ export default function BeforeAfterGallery() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="max-w-5xl mx-auto"
+          className="max-w-6xl mx-auto"
         >
-          {/* Project Info */}
-          <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold text-neutral-900 mb-2">{project.title}</h3>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
-              <span className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 text-primary font-semibold whitespace-nowrap">
-                Budget: {project.budget}
-              </span>
-              <span className="text-gray-600 text-sm sm:text-base">{project.description}</span>
-            </div>
-          </div>
 
           {/* Before/After Toggle */}
           <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[4/3] sm:aspect-[16/10] bg-neutral-50">

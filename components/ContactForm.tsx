@@ -66,12 +66,12 @@ function formatPhone(raw: string): string {
 }
 
 const initialFormData = {
-  name: '',
+  firstName: '',
+  lastName: '',
   phone: '',
   email: '',
   zipCode: '',
   serviceType: '',
-  budget: '',
   message: '',
   consent: false,
 };
@@ -85,8 +85,12 @@ export default function ContactForm() {
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
 
-    if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
+    if (formData.firstName.trim().length < 2) {
+      newErrors.firstName = 'Please enter your first name';
+    }
+
+    if (formData.lastName.trim().length < 2) {
+      newErrors.lastName = 'Please enter your last name';
     }
 
     if (!isValidPhone(formData.phone)) {
@@ -107,10 +111,6 @@ export default function ContactForm() {
 
     if (!formData.serviceType) {
       newErrors.serviceType = 'Please select a service type';
-    }
-
-    if (!formData.budget) {
-      newErrors.budget = 'Please select a budget range';
     }
 
     if (!formData.consent) {
@@ -163,7 +163,6 @@ export default function ContactForm() {
       await trackLeadSubmissionAndWait({
         conversionAction: 'contact',
         service: formData.serviceType,
-        budget: formData.budget,
         zipCode: formData.zipCode,
       });
 
@@ -205,6 +204,13 @@ export default function ContactForm() {
       }
       setOutOfArea(false);
     }
+
+    const validationErrors = validateForm();
+    const fieldError = validationErrors[name];
+
+    if (fieldError) {
+      setErrors((prev) => ({ ...prev, [name]: fieldError }));
+    }
   };
 
   const inputClass = (field: string) =>
@@ -219,7 +225,7 @@ export default function ContactForm() {
       <Toaster />
       {/* Hero Section */}
       <section className="bg-light/50 py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto text-center">
+        <div className="max-w-6xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -237,7 +243,8 @@ export default function ContactForm() {
 
       {/* Contact Form Section */}
       <section id="get-estimate" className="py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-2xl mx-auto">
+        <span id="estimate-form" className="sr-only" aria-hidden="true" />
+        <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -266,26 +273,47 @@ export default function ContactForm() {
                 />
               </div>
 
-              {/* Name + Phone */}
+              {/* Name Row */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-2">
-                    Full Name <span className="text-red-500">*</span>
+                  <label htmlFor="firstName" className="block text-sm font-semibold text-gray-700 mb-2">
+                    First Name <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
+                    id="firstName"
+                    name="firstName"
+                    value={formData.firstName}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    autoComplete="name"
-                    className={inputClass('name')}
-                    placeholder="Your full name"
+                    autoComplete="given-name"
+                    className={inputClass('firstName')}
+                    placeholder="John"
                   />
-                  {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+                  {errors.firstName && <p className="text-red-500 text-sm mt-1">{errors.firstName}</p>}
                 </div>
 
+                <div>
+                  <label htmlFor="lastName" className="block text-sm font-semibold text-gray-700 mb-2">
+                    Last Name <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="lastName"
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    autoComplete="family-name"
+                    className={inputClass('lastName')}
+                    placeholder="Smith"
+                  />
+                  {errors.lastName && <p className="text-red-500 text-sm mt-1">{errors.lastName}</p>}
+                </div>
+              </div>
+
+              {/* Contact Row */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="phone" className="block text-sm font-semibold text-gray-700 mb-2">
                     Phone Number <span className="text-red-500">*</span>
@@ -304,10 +332,7 @@ export default function ContactForm() {
                   />
                   {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
                 </div>
-              </div>
 
-              {/* Email + ZIP */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
                     Email Address <span className="text-red-500">*</span>
@@ -325,7 +350,10 @@ export default function ContactForm() {
                   />
                   {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
                 </div>
+              </div>
 
+              {/* ZIP + Service */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="zipCode" className="block text-sm font-semibold text-gray-700 mb-2">
                     ZIP Code <span className="text-red-500">*</span>
@@ -345,6 +373,32 @@ export default function ContactForm() {
                   />
                   {errors.zipCode && <p className="text-red-500 text-sm mt-1">{errors.zipCode}</p>}
                 </div>
+
+                <div>
+                  <label htmlFor="serviceType" className="block text-sm font-semibold text-gray-700 mb-2">
+                    Service Type <span className="text-red-500">*</span>
+                  </label>
+                  <select
+                    id="serviceType"
+                    name="serviceType"
+                    value={formData.serviceType}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className={inputClass('serviceType')}
+                  >
+                    <option value="">Select a service</option>
+                    <option value="kitchen">Kitchen Remodeling</option>
+                    <option value="bathroom">Bathroom Remodeling</option>
+                    <option value="walk-in-shower">Walk-in Shower Remodeling</option>
+                    <option value="adu">ADU Construction</option>
+                    <option value="addition">Room Addition</option>
+                    <option value="home-remodeling">Home Remodeling</option>
+                    <option value="other">Other</option>
+                  </select>
+                  {errors.serviceType && (
+                    <p className="text-red-500 text-sm mt-1">{errors.serviceType}</p>
+                  )}
+                </div>
               </div>
 
               {/* Out-of-area banner */}
@@ -363,57 +417,6 @@ export default function ContactForm() {
                   </p>
                 </div>
               )}
-
-              {/* Service + Budget */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label htmlFor="serviceType" className="block text-sm font-semibold text-gray-700 mb-2">
-                    Service Type <span className="text-red-500">*</span>
-                  </label>
-                  <select
-                    id="serviceType"
-                    name="serviceType"
-                    value={formData.serviceType}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    className={inputClass('serviceType')}
-                  >
-                    <option value="">Select a service</option>
-                    <option value="kitchen">Kitchen Remodeling</option>
-                    <option value="bathroom">Bathroom Remodeling</option>
-                    <option value="both">Kitchen &amp; Bathroom</option>
-                    <option value="addition">Home Addition</option>
-                    <option value="exterior">Exterior Renovation</option>
-                    <option value="sunroom">Sunroom/Outdoor Living</option>
-                    <option value="other">Other</option>
-                  </select>
-                  {errors.serviceType && (
-                    <p className="text-red-500 text-sm mt-1">{errors.serviceType}</p>
-                  )}
-                </div>
-
-                <div>
-                  <label htmlFor="budget" className="block text-sm font-semibold text-gray-700 mb-2">
-                    Budget Range <span className="text-red-500">*</span>
-                  </label>
-                  <select
-                    id="budget"
-                    name="budget"
-                    value={formData.budget}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    className={inputClass('budget')}
-                  >
-                    <option value="">Select budget range</option>
-                    <option value="under-10k">Under $10K</option>
-                    <option value="10k-25k">$10K – $25K</option>
-                    <option value="25k-50k">$25K – $50K</option>
-                    <option value="50k-75k">$50K – $75K</option>
-                    <option value="75k-plus">$75K+</option>
-                  </select>
-                  {errors.budget && <p className="text-red-500 text-sm mt-1">{errors.budget}</p>}
-                </div>
-              </div>
 
               {/* Message */}
               <div>

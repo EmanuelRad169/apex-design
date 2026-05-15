@@ -210,7 +210,8 @@ export default function LeadFormSection() {
     <>
       <Toaster />
       <section id="get-estimate" className="bg-neutral-50 py-12 sm:py-16 md:py-24 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
+        <span id="estimate-form" className="sr-only" aria-hidden="true" />
+        <div className="max-w-6xl mx-auto">
           {/* Section Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -222,7 +223,7 @@ export default function LeadFormSection() {
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-4 sm:mb-6">
               Let's Design Your <span className="text-accent">Dream Space</span>
             </h2>
-            <p className="text-base sm:text-lg text-gray-600 max-w-4xl mx-auto px-4">
+            <p className="text-base sm:text-lg text-gray-600 max-w-6xl mx-auto px-4">
               Get a free, no-pressure in-home consultation. Let us know what you're planning — we'll guide you every step of the way.
             </p>
           </motion.div>

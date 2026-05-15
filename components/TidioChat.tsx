@@ -222,7 +222,7 @@ export default function TidioChat() {
   return (
     <>
       {showFallback && (
-        <div className="fixed bottom-6 right-6 z-[999999] flex flex-col items-end gap-3">
+        <div className="fixed bottom-[calc(168px+env(safe-area-inset-bottom))] right-4 z-[999999] flex flex-col items-end gap-3 lg:bottom-6 lg:right-6">
           {showFallbackActions && (
             <div className="w-[min(20rem,calc(100vw-3rem))] rounded-3xl border border-neutral-200 bg-white p-4 text-sm text-neutral-700 shadow-2xl">
               <p className="font-semibold text-neutral-900">We’re here to help</p>

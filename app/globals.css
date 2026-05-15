@@ -32,3 +32,14 @@ iframe[title*="tidio" i] {
 iframe[src*="tidio.co"] {
   pointer-events: auto !important;
 }
+
+@media (max-width: 1023px) {
+  #tidio-chat,
+  #tidio-chat iframe,
+  iframe[src*="tidio.co"],
+  iframe[title*="chat" i],
+  iframe[title*="tidio" i] {
+    right: 16px !important;
+    bottom: calc(168px + env(safe-area-inset-bottom)) !important;
+  }
+}

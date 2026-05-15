@@ -8,6 +8,10 @@ export type LocalServicePage = {
   eyebrow: string;
   intro: string;
   heroImage: string;
+  heroImages?: Array<{
+    src: string;
+    alt: string;
+  }>;
   imageAlt: string;
   serviceType: string;
   lead: string;
@@ -64,6 +68,24 @@ export const localServicePages: Record<string, LocalServicePage> = {
     intro:
       'Apex Design Build & Remodel helps Orange County homeowners turn outdated bathrooms into clean, comfortable, high-performing spaces. We remodel bathrooms throughout Irvine, Newport Beach, Laguna Beach, Mission Viejo, Rancho Santa Margarita, Tustin, Anaheim Hills, and nearby communities.',
     heroImage: '/images/service-bathroom-renovation.jpg',
+    heroImages: [
+      {
+        src: '/images/service-bathroom-renovation.jpg',
+        alt: 'Modern Orange County bathroom remodel with custom vanity and walk-in shower',
+      },
+      {
+        src: '/images/service-walk-in-shower.jpg',
+        alt: 'Walk-in shower remodel with glass enclosure and modern tile',
+      },
+      {
+        src: '/images/hero-4.jpg',
+        alt: 'Luxury bathroom renovation in Orange County with premium finishes',
+      },
+      {
+        src: '/images/after-bath-1.jpg',
+        alt: 'Completed bathroom remodel by Apex Design Build and Remodel',
+      },
+    ],
     imageAlt: 'Modern Orange County bathroom remodel with custom vanity and walk-in shower',
     serviceType: 'Bathroom remodeling',
     lead:
@@ -178,6 +200,24 @@ export const localServicePages: Record<string, LocalServicePage> = {
     intro:
       'Apex Design Build & Remodel creates custom kitchens for Orange County homeowners who want better storage, stronger layouts, premium finishes, and a smoother remodeling experience. We serve Irvine, Newport Beach, Laguna Beach, Mission Viejo, Rancho Santa Margarita, Tustin, Anaheim Hills, and surrounding areas.',
     heroImage: '/images/service-kitchen-remodel.jpg',
+    heroImages: [
+      {
+        src: '/images/service-kitchen-remodel.jpg',
+        alt: 'Bright custom kitchen remodel in Orange County with island and modern cabinetry',
+      },
+      {
+        src: '/images/service-kitchen-cabinets.jpg',
+        alt: 'Kitchen remodel with custom cabinetry and upgraded storage',
+      },
+      {
+        src: '/images/after-kitchen-2.jpg',
+        alt: 'Modern kitchen remodel showcasing precision craftsmanship',
+      },
+      {
+        src: '/images/after-kitchen-1.jpg',
+        alt: 'Completed kitchen renovation with refined finishes',
+      },
+    ],
     imageAlt: 'Bright custom kitchen remodel in Orange County with island and modern cabinetry',
     serviceType: 'Kitchen remodeling',
     lead:
@@ -292,6 +332,20 @@ export const localServicePages: Record<string, LocalServicePage> = {
     intro:
       'Apex Design Build & Remodel helps Orange County homeowners plan and build ADUs that feel intentional, code-conscious, and comfortable. We work throughout Irvine, Newport Beach, Laguna Beach, Mission Viejo, Rancho Santa Margarita, Tustin, Anaheim Hills, and nearby areas.',
     heroImage: '/images/services-4.jpg',
+    heroImages: [
+      {
+        src: '/images/services-4.jpg',
+        alt: 'Orange County ADU construction with bright modern living space',
+      },
+      {
+        src: '/images/services-5.jpg',
+        alt: 'Finished accessory dwelling unit interior with efficient layout',
+      },
+      {
+        src: '/images/services-6.jpg',
+        alt: 'Modern detached living space planned for flexible Orange County homes',
+      },
+    ],
     imageAlt: 'Orange County ADU construction with bright modern living space',
     serviceType: 'ADU construction',
     lead:
@@ -406,6 +460,24 @@ export const localServicePages: Record<string, LocalServicePage> = {
     intro:
       'Apex Design Build & Remodel provides whole-home remodeling for Orange County homeowners who want a more functional, beautiful, and cohesive home. We serve Irvine, Newport Beach, Laguna Beach, Mission Viejo, Rancho Santa Margarita, Tustin, Anaheim Hills, and nearby communities.',
     heroImage: '/images/services-1.jpg',
+    heroImages: [
+      {
+        src: '/images/services-1.jpg',
+        alt: 'Orange County whole-home remodel with open kitchen and living space',
+      },
+      {
+        src: '/images/hero-6.jpg',
+        alt: 'Premium home remodeling in Orange County with cohesive interior finishes',
+      },
+      {
+        src: '/images/hero-7.jpg',
+        alt: 'Expert remodeling services by Apex Design Build and Remodel',
+      },
+      {
+        src: '/images/services-2.jpg',
+        alt: 'Updated home interior remodel with clean modern details',
+      },
+    ],
     imageAlt: 'Orange County whole-home remodel with open kitchen and living space',
     serviceType: 'Home remodeling',
     lead:
@@ -520,6 +592,24 @@ export const localServicePages: Record<string, LocalServicePage> = {
     intro:
       'Apex Design Build & Remodel designs and builds walk-in showers for Orange County homeowners who want a more modern, accessible, and low-maintenance bathroom. We serve Irvine, Newport Beach, Laguna Beach, Mission Viejo, Rancho Santa Margarita, Tustin, Anaheim Hills, and surrounding OC areas.',
     heroImage: '/images/service-walk-in-shower.jpg',
+    heroImages: [
+      {
+        src: '/images/service-walk-in-shower.jpg',
+        alt: 'Custom walk-in shower remodel in Orange County with glass enclosure and tile walls',
+      },
+      {
+        src: '/images/service-bathroom-renovation.jpg',
+        alt: 'Bathroom remodel with freestanding tub and walk-in shower',
+      },
+      {
+        src: '/images/hero-2.jpg',
+        alt: 'Finished bathroom remodel with modern shower details',
+      },
+      {
+        src: '/images/after-bath-1.jpg',
+        alt: 'Completed walk-in shower and bathroom renovation',
+      },
+    ],
     imageAlt: 'Custom walk-in shower remodel in Orange County with glass enclosure and tile walls',
     serviceType: 'Walk-in shower remodeling',
     lead:
@@ -634,6 +724,20 @@ export const localServicePages: Record<string, LocalServicePage> = {
     intro:
       'Apex Design Build & Remodel creates room additions for Orange County homeowners who need more space without giving up the home and neighborhood they love. We serve Irvine, Newport Beach, Laguna Beach, Mission Viejo, Rancho Santa Margarita, Tustin, Anaheim Hills, and nearby communities.',
     heroImage: '/images/services-4.jpg',
+    heroImages: [
+      {
+        src: '/images/au-001.jpg',
+        alt: 'Orange County room addition with bright expanded living area',
+      },
+      {
+        src: '/images/au-002.jpg',
+        alt: 'Expanded home living space with modern remodeling details',
+      },
+      {
+        src: '/images/au-003.jpg',
+        alt: 'Room addition construction planned for more flexible living space',
+      },
+    ],
     imageAlt: 'Orange County room addition with bright expanded living area',
     serviceType: 'Room addition construction',
     lead:

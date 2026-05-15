@@ -118,11 +118,10 @@ export default function ServicePageTemplate({
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 + index * 0.1 }}
-                className="bg-white rounded-2xl p-6 sm:p-8"
+                className="bg-white rounded-2xl p-6 sm:p-8 border border-neutral-100 shadow-sm"
               >
                 <h3 className="text-xl font-bold text-primary mb-4">{service.name}</h3>
                 <p className="text-neutral-600 mb-6">{service.description}</p>
-                
                 <div className="mb-6">
                   <h4 className="font-semibold text-primary mb-3">What's Included:</h4>
                   <ul className="space-y-2">
@@ -136,7 +135,6 @@ export default function ServicePageTemplate({
                     ))}
                   </ul>
                 </div>
-
               </motion.div>
             ))}
           </div>
@@ -180,29 +178,6 @@ export default function ServicePageTemplate({
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-accent">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-              Ready to Get Started?
-            </h2>
-            <p className="text-xl text-white/90 mb-8">
-              Contact us today for a free consultation and estimate.
-            </p>
-            <Link
-              href="/contact"
-              className="inline-block bg-white hover:bg-gray-50 text-primary font-semibold px-8 py-4 rounded-2xl shadow-lg transition-all duration-300"
-            >
-              Schedule Your Consultation
-            </Link>
-          </motion.div>
-        </div>
-      </section>
     </div>
   );
 }

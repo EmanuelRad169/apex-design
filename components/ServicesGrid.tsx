@@ -3,13 +3,14 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import Script from 'next/script';
 
 const services = [
   {
     id: 1,
     title: 'Kitchen Cabinet Refresh',
     description: 'Modern layout, new cabinetry, and quartz finishes.',
-    image: '/images/service-kitchen-remodel.jpg',
+    image: '/images/hero-5.jpg',
     icon: (
       <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
@@ -72,7 +73,7 @@ export default function ServicesGrid() {
         </motion.div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 max-w-6xl mx-auto">
           {services.map((service, index) => (
             <motion.div
               key={service.id}
@@ -132,23 +133,16 @@ export default function ServicesGrid() {
           ))}
         </div>
 
-        {/* Bottom CTA */}
+        {/* Elfsight Google Reviews | Untitled Google Reviews */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-center mt-12"
+          className="mt-12 max-w-6xl mx-auto"
         >
-          <p className="text-gray-600 mb-4">
-            Not sure which service fits your project?
-          </p>
-            <a href="/contact" className="bg-white hover:bg-neutral-50 text-neutral-900 font-semibold px-8 py-4 rounded-2xl border-2 border-gray-200 hover:border-primary transition-all duration-300 inline-flex items-center gap-2">
-              <span>Schedule a Free Consultation</span>
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </a>
+          <Script src="https://elfsightcdn.com/platform.js" strategy="lazyOnload" />
+          <div className="elfsight-app-d2195577-af67-4eda-a6af-80c392dff0f1" data-elfsight-app-lazy />
         </motion.div>
       </div>
     </section>

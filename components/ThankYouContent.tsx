@@ -61,17 +61,17 @@ export default function ThankYouContent() {
     <div className="bg-white min-h-screen pt-20">
 
       {/* ── Hero ─────────────────────────────────────────────────── */}
-      <section className="bg-gradient-to-b from-light/40 to-white py-20 sm:py-28 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto text-center">
+      <section className="bg-gradient-to-b from-light/40 to-white py-10 sm:py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto text-center">
 
           {/* Success badge */}
           <motion.div
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.5, type: 'spring', stiffness: 180, damping: 14 }}
-            className="mx-auto mb-8 w-28 h-28 rounded-full bg-accent/10 border-4 border-accent/20 flex items-center justify-center"
+            className="mx-auto mb-8 w-16 h-16 rounded-full bg-accent/10 border-4 border-accent/20 flex items-center justify-center"
           >
-            <CheckCircle className="w-14 h-14 text-accent" strokeWidth={1.75} />
+            <CheckCircle className="w-10 h-10 text-accent" strokeWidth={1.75} />
           </motion.div>
 
           <motion.div
@@ -86,7 +86,7 @@ export default function ThankYouContent() {
             <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold text-primary leading-[0.92] tracking-tight">
               Thank You!
             </h1>
-            <p className="text-lg sm:text-xl text-neutral-600 max-w-xl mx-auto leading-relaxed">
+            <p className="text-lg sm:text-xl text-neutral-600 max-w-3xl mx-auto leading-relaxed">
               Your request is in. A real person from our OC team will reach out within{' '}
               <span className="font-semibold text-primary">24 hours</span> to schedule
               your free in-home consultation.
@@ -118,7 +118,7 @@ export default function ThankYouContent() {
       </section>
 
       {/* ── What Happens Next ────────────────────────────────────── */}
-      <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white">
+      <section className="px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -130,7 +130,7 @@ export default function ThankYouContent() {
             <h2 className="text-3xl sm:text-4xl font-bold text-primary mb-3">
               What Happens Next
             </h2>
-            <p className="text-neutral-500 text-base max-w-lg mx-auto">
+            <p className="text-neutral-500 text-base max-w-4lg mx-auto">
               Here's exactly what to expect — no guesswork, no waiting around wondering.
             </p>
           </motion.div>
@@ -170,7 +170,7 @@ export default function ThankYouContent() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="max-w-2xl mx-auto bg-white border-2 border-accent/30 rounded-2xl p-8 sm:p-10 text-center shadow-sm"
+          className="max-w-5xl mx-auto bg-white border-2 border-accent/30 rounded-2xl p-8 sm:p-10 text-center shadow-sm"
         >
           <p className="text-sm font-semibold tracking-widest text-accent uppercase mb-3">
             Need to reach us sooner?
@@ -190,7 +190,7 @@ export default function ThankYouContent() {
       </section>
 
       {/* ── While You Wait ───────────────────────────────────────── */}
-      <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white">
+      <section className="pb-16 sm:pb-20 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

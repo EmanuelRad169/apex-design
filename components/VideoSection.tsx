@@ -11,7 +11,7 @@ export default function VideoSection() {
   }, []);
 
   return (
-    <section className="bg-neutral-50 py-16 md:py-24 px-4 sm:px-6 lg:px-8">
+    <section className="bg-neutral-50 py-10 md:py-10 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <motion.div
@@ -54,11 +54,6 @@ export default function VideoSection() {
               <div className="h-full w-full bg-primary" aria-hidden="true" />
             )}
 
-            {/* Video Title Overlay */}
-            <div className="absolute bottom-6 left-6 text-white">
-              <h3 className="text-xl font-semibold mb-2">Apex Design Remodeling</h3>
-              <p className="text-white/80">Premium Quality, Great Prices</p>
-            </div>
           </div>
         </motion.div>
         

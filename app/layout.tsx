@@ -123,7 +123,7 @@ export default function RootLayout({
       <body className="bg-white">
         <GoogleTags />
         <Navigation />
-        <main className="min-h-screen pb-16 lg:pb-0">
+        <main className="min-h-screen pb-72 lg:pb-0">
           {children}
         </main>
         <Footer />

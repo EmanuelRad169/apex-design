@@ -3,9 +3,20 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 
-const SLIDES = [
+export type HeroCarouselSlide = {
+  src: string;
+  alt: string;
+};
+
+type HeroImageCarouselProps = {
+  slides?: HeroCarouselSlide[];
+  aspectClassName?: string;
+  sizes?: string;
+};
+
+const DEFAULT_SLIDES: HeroCarouselSlide[] = [
   {
-    src: '/images/hero-1.jpg',
+    src: '/images/hero.jpg',
     alt: 'Modern kitchen remodel showcasing precision craftsmanship',
   },
   {
@@ -36,14 +47,19 @@ const SLIDES = [
 
 const INTERVAL_MS = 4500;
 
-export default function HeroImageCarousel() {
+export default function HeroImageCarousel({
+  slides = DEFAULT_SLIDES,
+  aspectClassName = 'aspect-[4/3] sm:aspect-[5/4] lg:aspect-[4/3]',
+  sizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw',
+}: HeroImageCarouselProps) {
   const [current, setCurrent] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const slideCount = slides.length;
 
   const goTo = useCallback((index: number) => {
-    setCurrent((SLIDES.length + index) % SLIDES.length);
-  }, []);
+    setCurrent((slideCount + index) % slideCount);
+  }, [slideCount]);
 
   const next = useCallback(() => goTo(current + 1), [current, goTo]);
   const prev = useCallback(() => goTo(current - 1), [current, goTo]);
@@ -52,12 +68,16 @@ export default function HeroImageCarousel() {
   useEffect(() => {
     if (isHovered) return;
     timerRef.current = setInterval(() => {
-      setCurrent((c) => (c + 1) % SLIDES.length);
+      setCurrent((c) => (c + 1) % slideCount);
     }, INTERVAL_MS);
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [isHovered]);
+  }, [isHovered, slideCount]);
+
+  useEffect(() => {
+    setCurrent(0);
+  }, [slides]);
 
   return (
     <div
@@ -67,8 +87,8 @@ export default function HeroImageCarousel() {
     >
       {/* Image card */}
       <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-        <div className="relative aspect-[4/3] sm:aspect-[5/4] lg:aspect-[4/3]">
-          {SLIDES.map((slide, i) => (
+        <div className={`relative ${aspectClassName}`}>
+          {slides.map((slide, i) => (
             <Image
               key={slide.src}
               src={slide.src}
@@ -79,7 +99,7 @@ export default function HeroImageCarousel() {
               }`}
               priority={i === 0}
               loading={i === 0 ? 'eager' : 'lazy'}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
+              sizes={sizes}
             />
           ))}
 
@@ -112,7 +132,7 @@ export default function HeroImageCarousel() {
 
       {/* Dot indicators */}
       <div className="flex justify-center gap-2 mt-4" role="tablist" aria-label="Carousel slides">
-        {SLIDES.map((_, i) => (
+        {slides.map((_, i) => (
           <button
             key={i}
             role="tab"
