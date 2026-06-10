@@ -262,6 +262,8 @@ export default function LeadFormSection() {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     autoComplete="given-name"
+                    required
+                    minLength={2}
                     className={`w-full px-4 py-3 rounded-xl border-2 transition-all duration-200 ${
                       errors.firstName
                         ? 'border-red-500 bg-red-50'
@@ -284,6 +286,8 @@ export default function LeadFormSection() {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     autoComplete="family-name"
+                    required
+                    minLength={2}
                     className={`w-full px-4 py-3 rounded-xl border-2 transition-all duration-200 ${
                       errors.lastName
                         ? 'border-red-500 bg-red-50'

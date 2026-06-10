@@ -178,7 +178,6 @@ export default function BeforeAfterGallery() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
                   <div className="text-white text-left">
                     <p className="font-bold text-sm">{proj.title}</p>
-                    <p className="text-xs opacity-90">{proj.budget}</p>
                   </div>
                 </div>
               </button>

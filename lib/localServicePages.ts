@@ -202,7 +202,7 @@ export const localServicePages: Record<string, LocalServicePage> = {
     heroImage: '/images/service-kitchen-remodel.jpg',
     heroImages: [
       {
-        src: '/images/service-kitchen-remodel.jpg',
+        src: '/images/hero.jpg',
         alt: 'Bright custom kitchen remodel in Orange County with island and modern cabinetry',
       },
       {
@@ -214,7 +214,7 @@ export const localServicePages: Record<string, LocalServicePage> = {
         alt: 'Modern kitchen remodel showcasing precision craftsmanship',
       },
       {
-        src: '/images/after-kitchen-1.jpg',
+        src: '/images/hero-4.jpg',
         alt: 'Completed kitchen renovation with refined finishes',
       },
     ],

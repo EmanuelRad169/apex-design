@@ -287,6 +287,8 @@ export default function ContactForm() {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     autoComplete="given-name"
+                    required
+                    minLength={2}
                     className={inputClass('firstName')}
                     placeholder="John"
                   />
@@ -305,6 +307,8 @@ export default function ContactForm() {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     autoComplete="family-name"
+                    required
+                    minLength={2}
                     className={inputClass('lastName')}
                     placeholder="Smith"
                   />
