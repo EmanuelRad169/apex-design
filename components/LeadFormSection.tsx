@@ -6,43 +6,6 @@ import { motion } from 'framer-motion';
 import toast, { Toaster } from 'react-hot-toast';
 import { trackLeadSubmissionAndWait } from '@/lib/analytics';
 
-const OC_ZIPS = new Set([
-  '92801','92802','92804','92805','92806','92807','92808',
-  '92656',
-  '92821','92823',
-  '90620','90621','90622','90624',
-  '92626','92627','92628',
-  '90630',
-  '92624','92629',
-  '92708',
-  '92831','92832','92833','92834','92835','92836','92837','92838',
-  '92840','92841','92842','92843','92844','92845','92846',
-  '92605','92615','92646','92647','92648','92649',
-  '92602','92603','92604','92606','92610','92612','92614','92616','92617','92618','92619','92620','92623','92650','92697',
-  '90631','90632','90633',
-  '90623',
-  '92651','92652',
-  '92653','92654',
-  '92607','92677',
-  '92637',
-  '92609','92610','92630',
-  '90720',
-  '92690','92691','92692',
-  '92657','92658','92659','92660','92661','92662','92663',
-  '92856','92857','92859','92862','92863','92864','92865','92866','92867','92868','92869',
-  '92870','92871',
-  '92679','92688',
-  '92672','92673','92674',
-  '92675','92693',
-  '92701','92702','92703','92704','92705','92706','92707','92708','92711','92712','92725','92728','92735','92799',
-  '90740',
-  '90680',
-  '92780','92781','92782',
-  '92861',
-  '92683','92684','92685',
-  '92885','92886','92887',
-]);
-
 const FAKE_PHONE_PATTERNS = /^(\d)\1{9}$|^1234567890$|^0987654321$/;
 
 function normalizePhone(raw: string): string {
@@ -95,7 +58,6 @@ export default function LeadFormSection() {
   const [formData, setFormData] = useState<FormData>(EMPTY_FORM);
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [outOfArea, setOutOfArea] = useState(false);
 
   const validateField = (name: string, value: string | boolean): string => {
     switch (name) {
@@ -128,7 +90,6 @@ export default function LeadFormSection() {
 
     setFormData((prev) => ({ ...prev, [name]: newValue }));
 
-    if (name === 'zipCode') setOutOfArea(false);
     if (errors[name]) setErrors((prev) => ({ ...prev, [name]: '' }));
   };
 
@@ -138,15 +99,6 @@ export default function LeadFormSection() {
 
     if (name === 'phone' && isValidPhone(value)) {
       setFormData((prev) => ({ ...prev, phone: formatPhone(value) }));
-    }
-
-    if (name === 'zipCode' && /^\d{5}$/.test(value)) {
-      if (!OC_ZIPS.has(value)) {
-        setOutOfArea(true);
-        setErrors((prev) => ({ ...prev, zipCode: '' }));
-        return;
-      }
-      setOutOfArea(false);
     }
 
     const error = validateField(name, fieldValue);
@@ -171,13 +123,6 @@ export default function LeadFormSection() {
       const error = validateField(key, formData[key]);
       if (error) newErrors[key] = error;
     });
-
-    // OC ZIP check (only when format is valid)
-    if (!newErrors.zipCode && /^\d{5}$/.test(formData.zipCode) && !OC_ZIPS.has(formData.zipCode)) {
-      setOutOfArea(true);
-      setErrors(newErrors);
-      return;
-    }
 
     setErrors(newErrors);
     if (Object.keys(newErrors).length > 0) return;
@@ -358,13 +303,16 @@ export default function LeadFormSection() {
                     id="zipCode"
                     name="zipCode"
                     value={formData.zipCode}
+                    required
+                    pattern="\d{5}"
+                    title="Please enter a valid 5-digit ZIP code"
                     onChange={handleChange}
                     onBlur={handleBlur}
                     maxLength={5}
                     inputMode="numeric"
                     autoComplete="postal-code"
                     className={`w-full px-4 py-3 rounded-xl border-2 transition-all duration-200 ${
-                      errors.zipCode || outOfArea
+                      errors.zipCode
                         ? 'border-red-500 bg-red-50'
                         : 'border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20'
                     }`}
@@ -400,20 +348,6 @@ export default function LeadFormSection() {
                   {errors.projectType && <p className="text-red-500 text-sm mt-1">{errors.projectType}</p>}
                 </div>
               </div>
-
-              {/* Out-of-area banner */}
-              {outOfArea && (
-                <div className="rounded-xl border border-amber-300 bg-amber-50 px-4 py-4 text-sm text-amber-900" role="alert">
-                  <p className="font-semibold mb-1">Outside our current service area</p>
-                  <p>
-                    It looks like this ZIP code may be outside our current Orange County service area. Please call us at{' '}
-                    <a href="tel:9494320359" className="font-bold underline hover:text-amber-700">
-                      (949) 432-0359
-                    </a>{' '}
-                    and we'll confirm availability.
-                  </p>
-                </div>
-              )}
 
               {/* Consent Checkbox */}
               <div>
@@ -453,10 +387,10 @@ export default function LeadFormSection() {
               <div className="pt-2">
                 <motion.button
                   type="submit"
-                  disabled={isSubmitting || outOfArea}
+                  disabled={isSubmitting}
                   aria-busy={isSubmitting}
-                  whileHover={{ scale: isSubmitting || outOfArea ? 1 : 1.02 }}
-                  whileTap={{ scale: isSubmitting || outOfArea ? 1 : 0.98 }}
+                  whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+                  whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
                   className="w-full py-4 rounded-xl font-semibold text-white shadow-lg transition-all duration-300 bg-accent hover:brightness-105 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-70"
                 >
                   {isSubmitting ? 'Submitting…' : 'Request My Free Estimate'}
